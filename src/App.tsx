@@ -1,13 +1,10 @@
-import { Button } from "@mui/material";
 import React from "react";
+import { TopBar } from "./main/top-bar";
 
 function App() {
   return (
     <React.Fragment>
-      <h1>Consultório</h1>
-      <Button variant="outlined" color="error">
-        MUI components
-      </Button>
+      <TopBar />
     </React.Fragment>
   );
 }
