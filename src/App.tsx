@@ -1,8 +1,12 @@
+import Button from "@mui/material/Button";
+import React from "react";
+
 function App() {
   return (
-    <div>
+    <React.Fragment>
       <h1>Consultório</h1>
-    </div>
+      <Button variant="outlined">MUI components</Button>
+    </React.Fragment>
   );
 }
 
