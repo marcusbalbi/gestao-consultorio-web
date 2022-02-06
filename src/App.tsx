@@ -5,7 +5,7 @@ function App() {
   return (
     <React.Fragment>
       <h1>Consultório</h1>
-      <Button variant="outlined">MUI components</Button>
+      <Button variant="outlined" color="error">MUI components</Button>
     </React.Fragment>
   );
 }
