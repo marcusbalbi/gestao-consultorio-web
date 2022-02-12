@@ -1,5 +1,4 @@
 import { Paper } from "@mui/material";
-import { Box } from "@mui/system";
 import React from "react";
 import AppRoutes from "./main/routes/Routes";
 import { TopBar } from "./main/top-bar";
