@@ -12,11 +12,14 @@ import AccountCircle from "@mui/icons-material/AccountCircle";
 import MailIcon from "@mui/icons-material/Mail";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 import MoreIcon from "@mui/icons-material/MoreVert";
+import MainMenu from "./Menu";
 
 const TopBar = () => {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] =
     React.useState<null | HTMLElement>(null);
+
+  const [mainMenuOpened, setMainMenuOpened] = React.useState(false);
 
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
@@ -114,12 +117,19 @@ const TopBar = () => {
 
   return (
     <Box sx={{ flexGrow: 1 }}>
+      <MainMenu
+        opened={mainMenuOpened}
+        onClose={() => {
+          setMainMenuOpened(false);
+        }}
+      />
       <AppBar position="static">
         <Toolbar>
           <IconButton
             size="large"
             edge="start"
             color="inherit"
+            onClick={() => setMainMenuOpened(true)}
             aria-label="open drawer"
             sx={{ mr: 2 }}
           >
