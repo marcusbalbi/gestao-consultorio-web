@@ -19,7 +19,14 @@ interface Props {
   onClose?: () => void;
 }
 
-const menuItemsCrud = [
+interface MenuItem {
+  key: string,
+  route: string,
+  icon: JSX.Element,
+  text: string,
+}
+
+const menuItemsCrud: Array<MenuItem> = [
   {
     key: "paciente",
     route: "/paciente",
@@ -46,7 +53,7 @@ const menuItemsCrud = [
   },
 ];
 
-const menuItemsOperations = [
+const menuItemsOperations: Array<MenuItem> = [
   {
     key: "agenda",
     route: "/agenda",
@@ -69,6 +76,21 @@ export default function Menu(props: Props) {
     props.onClose && props.onClose();
   };
 
+  const renderMenuItems = (items: Array<MenuItem>) => {
+    return items.map((info) => {
+      return (
+        <ListItem
+          button
+          key={info.key}
+          onClick={() => menuNavigate(info.route)}
+        >
+          <ListItemIcon>{info.icon}</ListItemIcon>
+          <ListItemText primary={info.text} />
+        </ListItem>
+      );
+    });
+  };
+
   const list = () => (
     <Box sx={{ width: 250 }} role="presentation">
       <Typography align="center" variant="h5" mt={2} mb={2}>
@@ -76,33 +98,11 @@ export default function Menu(props: Props) {
       </Typography>
       <Divider />
       <List>
-        {menuItemsCrud.map((info) => {
-          return (
-            <ListItem
-              button
-              key={info.key}
-              onClick={() => menuNavigate(info.route)}
-            >
-              <ListItemIcon>{info.icon}</ListItemIcon>
-              <ListItemText primary={info.text} />
-            </ListItem>
-          );
-        })}
+        {renderMenuItems(menuItemsCrud)}
       </List>
       <Divider />
       <List>
-        {menuItemsOperations.map((info) => {
-          return (
-            <ListItem
-              button
-              key={info.key}
-              onClick={() => menuNavigate(info.route)}
-            >
-              <ListItemIcon>{info.icon}</ListItemIcon>
-              <ListItemText primary={info.text} />
-            </ListItem>
-          );
-        })}
+        {renderMenuItems(menuItemsOperations)}
       </List>
     </Box>
   );
