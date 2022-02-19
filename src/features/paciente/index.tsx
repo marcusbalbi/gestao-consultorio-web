@@ -4,7 +4,6 @@ import { DataGrid, GridColDef } from "@mui/x-data-grid";
 import { Button, ButtonGroup } from "@mui/material";
 import { Box } from "@mui/system";
 import { useNavigate } from "react-router-dom";
-import Person from "@mui/icons-material/Person";
 import { Add, CalendarToday, Edit, Remove } from "@mui/icons-material";
 
 const columns: GridColDef[] = [
