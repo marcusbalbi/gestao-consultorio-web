@@ -4,6 +4,8 @@ import { DataGrid, GridColDef } from "@mui/x-data-grid";
 import { Button, ButtonGroup } from "@mui/material";
 import { Box } from "@mui/system";
 import { useNavigate } from "react-router-dom";
+import Person from "@mui/icons-material/Person";
+import { Add, CalendarToday, Edit, Remove } from "@mui/icons-material";
 
 const columns: GridColDef[] = [
   { field: "id", headerName: "ID", flex: 0.1 },
@@ -70,12 +72,21 @@ const PacienteMain = () => {
           size="small"
           aria-label="outlined button group"
         >
-          <Button onClick={() => navigate("/paciente/cadastrar")}>
+          <Button
+            startIcon={<Add />}
+            onClick={() => navigate("/paciente/cadastrar")}
+          >
             Cadastrar
           </Button>
-          <Button disabled={selectedRow == null}>Alterar</Button>
-          <Button disabled={selectedRow == null}>Excluir</Button>
-          <Button disabled={selectedRow == null}>Próximas Consultas</Button>
+          <Button startIcon={<Edit />} disabled={selectedRow == null}>
+            Alterar
+          </Button>
+          <Button startIcon={<Remove />} disabled={selectedRow == null}>
+            Excluir
+          </Button>
+          <Button startIcon={<CalendarToday />} disabled={selectedRow == null}>
+            Próximas Consultas
+          </Button>
         </ButtonGroup>
       </Box>
     );
