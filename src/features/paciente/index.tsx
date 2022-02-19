@@ -1,6 +1,9 @@
 import * as React from "react";
 import { Page } from "../../shared";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
+import { Button, ButtonGroup } from "@mui/material";
+import { Box } from "@mui/system";
+import { useNavigate } from "react-router-dom";
 
 const columns: GridColDef[] = [
   { field: "id", headerName: "ID", flex: 0.1 },
@@ -8,7 +11,6 @@ const columns: GridColDef[] = [
     field: "nome",
     headerName: "Nome",
     flex: 1,
-    sortable: false,
   },
   {
     field: "documento",
@@ -39,23 +41,51 @@ const rows = [
   { id: 9, nome: "Roxie", idade: 65, documento: "00000000021" },
 ];
 
-function renderDatagrid() {
-  return (
-    <div style={{ display: "flex", height: 400 }}>
-      <div style={{ flexGrow: 1 }}>
-        <DataGrid
-          rows={rows}
-          columns={columns}
-          pageSize={5}
-          rowsPerPageOptions={[5]}
-          disableSelectionOnClick
-        />
-      </div>
-    </div>
-  );
-}
 const PacienteMain = () => {
-  return <Page>{renderDatagrid()}</Page>;
+  const navigate = useNavigate();
+  const [selectedRow, setSelectedRow] = React.useState<string | null>(null);
+  function renderDatagrid() {
+    return (
+      <div style={{ display: "flex", height: 400 }}>
+        <div style={{ flexGrow: 1 }}>
+          <DataGrid
+            hideFooterSelectedRowCount
+            onSelectionModelChange={(r) => {
+              setSelectedRow(r.length ? r[0].toString() : null);
+            }}
+            rows={rows}
+            columns={columns}
+            pageSize={5}
+            rowsPerPageOptions={[5, 10]}
+          />
+        </div>
+      </div>
+    );
+  }
+  function renderActionBar() {
+    return (
+      <Box sx={{ mt: 2, display: "flex", justifyContent: "flex-end" }}>
+        <ButtonGroup
+          variant="text"
+          size="small"
+          aria-label="outlined button group"
+        >
+          <Button onClick={() => navigate("/paciente/cadastrar")}>
+            Cadastrar
+          </Button>
+          <Button disabled={selectedRow == null}>Alterar</Button>
+          <Button disabled={selectedRow == null}>Excluir</Button>
+          <Button disabled={selectedRow == null}>Próximas Consultas</Button>
+        </ButtonGroup>
+      </Box>
+    );
+  }
+  return (
+    <Page>
+      {renderDatagrid()}
+      {renderActionBar()}
+    </Page>
+  );
 };
 
 export { PacienteMain };
