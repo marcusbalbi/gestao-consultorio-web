@@ -11,7 +11,7 @@ const columns: GridColDef[] = [
   {
     field: "nome",
     headerName: "Nome",
-    flex: 1,
+    flex: 1
   },
   {
     field: "documento",
@@ -69,6 +69,7 @@ const PacienteMain = () => {
         <ButtonGroup
           variant="text"
           size="small"
+          sx={{ display: "flex", flexDirection: { xs: "column", md: "row" } }}
           aria-label="outlined button group"
         >
           <Button

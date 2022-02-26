@@ -74,18 +74,18 @@ const TopBar = () => {
           </IconButton>
           <Link
             variant="h6"
-            noWrap
+            // noWrap
             color="inherit"
             underline="none"
             onClick={() => {
               navigate("/");
             }}
-            sx={{ cursor: "pointer", display: { xs: "none", sm: "block" } }}
+            sx={{ cursor: "pointer", display: { sm: "block" } }}
           >
             Gestão Consultório Web
           </Link>
           <Box sx={{ flexGrow: 1 }} />
-          <Box sx={{ display: { xs: "none", md: "flex" } }}>
+          <Box sx={{ display: { xs: "flex", md: "flex" } }}>
             <IconButton
               size="large"
               aria-label="show 1 new notifications"
