@@ -5,8 +5,7 @@ import {
   Typography,
 } from "@mui/material";
 import * as React from "react";
-import { Page } from "../../shared";
-import { ActionBar } from "../../shared/ActionBar";
+import { Page, ActionBar } from "../../shared";
 
 const PacienteCreate = () => {
   return (

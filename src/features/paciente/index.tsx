@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Page } from "../../shared";
+import { Page, ActionBar } from "../../shared";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
 import { Button, ButtonGroup } from "@mui/material";
 import { Box } from "@mui/system";
@@ -65,12 +65,10 @@ const PacienteMain = () => {
   }
   function renderActionBar() {
     return (
-      <Box sx={{ mt: 2, display: "flex", justifyContent: "flex-end" }}>
-        <ButtonGroup
+        <ActionBar
           variant="text"
           size="small"
-          sx={{ display: "flex", flexDirection: { xs: "column", md: "row" } }}
-          aria-label="outlined button group"
+          sx={{ mt: 2 }}
         >
           <Button
             startIcon={<Add />}
@@ -87,8 +85,7 @@ const PacienteMain = () => {
           <Button startIcon={<CalendarToday />} disabled={selectedRow == null}>
             Próximas Consultas
           </Button>
-        </ButtonGroup>
-      </Box>
+        </ActionBar>
     );
   }
   return (
