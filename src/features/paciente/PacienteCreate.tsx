@@ -11,7 +11,7 @@ const PacienteCreate = () => {
   const {
     register,
     handleSubmit,
-    watch,
+    // watch,
     formState: { errors },
   } = useForm<CadastrarPacienteDto>({
     resolver: yupResolver(CadastrarPacienteValdationSchema),
