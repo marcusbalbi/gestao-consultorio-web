@@ -1,4 +1,10 @@
-import { Grid, TextField, Typography } from "@mui/material";
+import {
+  Button,
+  ButtonGroup,
+  Grid,
+  TextField,
+  Typography,
+} from "@mui/material";
 import * as React from "react";
 import { Page } from "../../shared";
 
@@ -67,7 +73,15 @@ const PacienteCreate = () => {
         <Grid item xs={12} md={4}>
           <TextField fullWidth label="Telefone para Contato" />
         </Grid>
-        
+        <Grid item xs={12}>
+          <ButtonGroup
+            variant="text"
+            sx={{ display: "flex", justifyContent: "flex-end" }}
+          >
+            <Button color="success">Cadastrar</Button>
+            <Button color="error">Voltar</Button>
+          </ButtonGroup>
+        </Grid>
       </Grid>
     </Page>
   );
