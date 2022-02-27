@@ -2,7 +2,10 @@ import { Button, Grid, TextField, Typography } from "@mui/material";
 import * as React from "react";
 import { Page, ActionBar } from "../../shared";
 import { useForm, SubmitHandler } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+
 import { CadastrarPacienteDto } from "./pacienteDto";
+import { CadastrarPacienteValdationSchema } from "./validationSchemas";
 
 const PacienteCreate = () => {
   const {
@@ -10,7 +13,9 @@ const PacienteCreate = () => {
     handleSubmit,
     watch,
     formState: { errors },
-  } = useForm<CadastrarPacienteDto>();
+  } = useForm<CadastrarPacienteDto>({
+    resolver: yupResolver(CadastrarPacienteValdationSchema),
+  });
   const onSubmit: SubmitHandler<CadastrarPacienteDto> = (data) =>
     console.log(data);
   return (
@@ -25,6 +30,8 @@ const PacienteCreate = () => {
               fullWidth
               label="Nome Completo"
               placeholder="Ex: João Silva"
+              error={!!errors.nome?.message}
+              helperText={errors.nome?.message}
               {...register("nome")}
             />
           </Grid>
@@ -34,6 +41,8 @@ const PacienteCreate = () => {
               fullWidth
               label="CPF"
               placeholder="00000000000"
+              error={!!errors.cpf?.message}
+              helperText={errors.cpf?.message}
               {...register("cpf")}
             />
           </Grid>
@@ -42,6 +51,8 @@ const PacienteCreate = () => {
               fullWidth
               label="Date de Nascimento"
               placeholder="00/00/0000"
+              error={!!errors.dataNasciemnto?.message}
+              helperText={errors.dataNasciemnto?.message}
               {...register("dataNasciemnto")}
             />
           </Grid>

@@ -6,7 +6,6 @@ import CssBaseline from "@material-ui/core/CssBaseline";
 import { ThemeProvider } from "@mui/material/styles";
 import { mainTheme } from "./config/themes";
 import { BrowserRouter } from "react-router-dom";
-
 ReactDOM.render(
   <React.StrictMode>
     <CssBaseline />
