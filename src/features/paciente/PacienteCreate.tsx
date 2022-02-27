@@ -37,7 +37,6 @@ const PacienteCreate = () => {
           </Grid>
           <Grid item xs={12} md={6}>
             <TextField
-              type={"number"}
               fullWidth
               label="CPF"
               placeholder="00000000000"
