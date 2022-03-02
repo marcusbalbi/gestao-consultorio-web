@@ -1,3 +1,4 @@
+import { isFuture, isMatch, parse } from "date-fns";
 import * as yup from "yup";
 import { pt } from "yup-locale-pt";
 yup.setLocale(pt);
@@ -14,12 +15,15 @@ export const CadastrarPacienteValdationSchema = yup.object().shape({
     .label("data de nascimento")
     .required()
     .test((v, options) => {
-      if (!v || !v.match(/^\d{2}\/\d{2}\/\d{4}$/)) {
+      if (!v || !v.match(/^\d{2}\/\d{2}\/\d{4}$/) || !isMatch(v, 'dd/MM/yyyy')) {
         return options.createError({
           message: "Data de Nascimento deve estar no padrão dd/mm/aaaa",
         });
-        // validate if its valid date (not the pattern)
-        // validate if its on past
+      }
+      if (isFuture(parse(v, "dd/MM/yyyy", new Date()))) {
+        return options.createError({
+          message: "Data de Nascimento deve estar no passado",
+        });
       }
       return true;
     }),
