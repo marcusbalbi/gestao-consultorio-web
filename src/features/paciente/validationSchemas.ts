@@ -46,5 +46,16 @@ export const CadastrarPacienteValdationSchema = yup.object().shape({
   complemento: yup.string(),
   // telefoneCelular: string; // nao tem no back ainda
   // email: string; // nao tem no back ainda
-  // telefoneContato: string; // nao tem no back ainda
+  telefoneContato: yup.string()
+    .test((v, options) => {
+      if (!v || !v.length) {
+        return true;
+      }
+      if (!v.match(/^\d+$/)) {
+        return options.createError({
+          message: "telefone para contato deve conter apenas números",
+        });
+      }
+      return true;
+    }) // nao tem no back ainda
 });

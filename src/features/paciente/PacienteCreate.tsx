@@ -89,7 +89,9 @@ const PacienteCreate = () => {
               label="UF"
               fullWidth
               {...register("estado")}
-              onChange={(e) => { setValue("estado", e.target.value as string); }}
+              onChange={(e) => {
+                setValue("estado", e.target.value as string);
+              }}
             />
           </Grid>
           <Grid item xs={12}>
@@ -115,6 +117,8 @@ const PacienteCreate = () => {
           <Grid item xs={12} md={4}>
             <TextField
               fullWidth
+              error={!!errors.telefoneContato?.message}
+              helperText={errors.telefoneContato?.message}
               label="Telefone para Contato"
               {...register("telefoneContato")}
             />
