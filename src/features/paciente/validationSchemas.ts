@@ -9,7 +9,20 @@ export const CadastrarPacienteValdationSchema = yup.object().shape({
     .max(11, "cpf deve ter 11 caracteres (apenas números)")
     .matches(/^\d+$/, "cpf deve conter apenas números")
     .required(),
-  dataNasciemnto: yup.string().label("data de nascimento").required(),
+  dataNasciemnto: yup
+    .string()
+    .label("data de nascimento")
+    .required()
+    .test((v, options) => {
+      if (!v || !v.match(/^\d{2}\/\d{2}\/\d{4}$/)) {
+        return options.createError({
+          message: "Data de Nascimento deve estar no padrão dd/mm/aaaa",
+        });
+        // validate if its valid date (not the pattern)
+        // validate if its on past
+      }
+      return true;
+    }),
   logradouro: yup.string(),
   numero: yup.string(),
   cep: yup.string().test((v, options) => {
