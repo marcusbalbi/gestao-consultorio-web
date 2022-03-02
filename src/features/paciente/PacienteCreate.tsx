@@ -1,6 +1,6 @@
-import { Button, Grid, TextField, Typography } from "@mui/material";
+import { Button, Grid, SelectChangeEvent, TextField, Typography } from "@mui/material";
 import * as React from "react";
-import { Page, ActionBar } from "../../shared";
+import { Page, ActionBar, UFSelect } from "../../shared";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 
@@ -12,6 +12,7 @@ const PacienteCreate = () => {
     register,
     handleSubmit,
     // watch,
+    setValue,
     formState: { errors },
   } = useForm<CadastrarPacienteDto>({
     resolver: yupResolver(CadastrarPacienteValdationSchema),
@@ -69,7 +70,13 @@ const PacienteCreate = () => {
             <TextField fullWidth label="Número" {...register("numero")} />
           </Grid>
           <Grid item xs={12} md={2}>
-            <TextField fullWidth label="CEP" {...register("cep")} />
+            <TextField
+              fullWidth
+              label="CEP"
+              error={!!errors.cep?.message}
+              helperText={errors.cep?.message}
+              {...register("cep")}
+            />
           </Grid>
           <Grid item xs={12} md={4}>
             <TextField fullWidth label="Bairro" {...register("bairro")} />
@@ -78,7 +85,12 @@ const PacienteCreate = () => {
             <TextField fullWidth label="Cidade" {...register("cidade")} />
           </Grid>
           <Grid item xs={12} md={2}>
-            <TextField fullWidth label="Estado" {...register("estado")} />
+            <UFSelect
+              label="UF"
+              fullWidth
+              {...register("estado")}
+              onChange={(e) => { setValue("estado", e.target.value as string); }}
+            />
           </Grid>
           <Grid item xs={12}>
             <TextField
