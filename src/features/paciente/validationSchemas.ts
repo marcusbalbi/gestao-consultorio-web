@@ -44,8 +44,8 @@ export const CadastrarPacienteValdationSchema = yup.object().shape({
   cidade: yup.string(),
   // estado: string;
   complemento: yup.string(),
-  // telefoneCelular: string; // nao tem no back ainda
-  // email: string; // nao tem no back ainda
+  telefoneCelular: yup.string().required(), // nao tem no back ainda
+  email: yup.string().email(), // nao tem no back ainda
   telefoneContato: yup.string()
     .test((v, options) => {
       if (!v || !v.length) {

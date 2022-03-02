@@ -112,7 +112,13 @@ const PacienteCreate = () => {
             />
           </Grid>
           <Grid item xs={12} md={4}>
-            <TextField fullWidth label="Email" {...register("email")} />
+            <TextField
+              fullWidth
+              label="Email"
+              error={!!errors.email?.message}
+              helperText={errors.email?.message}
+              {...register("email")}
+            />
           </Grid>
           <Grid item xs={12} md={4}>
             <TextField
