@@ -6,14 +6,19 @@ import { yupResolver } from "@hookform/resolvers/yup";
 
 import { CadastrarPacienteDto } from "./pacienteDto";
 import { CadastrarPacienteValdationSchema } from "./validationSchemas";
+import { useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
+import { useTheme } from "@material-ui/core";
 
 const PacienteCreate = () => {
+  const navigate = useNavigate();
+  const theme = useTheme();
   const {
     register,
     handleSubmit,
     // watch,
     setValue,
-    formState: { errors },
+    formState: { errors, isDirty },
   } = useForm<CadastrarPacienteDto>({
     resolver: yupResolver(CadastrarPacienteValdationSchema),
   });
@@ -108,6 +113,8 @@ const PacienteCreate = () => {
             <TextField
               fullWidth
               label="Telefone Celular"
+              error={!!errors.telefoneCelular?.message}
+              helperText={errors.telefoneCelular?.message}
               {...register("telefoneCelular")}
             />
           </Grid>
@@ -134,7 +141,31 @@ const PacienteCreate = () => {
               <Button type="submit" color="success">
                 Cadastrar
               </Button>
-              <Button color="error">Voltar</Button>
+              <Button
+                onClick={() => {
+                  if (isDirty) {
+                    Swal.fire({
+                      title: "Tem certeza?",
+                      text: "você pode perder informações!",
+                      icon: "warning",
+                      showCancelButton: true,
+                      confirmButtonColor: theme.palette.error.dark,
+                      cancelButtonColor: theme.palette.primary.main,
+                      confirmButtonText: "Sair",
+                      cancelButtonText: "continuar editando",
+                    }).then((result) => {
+                      if (result.isConfirmed) {
+                        navigate(-1);
+                      }
+                    });
+                  } else {
+                    navigate(-1);
+                  }
+                }}
+                color="error"
+              >
+                Voltar
+              </Button>
             </ActionBar>
           </Grid>
         </Grid>

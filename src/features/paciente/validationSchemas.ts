@@ -15,7 +15,11 @@ export const CadastrarPacienteValdationSchema = yup.object().shape({
     .label("data de nascimento")
     .required()
     .test((v, options) => {
-      if (!v || !v.match(/^\d{2}\/\d{2}\/\d{4}$/) || !isMatch(v, 'dd/MM/yyyy')) {
+      if (
+        !v ||
+        !v.match(/^\d{2}\/\d{2}\/\d{4}$/) ||
+        !isMatch(v, "dd/MM/yyyy")
+      ) {
         return options.createError({
           message: "Data de Nascimento deve estar no padrão dd/mm/aaaa",
         });
@@ -44,18 +48,28 @@ export const CadastrarPacienteValdationSchema = yup.object().shape({
   cidade: yup.string(),
   // estado: string;
   complemento: yup.string(),
-  telefoneCelular: yup.string().required(), // nao tem no back ainda
-  email: yup.string().email(), // nao tem no back ainda
-  telefoneContato: yup.string()
+  telefoneCelular: yup
+    .string()
+    .label("telefone celular")
+    .required() // nao tem no back ainda,
     .test((v, options) => {
-      if (!v || !v.length) {
-        return true;
-      }
-      if (!v.match(/^\d+$/)) {
+      if (!v || !v.match(/^\d+$/)) {
         return options.createError({
-          message: "telefone para contato deve conter apenas números",
+          message: "telefone celular deve conter apenas números",
         });
       }
       return true;
-    }) // nao tem no back ainda
+    }),
+  email: yup.string().email(), // nao tem no back ainda
+  telefoneContato: yup.string().test((v, options) => {
+    if (!v || !v.length) {
+      return true;
+    }
+    if (!v.match(/^\d+$/)) {
+      return options.createError({
+        message: "telefone para contato deve conter apenas números",
+      });
+    }
+    return true;
+  }), // nao tem no back ainda
 });
