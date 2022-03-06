@@ -1,9 +1,8 @@
 import * as React from "react";
-import { Page, ActionBar } from "../../shared";
+import { Page, CrudActionBar } from "../../shared";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
 import { Button } from "@mui/material";
-import { useNavigate } from "react-router-dom";
-import { Add, CalendarToday, Edit, Remove } from "@mui/icons-material";
+import { CalendarToday } from "@mui/icons-material";
 
 const columns: GridColDef[] = [
   { field: "id", headerName: "ID", flex: 0.1 },
@@ -42,7 +41,6 @@ const rows = [
 ];
 
 const PacienteMain = () => {
-  const navigate = useNavigate();
   const [selectedRow, setSelectedRow] = React.useState<string | null>(null);
   function renderDatagrid() {
     return (
@@ -63,35 +61,22 @@ const PacienteMain = () => {
       </div>
     );
   }
-  function renderActionBar() {
+  function renderAfterActions() {
     return (
-        <ActionBar
-          variant="text"
-          size="small"
-          sx={{ mt: 2 }}
-        >
-          <Button
-            startIcon={<Add />}
-            onClick={() => navigate("/paciente/cadastrar")}
-          >
-            Cadastrar
-          </Button>
-          <Button startIcon={<Edit />} disabled={selectedRow == null}>
-            Alterar
-          </Button>
-          <Button startIcon={<Remove />} disabled={selectedRow == null}>
-            Excluir
-          </Button>
-          <Button startIcon={<CalendarToday />} disabled={selectedRow == null}>
-            Próximas Consultas
-          </Button>
-        </ActionBar>
+      <Button startIcon={<CalendarToday />} disabled={selectedRow == null}>
+        Próximas Consultas
+      </Button>
     );
   }
   return (
     <Page>
       {renderDatagrid()}
-      {renderActionBar()}
+      <CrudActionBar
+        createRoute="/paciente/cadastrar"
+        updateRoute="/paciente/alterar"
+        selectedRow={selectedRow}
+        afterActions={renderAfterActions()}
+      />
     </Page>
   );
 };
