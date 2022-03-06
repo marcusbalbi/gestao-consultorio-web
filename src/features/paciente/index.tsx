@@ -10,7 +10,7 @@ const columns: GridColDef[] = [
   {
     field: "nome",
     headerName: "Nome",
-    flex: 1
+    flex: 1,
   },
   {
     field: "documento",
@@ -49,6 +49,7 @@ const PacienteMain = () => {
       <div style={{ display: "flex", height: 400 }}>
         <div style={{ flexGrow: 1 }}>
           <DataGrid
+            disableColumnMenu
             hideFooterSelectedRowCount
             onSelectionModelChange={(r) => {
               setSelectedRow(r.length ? r[0].toString() : null);
