@@ -6,6 +6,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 
 import { CadastrarPacienteDto } from "./pacienteDto";
 import { CadastrarPacienteValdationSchema } from "./validationSchemas";
+import { createPaciente } from "./pacienteService";
 
 const PacienteCreate = () => {
   const {
@@ -18,7 +19,7 @@ const PacienteCreate = () => {
     resolver: yupResolver(CadastrarPacienteValdationSchema),
   });
   const onSubmit: SubmitHandler<CadastrarPacienteDto> = (data) =>
-    console.log(data);
+    createPaciente(data)
   return (
     <Page>
       <BaseForm isDirty={isDirty} onSubmit={handleSubmit(onSubmit)}>
