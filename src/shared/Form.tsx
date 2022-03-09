@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import { useTheme, Typography } from "@material-ui/core";
 import { ActionBar } from ".";
+import { DeleteSweep, Search } from "@mui/icons-material";
 
 interface CreateFormProps {
   children?: any;
@@ -74,17 +75,16 @@ const BaseForm = (props: CreateFormProps) => {
 };
 
 const BaseSearchForm = (props: SearchFormProps) => {
-  const theme = useTheme();
   return (
     <form onSubmit={props.onSubmit}>
       <Grid container spacing={2}>
         {props.children}
         <Grid item xs={12}>
           <ActionBar>
-            <Button type="submit" color="success">
+            <Button type="submit" color="info" startIcon={<Search />}>
               Buscar
             </Button>
-            <Button color="error">Limpar</Button>
+            <Button color="error" startIcon={<DeleteSweep />} >Limpar</Button>
           </ActionBar>
         </Grid>
       </Grid>
