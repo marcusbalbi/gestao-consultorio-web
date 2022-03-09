@@ -1,8 +1,14 @@
-import { Paper, Typography } from "@mui/material";
+import { Grid, Paper, Typography } from "@mui/material";
+import { height } from "@mui/system";
 import * as React from "react";
 
 interface Props extends React.PropsWithChildren<any> {
   title?: string;
+}
+
+interface MainPageProps extends React.PropsWithChildren<any> {
+  searchForm?: JSX.Element;
+  result: JSX.Element;
 }
 
 const Page = (props: Props) => {
@@ -28,4 +34,34 @@ const Page = (props: Props) => {
   );
 };
 
-export { Page };
+const MainModulePage = (props: MainPageProps) => {
+  const renderSearchForm = () => {
+    return (
+      props.searchForm && (
+        <Grid item xs={12} md={4} >
+          <Paper sx={{ padding: (theme) => theme.spacing(2), height: "100%" }}>
+            {props.searchForm}
+          </Paper>
+        </Grid>
+      )
+    );
+  };
+  return (
+    <Grid
+      container
+      spacing={2}
+      sx={{
+        padding: (theme) => theme.spacing(4),
+      }}
+    >
+      {renderSearchForm()}
+      <Grid item xs={12} md={props.searchForm ? 8 : 12}>
+        <Paper sx={{ padding: (theme) => theme.spacing(2) }}>
+          {props.result}
+        </Paper>
+      </Grid>
+    </Grid>
+  );
+};
+
+export { Page, MainModulePage };

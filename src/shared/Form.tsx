@@ -15,6 +15,12 @@ interface FormInfoSectionProps {
   children?: any;
 }
 
+interface SearchFormProps {
+  children?: any;
+  onSubmit?: any;
+  isDirty?: boolean;
+}
+
 const FormInfoSection = (props: FormInfoSectionProps) => {
   return (
     <Grid item xs={12}>
@@ -67,4 +73,23 @@ const BaseForm = (props: CreateFormProps) => {
   );
 };
 
-export { BaseForm, FormInfoSection };
+const BaseSearchForm = (props: SearchFormProps) => {
+  const theme = useTheme();
+  return (
+    <form onSubmit={props.onSubmit}>
+      <Grid container spacing={2}>
+        {props.children}
+        <Grid item xs={12}>
+          <ActionBar>
+            <Button type="submit" color="success">
+              Buscar
+            </Button>
+            <Button color="error">Limpar</Button>
+          </ActionBar>
+        </Grid>
+      </Grid>
+    </form>
+  );
+};
+
+export { BaseForm, FormInfoSection, BaseSearchForm };
