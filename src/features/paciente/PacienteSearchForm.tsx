@@ -34,13 +34,13 @@ const PacienteSearchForm = () => {
         />
       </Grid>
       <Grid item xs={12}>
-        <TextField
+        {/* <TextField
           fullWidth
           label="Telefone Celular"
           error={!!errors.telefoneCelular?.message}
           helperText={errors.telefoneCelular?.message}
           {...register("telefoneCelular")}
-        />
+        /> */}
       </Grid>
     </BaseSearchForm>
   );
