@@ -2,20 +2,20 @@ import { Grid, TextField } from "@mui/material";
 import * as React from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { BaseSearchForm, FormInfoSection } from "../../shared";
-import { BuscarPacienteDto } from "./pacienteDto";
+import { CadastrarProfissionalDto } from "./ProfissionalDto";
 
-const PacienteSearchForm = () => {
+const ProfissionalSearchForm = () => {
   const {
     register,
     handleSubmit,
     formState: { errors },
     reset,
-  } = useForm<BuscarPacienteDto>();
-  const onSubmit: SubmitHandler<BuscarPacienteDto> = (data) =>
+  } = useForm<CadastrarProfissionalDto>();
+  const onSubmit: SubmitHandler<CadastrarProfissionalDto> = (data) =>
     console.log(data);
   return (
     <BaseSearchForm onSubmit={handleSubmit(onSubmit)} onClean={() => reset()}>
-      <FormInfoSection>Buscar Paciente</FormInfoSection>
+      <FormInfoSection>Buscar Profissionais</FormInfoSection>
       <Grid item xs={12}>
         <TextField
           fullWidth
@@ -34,17 +34,8 @@ const PacienteSearchForm = () => {
           {...register("cpf")}
         />
       </Grid>
-      <Grid item xs={12}>
-        {/* <TextField
-          fullWidth
-          label="Telefone Celular"
-          error={!!errors.telefoneCelular?.message}
-          helperText={errors.telefoneCelular?.message}
-          {...register("telefoneCelular")}
-        /> */}
-      </Grid>
     </BaseSearchForm>
   );
 };
 
-export { PacienteSearchForm };
+export { ProfissionalSearchForm };

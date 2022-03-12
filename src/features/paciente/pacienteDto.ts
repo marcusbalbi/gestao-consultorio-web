@@ -18,3 +18,8 @@ export interface CadastrarPacienteDto {
   email: string; // nao tem no back ainda
   telefoneContato: string; // nao tem no back ainda
 }
+
+export interface BuscarPacienteDto {
+  nome?: string;
+  cpf?: string;
+}

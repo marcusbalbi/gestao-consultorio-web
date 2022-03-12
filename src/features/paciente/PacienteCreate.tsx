@@ -20,8 +20,8 @@ const PacienteCreate = () => {
   });
   const onSubmit: SubmitHandler<CadastrarPacienteDto> = (data) => {
     console.log(data);
-    createPaciente(data)
-  }
+    createPaciente(data);
+  };
   return (
     <Page>
       <BaseForm isDirty={isDirty} onSubmit={handleSubmit(onSubmit)}>

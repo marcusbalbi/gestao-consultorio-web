@@ -34,16 +34,10 @@ const menuItemsCrud: Array<MenuItem> = [
     text: "Paciente",
   },
   {
-    key: "atendente",
-    route: "/atendente",
-    icon: <ComputerIcon />,
-    text: "Atendente",
-  },
-  {
-    key: "medico",
-    route: "/medico",
+    key: "profissional",
+    route: "/profissional",
     icon: <HealthAndSafetyIcon />,
-    text: "Médico",
+    text: "Profissional",
   },
   {
     key: "local_atendimento",
