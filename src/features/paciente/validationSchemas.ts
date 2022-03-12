@@ -49,17 +49,37 @@ export const CadastrarPacienteValdationSchema = yup.object().shape({
   // estado: string;
   complemento: yup.string(),
   "telefone.telefone": yup.string().test((v, { parent, createError }) => {
-    if (!parent.telefone.telefone || !parent.telefone.telefone.match(/^\d+$/)) {
+    if (!parent.telefone.telefone) {
       return createError({
-        message: "Telefone é obrigatório e deve conter apenas números",
+        message: "Telefone é obrigatório",
+      });
+    }
+    if (parent.telefone.telefone.length !== 9) {
+      return createError({
+        message: "Telefone deve ter 9 digitos",
+      });
+    }
+    if (!parent.telefone.telefone.match(/^\d+$/)) {
+      return createError({
+        message: "Telefone deve conter apenas números",
       });
     }
     return true;
   }),
   "telefone.ddd": yup.string().test((v, { parent, createError }) => {
-    if (!parent.telefone.ddd || !parent.telefone.ddd.match(/^\d+$/)) {
+    if (!parent.telefone.ddd) {
       return createError({
-        message: "DDD é obrigatório e deve conter apenas números",
+        message: "DDD é obrigatório",
+      });
+    }
+    if (!parent.telefone.ddd.match(/^\d+$/)) {
+      return createError({
+        message: "DDD deve conter apenas números",
+      });
+    }
+    if (parent.telefone.ddd.length !== 2) {
+      return createError({
+        message: "DDD deve conter apenas 2 dígitos",
       });
     }
     return true;

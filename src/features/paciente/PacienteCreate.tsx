@@ -96,7 +96,7 @@ const PacienteCreate = () => {
           />
         </Grid>
         <FormInfoSection>Contato</FormInfoSection>
-        <Grid item xs={12} md={1}>
+        <Grid item xs={12} md={2}>
           <TextField
             fullWidth
             label="DDD"
@@ -114,7 +114,7 @@ const PacienteCreate = () => {
             {...register("telefone.telefone")}
           />
         </Grid>
-        <Grid item xs={12} md={6}>
+        <Grid item xs={12} md={5}>
           <TextField
             fullWidth
             label="Email"
