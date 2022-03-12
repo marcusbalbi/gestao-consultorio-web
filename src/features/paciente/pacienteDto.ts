@@ -6,7 +6,7 @@ export interface Telefone {
 export interface CadastrarPacienteDto {
   nome: string;
   cpf: string;
-  dataNasciemnto: string;
+  dataNascimento: string;
   logradouro: string;
   numero: string;
   cep: string;

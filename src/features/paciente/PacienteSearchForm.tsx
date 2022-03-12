@@ -9,11 +9,12 @@ const PacienteSearchForm = () => {
     register,
     handleSubmit,
     formState: { errors },
+    reset,
   } = useForm<CadastrarPacienteDto>();
   const onSubmit: SubmitHandler<CadastrarPacienteDto> = (data) =>
     console.log(data);
   return (
-    <BaseSearchForm onSubmit={handleSubmit(onSubmit)}>
+    <BaseSearchForm onSubmit={handleSubmit(onSubmit)} onClean={() => reset()}>
       <FormInfoSection>Buscar Paciente</FormInfoSection>
       <Grid item xs={12}>
         <TextField

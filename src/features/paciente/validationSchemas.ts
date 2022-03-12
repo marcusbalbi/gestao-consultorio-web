@@ -6,11 +6,11 @@ export const CadastrarPacienteValdationSchema = yup.object().shape({
   nome: yup.string().required(),
   cpf: yup
     .string()
+    .required()
     .min(11, "cpf deve ter 11 caracteres (apenas números)")
     .max(11, "cpf deve ter 11 caracteres (apenas números)")
-    .matches(/^\d+$/, "cpf deve conter apenas números")
-    .required(),
-  dataNasciemnto: yup
+    .matches(/^\d+$/, "cpf deve conter apenas números"),
+  dataNascimento: yup
     .string()
     .label("data de nascimento")
     .required()
@@ -48,26 +48,22 @@ export const CadastrarPacienteValdationSchema = yup.object().shape({
   cidade: yup.string(),
   // estado: string;
   complemento: yup.string(),
-  "telefone.telefone": yup
-    .string()
-    .test((v, { parent, createError }) => {
-      if (!parent.telefone.telefone || !parent.telefone.telefone.match(/^\d+$/)) {
-        return createError({
-          message: "Telefone é obrigatório e deve conter apenas números",
-        });
-      }
-      return true;
-    }),
-  "telefone.ddd": yup
-    .string()
-    .test((v, { parent, createError }) => {
-      if (!parent.telefone.ddd || !parent.telefone.ddd.match(/^\d+$/)) {
-        return createError({
-          message: "DDD é obrigatório e deve conter apenas números",
-        });
-      }
-      return true;
-    }),
+  "telefone.telefone": yup.string().test((v, { parent, createError }) => {
+    if (!parent.telefone.telefone || !parent.telefone.telefone.match(/^\d+$/)) {
+      return createError({
+        message: "Telefone é obrigatório e deve conter apenas números",
+      });
+    }
+    return true;
+  }),
+  "telefone.ddd": yup.string().test((v, { parent, createError }) => {
+    if (!parent.telefone.ddd || !parent.telefone.ddd.match(/^\d+$/)) {
+      return createError({
+        message: "DDD é obrigatório e deve conter apenas números",
+      });
+    }
+    return true;
+  }),
   email: yup.string().email(), // nao tem no back ainda
   telefoneContato: yup.string().test((v, options) => {
     if (!v || !v.length) {

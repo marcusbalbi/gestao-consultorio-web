@@ -51,9 +51,9 @@ const PacienteCreate = () => {
             fullWidth
             label="Date de Nascimento"
             placeholder="00/00/0000"
-            error={!!errors.dataNasciemnto?.message}
-            helperText={errors.dataNasciemnto?.message}
-            {...register("dataNasciemnto")}
+            error={!!errors.dataNascimento?.message}
+            helperText={errors.dataNascimento?.message}
+            {...register("dataNascimento")}
           />
         </Grid>
         <FormInfoSection>Endereço</FormInfoSection>
