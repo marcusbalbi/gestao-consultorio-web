@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import { useTheme, Typography } from "@material-ui/core";
 import { ActionBar } from ".";
+import { DeleteSweep, Search } from "@mui/icons-material";
 
 interface CreateFormProps {
   children?: any;
@@ -13,6 +14,13 @@ interface CreateFormProps {
 }
 interface FormInfoSectionProps {
   children?: any;
+}
+
+interface SearchFormProps {
+  children?: any;
+  onSubmit?: any;
+  isDirty?: boolean;
+  onClean?: React.MouseEventHandler<HTMLButtonElement>;
 }
 
 const FormInfoSection = (props: FormInfoSectionProps) => {
@@ -67,4 +75,22 @@ const BaseForm = (props: CreateFormProps) => {
   );
 };
 
-export { BaseForm, FormInfoSection };
+const BaseSearchForm = (props: SearchFormProps) => {
+  return (
+    <form onSubmit={props.onSubmit}>
+      <Grid container spacing={2}>
+        {props.children}
+        <Grid item xs={12}>
+          <ActionBar>
+            <Button type="submit" color="info" startIcon={<Search />}>
+              Buscar
+            </Button>
+            <Button onClick={props.onClean} color="error" startIcon={<DeleteSweep />} >Limpar</Button>
+          </ActionBar>
+        </Grid>
+      </Grid>
+    </form>
+  );
+};
+
+export { BaseForm, FormInfoSection, BaseSearchForm };

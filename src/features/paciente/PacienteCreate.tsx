@@ -18,8 +18,10 @@ const PacienteCreate = () => {
   } = useForm<CadastrarPacienteDto>({
     resolver: yupResolver(CadastrarPacienteValdationSchema),
   });
-  const onSubmit: SubmitHandler<CadastrarPacienteDto> = (data) =>
+  const onSubmit: SubmitHandler<CadastrarPacienteDto> = (data) => {
+    console.log(data);
     createPaciente(data)
+  }
   return (
     <Page>
       <BaseForm isDirty={isDirty} onSubmit={handleSubmit(onSubmit)}>
@@ -49,9 +51,9 @@ const PacienteCreate = () => {
             fullWidth
             label="Date de Nascimento"
             placeholder="00/00/0000"
-            error={!!errors.dataNasciemnto?.message}
-            helperText={errors.dataNasciemnto?.message}
-            {...register("dataNasciemnto")}
+            error={!!errors.dataNascimento?.message}
+            helperText={errors.dataNascimento?.message}
+            {...register("dataNascimento")}
           />
         </Grid>
         <FormInfoSection>Endereço</FormInfoSection>
@@ -94,31 +96,31 @@ const PacienteCreate = () => {
           />
         </Grid>
         <FormInfoSection>Contato</FormInfoSection>
-        <Grid item xs={12} md={4}>
+        <Grid item xs={12} md={2}>
           <TextField
             fullWidth
-            label="Telefone Celular"
-            error={!!errors.telefoneCelular?.message}
-            helperText={errors.telefoneCelular?.message}
-            {...register("telefoneCelular")}
+            label="DDD"
+            error={!!errors.telefone?.ddd?.message}
+            helperText={errors.telefone?.ddd?.message}
+            {...register("telefone.ddd")}
           />
         </Grid>
-        <Grid item xs={12} md={4}>
+        <Grid item xs={12} md={5}>
+          <TextField
+            fullWidth
+            label="Telefone"
+            error={!!errors.telefone?.telefone?.message}
+            helperText={errors.telefone?.telefone?.message}
+            {...register("telefone.telefone")}
+          />
+        </Grid>
+        <Grid item xs={12} md={5}>
           <TextField
             fullWidth
             label="Email"
             error={!!errors.email?.message}
             helperText={errors.email?.message}
             {...register("email")}
-          />
-        </Grid>
-        <Grid item xs={12} md={4}>
-          <TextField
-            fullWidth
-            error={!!errors.telefoneContato?.message}
-            helperText={errors.telefoneContato?.message}
-            label="Telefone para Contato"
-            {...register("telefoneContato")}
           />
         </Grid>
       </BaseForm>

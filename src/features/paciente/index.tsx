@@ -1,8 +1,9 @@
 import * as React from "react";
-import { Page, CrudActionBar } from "../../shared";
+import { CrudActionBar, MainModulePage } from "../../shared";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
 import { Button } from "@mui/material";
 import { CalendarToday } from "@mui/icons-material";
+import { PacienteSearchForm } from "./PacienteSearchForm"
 
 const columns: GridColDef[] = [
   { field: "id", headerName: "ID", flex: 0.1 },
@@ -42,23 +43,31 @@ const rows = [
 
 const PacienteMain = () => {
   const [selectedRow, setSelectedRow] = React.useState<string | null>(null);
-  function renderDatagrid() {
+  function renderResult() {
     return (
-      <div style={{ display: "flex", height: 400 }}>
-        <div style={{ flexGrow: 1 }}>
-          <DataGrid
-            disableColumnMenu
-            hideFooterSelectedRowCount
-            onSelectionModelChange={(r) => {
-              setSelectedRow(r.length ? r[0].toString() : null);
-            }}
-            rows={rows}
-            columns={columns}
-            pageSize={5}
-            rowsPerPageOptions={[5, 10]}
-          />
+      <>
+        <div style={{ display: "flex", height: 400 }}>
+          <div style={{ flexGrow: 1 }}>
+            <DataGrid
+              disableColumnMenu
+              hideFooterSelectedRowCount
+              onSelectionModelChange={(r) => {
+                setSelectedRow(r.length ? r[0].toString() : null);
+              }}
+              rows={rows}
+              columns={columns}
+              pageSize={5}
+              rowsPerPageOptions={[5, 10]}
+            />
+          </div>
         </div>
-      </div>
+        <CrudActionBar
+          createRoute="/paciente/cadastrar"
+          updateRoute="/paciente/alterar"
+          selectedRow={selectedRow}
+          afterActions={renderAfterActions()}
+        />
+      </>
     );
   }
   function renderAfterActions() {
@@ -68,16 +77,17 @@ const PacienteMain = () => {
       </Button>
     );
   }
+  function renderSearchForm() {
+    return (
+      <>
+        <PacienteSearchForm />
+      </>
+    );
+  }
   return (
-    <Page>
-      {renderDatagrid()}
-      <CrudActionBar
-        createRoute="/paciente/cadastrar"
-        updateRoute="/paciente/alterar"
-        selectedRow={selectedRow}
-        afterActions={renderAfterActions()}
-      />
-    </Page>
+    <>
+      <MainModulePage result={renderResult()} searchForm={renderSearchForm()} />
+    </>
   );
 };
 

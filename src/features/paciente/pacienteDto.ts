@@ -1,7 +1,12 @@
+export interface Telefone {
+  ddd: string;
+  telefone: string;
+}
+
 export interface CadastrarPacienteDto {
   nome: string;
   cpf: string;
-  dataNasciemnto: string;
+  dataNascimento: string;
   logradouro: string;
   numero: string;
   cep: string;
@@ -9,7 +14,7 @@ export interface CadastrarPacienteDto {
   cidade: string;
   estado: string;
   complemento: string;
-  telefoneCelular: string; // nao tem no back ainda
+  telefone: Telefone; // nao tem no back ainda
   email: string; // nao tem no back ainda
   telefoneContato: string; // nao tem no back ainda
 }
