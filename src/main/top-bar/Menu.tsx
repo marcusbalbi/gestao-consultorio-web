@@ -12,7 +12,6 @@ import PersonIcon from "@mui/icons-material/Person";
 import HealthAndSafetyIcon from "@mui/icons-material/HealthAndSafety";
 import PlaceIcon from "@mui/icons-material/Place";
 import SettingsIcon from "@mui/icons-material/Settings";
-import ComputerIcon from "@mui/icons-material/Computer";
 import { NavigateOptions, To, useNavigate } from "react-router-dom";
 interface Props {
   opened: boolean;
