@@ -14,12 +14,17 @@ const data = [
   { name: "Atendente", value: 4 },
 ];
 
-interface TipoProfissionalSelectProps extends SelectProps {
-  clean: any;
-}
+interface TipoProfissionalSelectProps extends SelectProps {}
 
 const TipoProfissionalSelect = React.forwardRef(
   (props: TipoProfissionalSelectProps, ref) => {
+    const [selected, setSelected] = React.useState("");
+    React.useEffect(() => {
+      if (props.value) {
+        // @ts-ignore
+        setSelected(props.value);
+      }
+    }, [props.value]);
     return (
       <FormControl fullWidth={props.fullWidth}>
         <InputLabel id="tipo-profissional-select-label">
@@ -29,12 +34,16 @@ const TipoProfissionalSelect = React.forwardRef(
           labelId="tipo-profissional-select-label"
           MenuProps={{ style: { maxHeight: "300px" } }}
           inputRef={ref}
-          {...props}
-          onChange={(e) => {
-            props.clean(ref);
+          defaultValue={""}
+          value={selected}
+          onChange={(ev, child) => {
+            if (props.onChange) {
+              props.onChange(ev, child);
+            }
+            setSelected(ev.target.value);
           }}
         >
-          <MenuItem key="empty" value={undefined}>
+          <MenuItem key="empty" value={""}>
             Selecione
           </MenuItem>
           {data.map((data) => {

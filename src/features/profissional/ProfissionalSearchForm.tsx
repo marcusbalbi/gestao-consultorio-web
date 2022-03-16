@@ -2,8 +2,8 @@ import { Grid, TextField } from "@mui/material";
 import * as React from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { BaseSearchForm, FormInfoSection } from "../../shared";
-import { TipoProfissionalSelect } from "../../shared/TipoProfissionalSelect";
 import { BuscarProfissionalDto } from "./ProfissionalDto";
+import { TipoProfissionalSelect2 } from "./TipoProfissionalSelect2";
 
 const ProfissionalSearchForm = () => {
   const {
@@ -11,7 +11,7 @@ const ProfissionalSearchForm = () => {
     handleSubmit,
     formState: { errors },
     setValue,
-    getValues,
+    control,
     reset,
   } = useForm<BuscarProfissionalDto>();
   const onSubmit: SubmitHandler<BuscarProfissionalDto> = (data) =>
@@ -20,18 +20,11 @@ const ProfissionalSearchForm = () => {
     <BaseSearchForm
       onSubmit={handleSubmit(onSubmit)}
       onClean={() => {
+        setValue("tipo", undefined);
         reset();
       }}
     >
       <FormInfoSection>Buscar Profissionais</FormInfoSection>
-      {JSON.stringify(getValues())}
-      <button
-        onClick={() => {
-          setValue("tipo", 2);
-        }}
-      >
-        CLICA AQUI MUDA SELECT
-      </button>
       <Grid item xs={12}>
         <TextField
           fullWidth
@@ -51,14 +44,12 @@ const ProfissionalSearchForm = () => {
         />
       </Grid>
       <Grid item xs={12}>
-        <TipoProfissionalSelect
-          clean={(ref: any) => {
-            ref.value = undefined;
-          }}
+        <TipoProfissionalSelect2 name="tipo" control={control} fullWidth />
+        {/* <TipoProfissionalSelect
           fullWidth
           {...register("tipo")}
           label="Tipo de Profissional"
-        />
+        /> */}
       </Grid>
     </BaseSearchForm>
   );
