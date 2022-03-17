@@ -4,6 +4,7 @@ import { DataGrid, GridColDef } from "@mui/x-data-grid";
 import { Button } from "@mui/material";
 import { CalendarToday } from "@mui/icons-material";
 import { PacienteSearchForm } from "./PacienteSearchForm";
+import { listPaciente } from "./pacienteService";
 
 const columns: GridColDef[] = [
   { field: "id", headerName: "ID", flex: 0.1 },
@@ -43,6 +44,11 @@ const rows = [
 
 const PacienteMain = () => {
   const [selectedRow, setSelectedRow] = React.useState<string | null>(null);
+  React.useEffect(() => {
+    listPaciente().then((pacientes) => {
+      console.log(pacientes);
+    });
+  }, []);
   function renderResult() {
     return (
       <>
