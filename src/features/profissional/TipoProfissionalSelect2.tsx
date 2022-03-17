@@ -1,5 +1,6 @@
 import {
   FormControl,
+  FormHelperText,
   InputLabel,
   MenuItem,
   Select,
@@ -19,12 +20,13 @@ const data = [
 interface TipoProfissionalSelectProps extends SelectProps {
   name: string;
   control: any;
+  helperText?: string;
 }
 
 const TipoProfissionalSelect2 = (props: TipoProfissionalSelectProps) => {
   return (
     <FormControl fullWidth={props.fullWidth}>
-      <InputLabel id="tipo-profissional-select-label">
+      <InputLabel error={props.error} id="tipo-profissional-select-label">
         {props.label || "Tipo Profissional"}
       </InputLabel>
       <Controller
@@ -36,7 +38,8 @@ const TipoProfissionalSelect2 = (props: TipoProfissionalSelectProps) => {
             <Select
               MenuProps={{ style: { maxHeight: "300px" } }}
               {...field}
-              labelId="tipo-profissional-select-label"
+              error={props.error}
+              // labelId="tipo-profissional-select-label"
             >
               <MenuItem key="empty" value={""}>
                 Selecione
@@ -52,6 +55,9 @@ const TipoProfissionalSelect2 = (props: TipoProfissionalSelectProps) => {
           );
         }}
       />
+      <FormHelperText error={props.error}>
+        {props.helperText}
+      </FormHelperText>
     </FormControl>
   );
 };

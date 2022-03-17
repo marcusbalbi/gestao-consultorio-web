@@ -7,11 +7,13 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { CadastrarProfissionalDto } from "./ProfissionalDto";
 import { CadsatrarProfissionalValidationSchema } from "./validationSchemas";
 import { createProfissional } from "./ProfissionalService";
+import { TipoProfissionalSelect2 } from "./TipoProfissionalSelect2";
 
 const ProfissionalCreate = () => {
   const {
     register,
     handleSubmit,
+    control,
     // watch,
     formState: { errors, isDirty },
   } = useForm<CadastrarProfissionalDto>({
@@ -23,7 +25,7 @@ const ProfissionalCreate = () => {
   return (
     <Page>
       <BaseForm isDirty={isDirty} onSubmit={handleSubmit(onSubmit)}>
-        <Grid item xs={12}>
+        <Grid item xs={12} md={6}>
           <TextField
             fullWidth
             label="Nome Completo"
@@ -41,6 +43,25 @@ const ProfissionalCreate = () => {
             error={!!errors.cpf?.message}
             helperText={errors.cpf?.message}
             {...register("cpf")}
+          />
+        </Grid>
+        <Grid item xs={12} md={6}>
+          <TextField
+            fullWidth
+            type={"password"}
+            label="Senha"
+            error={!!errors.senha?.message}
+            helperText={errors.senha?.message}
+            {...register("senha")}
+          />
+        </Grid>
+        <Grid item xs={12} md={6}>
+          <TipoProfissionalSelect2
+            name="tipo"
+            control={control}
+            fullWidth
+            error={errors.tipo?.message ? true : false}
+            helperText={errors.tipo?.message}
           />
         </Grid>
       </BaseForm>
