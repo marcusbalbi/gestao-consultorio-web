@@ -10,6 +10,7 @@ import { TipoProfissionalSelect2 } from "./TipoProfissionalSelect2";
 interface ProfissionalFormProps {
   resolver: any;
   updating?: boolean;
+  onSubmit?: any
 }
 
 const ProfissionalForm = (props: ProfissionalFormProps) => {
@@ -23,7 +24,7 @@ const ProfissionalForm = (props: ProfissionalFormProps) => {
     resolver: props.resolver,
   });
   const onSubmit: SubmitHandler<CadastrarProfissionalDto> = (data) => {
-    createProfissional(data);
+    onSubmit(data);
   };
   return (
     <BaseForm
