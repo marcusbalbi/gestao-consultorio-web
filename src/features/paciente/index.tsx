@@ -3,7 +3,7 @@ import { CrudActionBar, MainModulePage } from "../../shared";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
 import { Button } from "@mui/material";
 import { CalendarToday } from "@mui/icons-material";
-import { PacienteSearchForm } from "./PacienteSearchForm"
+import { PacienteSearchForm } from "./PacienteSearchForm";
 
 const columns: GridColDef[] = [
   { field: "id", headerName: "ID", flex: 0.1 },
@@ -78,11 +78,7 @@ const PacienteMain = () => {
     );
   }
   function renderSearchForm() {
-    return (
-      <>
-        <PacienteSearchForm />
-      </>
-    );
+    return <PacienteSearchForm />;
   }
   return (
     <>
