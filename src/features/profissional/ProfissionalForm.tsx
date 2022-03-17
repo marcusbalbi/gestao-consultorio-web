@@ -4,7 +4,6 @@ import { BaseForm } from "../../shared";
 import { useForm, SubmitHandler } from "react-hook-form";
 
 import { CadastrarProfissionalDto } from "./ProfissionalDto";
-import { createProfissional } from "./ProfissionalService";
 import { TipoProfissionalSelect2 } from "./TipoProfissionalSelect2";
 
 interface ProfissionalFormProps {
