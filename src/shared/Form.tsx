@@ -11,6 +11,7 @@ interface CreateFormProps {
   children?: any;
   onSubmit?: any;
   isDirty?: boolean;
+  actionText?: string;
 }
 interface FormInfoSectionProps {
   children?: any;
@@ -41,7 +42,7 @@ const BaseForm = (props: CreateFormProps) => {
         <Grid item xs={12}>
           <ActionBar>
             <Button type="submit" color="success">
-              Cadastrar
+              {props.actionText || "Salvar"}
             </Button>
             <Button
               onClick={() => {

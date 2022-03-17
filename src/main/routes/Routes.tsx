@@ -4,6 +4,7 @@ import { PacienteMain } from "../../features/paciente";
 import { PacienteCreate } from "../../features/paciente/PacienteCreate";
 import { ProfissionalMain } from "../../features/profissional";
 import { ProfissionalCreate } from "../../features/profissional/ProfissionalCreate";
+import { ProfissionalUpdate } from "../../features/profissional/ProfissionalUpdate";
 
 const AppRoutes = () => {
   return (
@@ -13,6 +14,7 @@ const AppRoutes = () => {
       <Route path="/paciente/cadastrar" element={<PacienteCreate />} />
       <Route path="/profissional" element={<ProfissionalMain />} />
       <Route path="/profissional/cadastrar" element={<ProfissionalCreate />} />
+      <Route path="/profissional/alterar/:id" element={<ProfissionalUpdate/>} />
     </Routes>
   );
 };
