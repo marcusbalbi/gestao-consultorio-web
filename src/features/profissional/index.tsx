@@ -2,6 +2,7 @@ import * as React from "react";
 import { CrudActionBar, MainModulePage } from "../../shared";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
 import { ProfissionalSearchForm } from "./ProfissionalSearchForm";
+import { listProfissional } from "./ProfissionalService";
 
 const columns: GridColDef[] = [
   { field: "id", headerName: "ID", flex: 0.1 },
@@ -31,6 +32,11 @@ const rows = [
 
 const ProfissionalMain = () => {
   const [selectedRow, setSelectedRow] = React.useState<string | null>(null);
+    React.useEffect(() => {
+      listProfissional().then((profissionais) => {
+        console.log(profissionais);
+      });
+    }, []);
   function renderResult() {
     return (
       <>

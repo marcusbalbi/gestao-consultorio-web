@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const request = axios.create({
-  baseURL: "https://tcc-pucminas.herokuapp.com/api",
+  baseURL: process.env.REACT_APP_BACKEND_URL,
 });
 
 const getToken = () => {
@@ -13,7 +13,7 @@ const getToken = () => {
 };
 
 const requestAuth = axios.create({
-  baseURL: "https://tcc-pucminas.herokuapp.com/api",
+  baseURL: process.env.REACT_APP_BACKEND_URL,
   headers: {
     Authorization: `Bearer ${getToken()}`,
     "Content-Type": "application/json",

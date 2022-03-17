@@ -9,8 +9,8 @@ function App() {
     if (!login) {
       request
         .post("/auth/signin", {
-          username: "01234567890",
-          password: "123456",
+          username: process.env.REACT_APP_SAMPLE_USERNAME,
+          password: process.env.REACT_APP_SAMPLE_PASSWORD,
         })
         .then(({ data }) => {
           localStorage.setItem("login", JSON.stringify(data));
@@ -19,6 +19,13 @@ function App() {
   }, []);
   return (
     <React.Fragment>
+      <div>
+        {JSON.stringify({
+          username: process.env.REACT_APP_SAMPLE_USERNAME,
+          password: process.env.REACT_APP_SAMPLE_PASSWORD,
+          host: process.env.REACT_APP_BACKEND_URL,
+        })}
+      </div>
       <TopBar />
       <>
         <AppRoutes />
