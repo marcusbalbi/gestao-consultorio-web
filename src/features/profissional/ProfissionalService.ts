@@ -1,4 +1,4 @@
-import { requestAuth } from "../../shared";
+import { request } from "../../shared";
 import { CadastrarProfissionalDto } from "./ProfissionalDto";
 
 const createProfissional = (profissional: CadastrarProfissionalDto) => {
@@ -6,7 +6,7 @@ const createProfissional = (profissional: CadastrarProfissionalDto) => {
 };
 
 const listProfissional = async () => {
-  const { data } = await requestAuth.get("/profissionais");
+  const { data } = await request.get("/profissionais");
   return data;
 };
 

@@ -1,4 +1,4 @@
-import { requestAuth } from "../../shared";
+import { request } from "../../shared";
 import { CadastrarPacienteDto } from "./pacienteDto";
 
 const createPaciente = (paciente: CadastrarPacienteDto) => {
@@ -9,7 +9,7 @@ const createPaciente = (paciente: CadastrarPacienteDto) => {
 };
 
 const listPaciente = async () => {
-  const { data } = await requestAuth.get("/pacientes");
+  const { data } = await request.get("/pacientes");
   return data;
 };
 

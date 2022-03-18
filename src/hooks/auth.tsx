@@ -7,15 +7,10 @@ interface AuthState {
   dados: UserData;
 }
 
-export interface User {
-  id: string;
-  name: string;
-  username: string;
-}
-
 interface UserData {
-  user: User;
+  usuario: string;
   token: string;
+  perfis: Array<String>;
 }
 
 export interface SignInCredentials {
@@ -28,7 +23,7 @@ interface AuthContextData {
   signOut(): void;
   getLastLogin(): string;
   getUserWithToken(token: string): Promise<void>;
-  updateUserData(dados: User): void;
+  updateUserData(dados: UserData): void;
   dados: UserData;
   token: string;
 }
@@ -72,8 +67,8 @@ const AuthProvider: React.FC = ({ children }) => {
     setData({ token: dados.token, dados });
   }, []);
 
-  const updateUserData = (user: User): void => {
-    const novosDados = Object.assign({}, data, { user });
+  const updateUserData = (userData: UserData): void => {
+    const novosDados = Object.assign({}, data, userData);
     localStorage.setItem(
       "@gestao-consultorio-web:dados",
       JSON.stringify(novosDados)
@@ -92,7 +87,7 @@ const AuthProvider: React.FC = ({ children }) => {
     const dados = JSON.parse(
       localStorage.getItem("@sombank:dados") || "{}"
     ) as UserData;
-    localStorage.setItem("@sombank:last_login", dados?.user.username);
+    localStorage.setItem("@sombank:last_login", dados?.usuario);
     localStorage.removeItem("@sombank:token");
     localStorage.removeItem("@sombank:dados");
 

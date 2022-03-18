@@ -6,11 +6,12 @@ import { PacienteUpdate } from "../../features/paciente/PacienteUpdate";
 import { ProfissionalMain } from "../../features/profissional";
 import { ProfissionalCreate } from "../../features/profissional/ProfissionalCreate";
 import { ProfissionalUpdate } from "../../features/profissional/ProfissionalUpdate";
+import { Welcome } from "../Welcome";
 
 const AppRoutes = () => {
   return (
     <Routes>
-      <Route path="/" element={<div>ROTA 1</div>} />
+      <Route path="/" element={<Welcome />} />
       <Route path="/paciente" element={<PacienteMain />} />
       <Route path="/paciente/cadastrar" element={<PacienteCreate />} />
       <Route path="/paciente/alterar/:id" element={<PacienteUpdate />} />
