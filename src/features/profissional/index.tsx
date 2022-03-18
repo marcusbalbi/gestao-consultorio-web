@@ -1,6 +1,6 @@
 import * as React from "react";
 import { CrudActionBar, MainModulePage } from "../../shared";
-import { DataGrid, GridColDef } from "@mui/x-data-grid";
+import { GridColDef } from "@mui/x-data-grid";
 import { ProfissionalSearchForm } from "./ProfissionalSearchForm";
 import { listProfissional } from "./ProfissionalService";
 import { ModuleDatagrid } from "../../shared/Datagrid";
@@ -11,6 +11,7 @@ const columns: GridColDef[] = [
     field: "nome",
     headerName: "Nome",
     flex: 1,
+
   },
   {
     field: "cpf",
