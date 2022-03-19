@@ -11,7 +11,6 @@ const columns: GridColDef[] = [
     field: "nome",
     headerName: "Nome",
     flex: 1,
-
   },
   {
     field: "cpf",
@@ -39,17 +38,12 @@ const ProfissionalMain = () => {
   function renderResult() {
     return (
       <>
-        <div style={{ display: "flex", height: 400 }}>
-          <div style={{ flexGrow: 1 }}>
-            EXTERNO = {selectedRow}<br/>
-            <ModuleDatagrid
-              rows={rows}
-              columns={columns}
-              loading={loadingData}
-              onSelectedRowChange={setSelectedRow}
-            />
-          </div>
-        </div>
+        <ModuleDatagrid
+          rows={rows}
+          columns={columns}
+          loading={loadingData}
+          onSelectedRowChange={setSelectedRow}
+        />
         <CrudActionBar
           createRoute="/profissional/cadastrar"
           updateRoute="/profissional/alterar"
@@ -58,16 +52,12 @@ const ProfissionalMain = () => {
       </>
     );
   }
-  function renderSearchForm() {
-    return (
-      <>
-        <ProfissionalSearchForm />
-      </>
-    );
-  }
   return (
     <>
-      <MainModulePage result={renderResult()} searchForm={renderSearchForm()} />
+      <MainModulePage
+        result={renderResult()}
+        searchForm={<ProfissionalSearchForm />}
+      />
     </>
   );
 };

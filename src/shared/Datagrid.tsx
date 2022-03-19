@@ -1,3 +1,4 @@
+import { Box } from "@mui/material";
 import { DataGrid, DataGridProps } from "@mui/x-data-grid";
 import React from "react";
 
@@ -6,26 +7,26 @@ interface ModuleDatagridProps extends DataGridProps {
 }
 
 const ModuleDatagrid = (props: ModuleDatagridProps) => {
-  // const [selectedRow, setSelectedRow] = React.useState<string | null>(null);
-  // const ref = useRef();
   return (
-    <>
-      {/* {selectedRow} */}
-      <DataGrid
-        disableColumnMenu
-        // ref={ref}
-        hideFooterSelectedRowCount
-        onSelectionModelChange={(r, p) => {
-          // setSelectedRow(r.length ? r[0].toString() : null);
-          // console.log(r, ref.current?.getSelectedRows());
-          if (props.onSelectedRowChange) {
-            props.onSelectedRowChange(r);
-          }
-        }}
-        hideFooterPagination
-        {...props}
-      />
-    </>
+    <Box sx={{ display: "flex", height: 400, mb: (t) => t.spacing(2) }}>
+      <div style={{ flexGrow: 1 }}>
+        <DataGrid
+          disableColumnMenu
+          hideFooterSelectedRowCount
+          onSelectionModelChange={(r) => {
+            if (props.onSelectedRowChange) {
+              if (r && r.length > 0) {
+                props.onSelectedRowChange(r[0]);
+              } else {
+                props.onSelectedRowChange(null);
+              }
+            }
+          }}
+          hideFooterPagination
+          {...props}
+        />
+      </div>
+    </Box>
   );
 };
 

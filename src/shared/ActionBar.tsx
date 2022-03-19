@@ -53,26 +53,30 @@ export const CrudActionBar = (props: CrudActionBarProps) => {
           props.updateRoute &&
           navigate(`${props.updateRoute}/${props.selectedRow}`)
         }
-        disabled={props.selectedRow == null}
+        disabled={!props.selectedRow}
       >
         Alterar
       </Button>
-      <Button startIcon={<Remove />} disabled={props.selectedRow == null} onClick={() => {
-        Swal.fire({
-          title: "Tem certeza?",
-          text: "Tem certeza que deseja remover esse registro ?",
-          icon: "warning",
-          showCancelButton: true,
-          confirmButtonColor: theme.palette.error.dark,
-          cancelButtonColor: theme.palette.primary.main,
-          confirmButtonText: "Sim",
-          cancelButtonText: "Não",
-        }).then((result) => {
-          if (result.isConfirmed) {
-            props.removeAction && props.removeAction(props.selectedRow);
-          }
-        });;
-      }}>
+      <Button
+        startIcon={<Remove />}
+        disabled={!props.selectedRow}
+        onClick={() => {
+          Swal.fire({
+            title: "Tem certeza?",
+            text: "Tem certeza que deseja remover esse registro ?",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: theme.palette.error.dark,
+            cancelButtonColor: theme.palette.primary.main,
+            confirmButtonText: "Sim",
+            cancelButtonText: "Não",
+          }).then((result) => {
+            if (result.isConfirmed) {
+              props.removeAction && props.removeAction(props.selectedRow);
+            }
+          });
+        }}
+      >
         Excluir
       </Button>
       {props.afterActions}
