@@ -16,6 +16,6 @@ jobs:
           firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_GESTAO_CONSULTORIO_WEB }}'
           projectId: gestao-consultorio-web
         env:
-          REACT_APP_BACKEND_URL: ${{ secrets.REACT_APP_BACKEND_URL }}
-          REACT_APP_SAMPLE_USERNAME: ${{ secrets.REACT_APP_SAMPLE_USERNAME }}
-          REACT_APP_SAMPLE_PASSWORD: ${{ secrets.REACT_APP_SAMPLE_PASSWORD }}
+          REACT_APP_BACKEND_URL: '${{ secrets.REACT_APP_BACKEND_URL }}'
+          REACT_APP_SAMPLE_USERNAME: '${{ secrets.REACT_APP_SAMPLE_USERNAME }}'
+          REACT_APP_SAMPLE_PASSWORD: '${{ secrets.REACT_APP_SAMPLE_PASSWORD }}'
