@@ -12,7 +12,6 @@ import PersonIcon from "@mui/icons-material/Person";
 import HealthAndSafetyIcon from "@mui/icons-material/HealthAndSafety";
 import PlaceIcon from "@mui/icons-material/Place";
 import SettingsIcon from "@mui/icons-material/Settings";
-import ComputerIcon from "@mui/icons-material/Computer";
 import { NavigateOptions, To, useNavigate } from "react-router-dom";
 interface Props {
   opened: boolean;
@@ -34,16 +33,10 @@ const menuItemsCrud: Array<MenuItem> = [
     text: "Paciente",
   },
   {
-    key: "atendente",
-    route: "/atendente",
-    icon: <ComputerIcon />,
-    text: "Atendente",
-  },
-  {
-    key: "medico",
-    route: "/medico",
+    key: "profissional",
+    route: "/profissional",
     icon: <HealthAndSafetyIcon />,
-    text: "Médico",
+    text: "Profissional",
   },
   {
     key: "local_atendimento",

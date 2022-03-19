@@ -2,20 +2,29 @@ import { Grid, TextField } from "@mui/material";
 import * as React from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { BaseSearchForm, FormInfoSection } from "../../shared";
-import { BuscarPacienteDto } from "./pacienteDto";
+import { BuscarProfissionalDto } from "./ProfissionalDto";
+import { TipoProfissionalSelect2 } from "./TipoProfissionalSelect2";
 
-const PacienteSearchForm = () => {
+const ProfissionalSearchForm = () => {
   const {
     register,
     handleSubmit,
     formState: { errors },
+    setValue,
+    control,
     reset,
-  } = useForm<BuscarPacienteDto>();
-  const onSubmit: SubmitHandler<BuscarPacienteDto> = (data) =>
+  } = useForm<BuscarProfissionalDto>();
+  const onSubmit: SubmitHandler<BuscarProfissionalDto> = (data) =>
     console.log(data);
   return (
-    <BaseSearchForm onSubmit={handleSubmit(onSubmit)} onClean={() => reset()}>
-      <FormInfoSection>Buscar Paciente</FormInfoSection>
+    <BaseSearchForm
+      onSubmit={handleSubmit(onSubmit)}
+      onClean={() => {
+        setValue("tipo", undefined);
+        reset();
+      }}
+    >
+      <FormInfoSection>Buscar Profissionais</FormInfoSection>
       <Grid item xs={12}>
         <TextField
           fullWidth
@@ -35,16 +44,15 @@ const PacienteSearchForm = () => {
         />
       </Grid>
       <Grid item xs={12}>
-        {/* <TextField
+        <TipoProfissionalSelect2 name="tipo" control={control} fullWidth />
+        {/* <TipoProfissionalSelect
           fullWidth
-          label="Telefone Celular"
-          error={!!errors.telefoneCelular?.message}
-          helperText={errors.telefoneCelular?.message}
-          {...register("telefoneCelular")}
+          {...register("tipo")}
+          label="Tipo de Profissional"
         /> */}
       </Grid>
     </BaseSearchForm>
   );
 };
 
-export { PacienteSearchForm };
+export { ProfissionalSearchForm };

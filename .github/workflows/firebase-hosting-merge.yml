@@ -6,6 +6,10 @@ name: Deploy to Firebase Hosting on merge
   push:
     branches:
       - main
+env:
+  REACT_APP_BACKEND_URL: ${{ secrets.REACT_APP_BACKEND_URL }}
+  REACT_APP_SAMPLE_USERNAME: ${{ secrets.REACT_APP_SAMPLE_USERNAME }}
+  REACT_APP_SAMPLE_PASSWORD: ${{ secrets.REACT_APP_SAMPLE_PASSWORD }}
 jobs:
   build_and_deploy:
     runs-on: ubuntu-latest

@@ -2,6 +2,8 @@ import { Button, ButtonGroup, ButtonGroupProps } from "@mui/material";
 import * as React from "react";
 import { Add, Edit, Remove } from "@mui/icons-material";
 import { useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
+import { useTheme } from "@material-ui/core";
 
 interface ActionBarProps extends ButtonGroupProps {}
 
@@ -10,7 +12,7 @@ interface CrudActionBarProps extends ActionBarProps {
   createRoute?: string;
   updateRoute?: string;
   afterActions?: any;
-  removeAction?: React.MouseEventHandler<HTMLButtonElement>;
+  removeAction?: any;
 }
 
 export const ActionBar = (props: ActionBarProps) => {
@@ -36,6 +38,7 @@ export const ActionBar = (props: ActionBarProps) => {
 
 export const CrudActionBar = (props: CrudActionBarProps) => {
   const navigate = useNavigate();
+  const theme = useTheme();
   return (
     <ActionBar variant="text" size="small" sx={{ mt: 2 }}>
       <Button
@@ -50,11 +53,30 @@ export const CrudActionBar = (props: CrudActionBarProps) => {
           props.updateRoute &&
           navigate(`${props.updateRoute}/${props.selectedRow}`)
         }
-        disabled={props.selectedRow == null}
+        disabled={!props.selectedRow}
       >
         Alterar
       </Button>
-      <Button startIcon={<Remove />} disabled={props.selectedRow == null}>
+      <Button
+        startIcon={<Remove />}
+        disabled={!props.selectedRow}
+        onClick={() => {
+          Swal.fire({
+            title: "Tem certeza?",
+            text: "Tem certeza que deseja remover esse registro ?",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: theme.palette.error.dark,
+            cancelButtonColor: theme.palette.primary.main,
+            confirmButtonText: "Sim",
+            cancelButtonText: "Não",
+          }).then((result) => {
+            if (result.isConfirmed) {
+              props.removeAction && props.removeAction(props.selectedRow);
+            }
+          });
+        }}
+      >
         Excluir
       </Button>
       {props.afterActions}

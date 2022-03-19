@@ -1,10 +1,8 @@
 import * as React from "react";
 import { CrudActionBar, MainModulePage } from "../../shared";
 import { GridColDef } from "@mui/x-data-grid";
-import { Button } from "@mui/material";
-import { CalendarToday } from "@mui/icons-material";
-import { PacienteSearchForm } from "./PacienteSearchForm";
-import { listPaciente } from "./pacienteService";
+import { ProfissionalSearchForm } from "./ProfissionalSearchForm";
+import { listProfissional } from "./ProfissionalService";
 import { ModuleDatagrid } from "../../shared/Datagrid";
 
 const columns: GridColDef[] = [
@@ -16,24 +14,24 @@ const columns: GridColDef[] = [
   },
   {
     field: "cpf",
-    headerName: "Cpf",
+    headerName: "Documento",
     flex: 1,
   },
   {
-    field: "dataNascimento",
-    headerName: "Data de Nascimento",
+    field: "atuacao",
+    headerName: "Tipo",
     flex: 1,
   },
 ];
 
-const PacienteMain = () => {
+const ProfissionalMain = () => {
   const [selectedRow, setSelectedRow] = React.useState<string | null>(null);
   const [rows, setRows] = React.useState([]);
   const [loadingData, setLoadingData] = React.useState(false);
   React.useEffect(() => {
     setLoadingData(true);
-    listPaciente().then((pacientes) => {
-      setRows(pacientes);
+    listProfissional().then((profissionais) => {
+      setRows(profissionais);
       setLoadingData(false);
     });
   }, []);
@@ -41,34 +39,27 @@ const PacienteMain = () => {
     return (
       <>
         <ModuleDatagrid
+          rows={rows}
           columns={columns}
           loading={loadingData}
-          rows={rows}
           onSelectedRowChange={setSelectedRow}
         />
         <CrudActionBar
-          createRoute="/paciente/cadastrar"
-          updateRoute="/paciente/alterar"
+          createRoute="/profissional/cadastrar"
+          updateRoute="/profissional/alterar"
           selectedRow={selectedRow}
-          afterActions={renderAfterActions()}
         />
       </>
     );
   }
-  function renderAfterActions() {
-    return (
-      <Button startIcon={<CalendarToday />} disabled={selectedRow == null}>
-        Próximas Consultas
-      </Button>
-    );
-  }
-
   return (
-    <MainModulePage
-      result={renderResult()}
-      searchForm={<PacienteSearchForm />}
-    />
+    <>
+      <MainModulePage
+        result={renderResult()}
+        searchForm={<ProfissionalSearchForm />}
+      />
+    </>
   );
 };
 
-export { PacienteMain };
+export { ProfissionalMain };
