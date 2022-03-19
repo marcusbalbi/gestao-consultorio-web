@@ -6,7 +6,6 @@ import { CalendarToday } from "@mui/icons-material";
 import { PacienteSearchForm } from "./PacienteSearchForm";
 import { listPaciente } from "./pacienteService";
 import { ModuleDatagrid } from "../../shared/Datagrid";
-import { parse } from "date-fns/esm";
 
 const columns: GridColDef[] = [
   { field: "id", headerName: "ID", flex: 0.1 },
