@@ -30,10 +30,21 @@ interface AuthContextData {
 
 const AuthContext = createContext<AuthContextData>({} as AuthContextData);
 
+const storagePrefix = "@gestao-consultorio-web";
+
+const buildStorageNamespace = (key: string): string =>
+  `${storagePrefix}:${key}`;
+
 const AuthProvider: React.FC = ({ children }) => {
   const [data, setData] = useState<AuthState>(() => {
-    const token = localStorage.getItem("@gestao-consultorio-web:token");
-    const dados = localStorage.getItem("@gestao-consultorio-web:dados");
+    const token = localStorage.getItem(buildStorageNamespace("token"));
+    const dados = localStorage.getItem(buildStorageNamespace("dados"));
+
+    request.interceptors.response.use(undefined, (err) => {
+      if (err.response.status === 401) {
+        signOut();
+      }
+    });
 
     if (token && dados) {
       const dadosParse = JSON.parse(dados);
@@ -41,6 +52,7 @@ const AuthProvider: React.FC = ({ children }) => {
       request.defaults.headers.common[
         "Authorization"
       ] = `Bearer ${dadosParse.token}`;
+
       return { token, dados: dadosParse };
     }
 
@@ -55,11 +67,8 @@ const AuthProvider: React.FC = ({ children }) => {
 
     const dados = response.data;
 
-    localStorage.setItem("@gestao-consultorio-web:token", dados.token);
-    localStorage.setItem(
-      "@gestao-consultorio-web:dados",
-      JSON.stringify(dados)
-    );
+    localStorage.setItem(buildStorageNamespace("token"), dados.token);
+    localStorage.setItem(buildStorageNamespace("dados"), JSON.stringify(dados));
 
     // Set default token access
     request.defaults.headers.common["Authorization"] = `Bearer ${dados.token}`;
@@ -70,7 +79,7 @@ const AuthProvider: React.FC = ({ children }) => {
   const updateUserData = (userData: UserData): void => {
     const novosDados = Object.assign({}, data, userData);
     localStorage.setItem(
-      "@gestao-consultorio-web:dados",
+      buildStorageNamespace("dados"),
       JSON.stringify(novosDados)
     );
     setData({
@@ -85,17 +94,17 @@ const AuthProvider: React.FC = ({ children }) => {
 
   const signOut = useCallback(() => {
     const dados = JSON.parse(
-      localStorage.getItem("@sombank:dados") || "{}"
+      localStorage.getItem(buildStorageNamespace("dados")) || "{}"
     ) as UserData;
-    localStorage.setItem("@sombank:last_login", dados?.usuario);
-    localStorage.removeItem("@sombank:token");
-    localStorage.removeItem("@sombank:dados");
+    localStorage.setItem(buildStorageNamespace("last_login"), dados?.usuario);
+    localStorage.removeItem(`${storagePrefix}:token`);
+    localStorage.removeItem(buildStorageNamespace("dados"));
 
     setData({} as AuthState);
   }, []);
 
   const getLastLogin = (): string => {
-    return localStorage.getItem("@gestao-consultorio-web:last_login") || "";
+    return localStorage.getItem(buildStorageNamespace("last_login")) || "";
   };
 
   return (
