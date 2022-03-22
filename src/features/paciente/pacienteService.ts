@@ -3,7 +3,8 @@ import { CadastrarPacienteDto } from "./pacienteDto";
 
 const createPaciente = (paciente: CadastrarPacienteDto) => {
   // prepare data to be sent:
-  // date on ISO format
+  const parsedData  = paciente;
+  request.post("/pacientes", parsedData);
 
   console.log(paciente, "============================================");
 };

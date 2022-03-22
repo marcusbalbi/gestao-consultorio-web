@@ -63,38 +63,38 @@ const PacienteForm = (props: PacienteFormProps) => {
       </Grid>
       <FormInfoSection>Endereço</FormInfoSection>
       <Grid item xs={12} md={10}>
-        <TextField fullWidth label="Logradouro" {...register("logradouro")} />
+        <TextField fullWidth label="Logradouro" {...register("endereco.logradouro")} />
       </Grid>
       <Grid item xs={12} md={2}>
-        <TextField fullWidth label="Número" {...register("numero")} />
+        <TextField fullWidth label="Número" {...register("endereco.numero")} />
       </Grid>
       <Grid item xs={12} md={2}>
         <TextField
           fullWidth
           label="CEP"
-          error={!!errors.cep?.message}
-          helperText={errors.cep?.message}
-          {...register("cep")}
+          error={!!errors.endereco?.cep?.message}
+          helperText={errors.endereco?.cep?.message}
+          {...register("endereco.cep")}
         />
       </Grid>
       <Grid item xs={12} md={4}>
-        <TextField fullWidth label="Bairro" {...register("bairro")} />
+        <TextField fullWidth label="Bairro" {...register("endereco.bairro")} />
       </Grid>
       <Grid item xs={12} md={4}>
-        <TextField fullWidth label="Cidade" {...register("cidade")} />
+        <TextField fullWidth label="Cidade" {...register("endereco.cidade")} />
       </Grid>
       <Grid item xs={12} md={2}>
         <UFSelect
           label="UF"
           fullWidth
-          {...register("estado")}
+          {...register("endereco.estado")}
           onChange={(e) => {
-            setValue("estado", e.target.value as string);
+            setValue("endereco.estado", e.target.value as string);
           }}
         />
       </Grid>
       <Grid item xs={12}>
-        <TextField fullWidth label="Complemento" {...register("complemento")} />
+        <TextField fullWidth label="Complemento" {...register("endereco.complemento")} />
       </Grid>
       <FormInfoSection>Contato</FormInfoSection>
       <Grid item xs={12} md={2}>

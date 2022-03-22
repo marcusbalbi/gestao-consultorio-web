@@ -3,20 +3,24 @@ export interface Telefone {
   telefone: string;
 }
 
+export interface Endereco {
+  logradouro: string;
+  bairro: string;
+  cidade: string;
+  estado: string;
+  cep: string;
+  complemento: string;
+  numero: string;
+}
+
 export interface CadastrarPacienteDto {
   nome: string;
   cpf: string;
   dataNascimento: string;
-  logradouro: string;
-  numero: string;
-  cep: string;
-  bairro: string;
-  cidade: string;
-  estado: string;
-  complemento: string;
-  telefone: Telefone; // nao tem no back ainda
-  email: string; // nao tem no back ainda
-  telefoneContato: string; // nao tem no back ainda
+  endereco: Endereco;
+  telefone: Telefone;
+  email: string;
+  telefoneContato: string;
 }
 
 export interface BuscarPacienteDto {
