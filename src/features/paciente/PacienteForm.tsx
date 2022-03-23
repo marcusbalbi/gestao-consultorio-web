@@ -20,25 +20,6 @@ const PacienteForm = (props: PacienteFormProps) => {
     formState: { errors, isDirty },
   } = useForm<CadastrarPacienteDto>({
     resolver: props.resolver,
-    defaultValues: {
-      cpf: "77195097064",
-      dataNascimento: "27/07/1989",
-      email: "balbimarcus@gmail.com",
-      endereco: {
-        cep: "28625530",
-        bairro: "Centro",
-        cidade: "Nova Friburgo",
-        estado: "RJ",
-        complemento: "teste",
-        logradouro: "Rua Teresopolis",
-        numero: "58",
-      },
-      nome: "Marcus Balbi",
-      telefone: {
-        ddd: "22",
-        telefone: "997264332",
-      },
-    },
   });
   const onSubmit: SubmitHandler<CadastrarPacienteDto> = (data) => {
     props.onSubmit(data);
@@ -110,7 +91,6 @@ const PacienteForm = (props: PacienteFormProps) => {
         <UFSelect
           name="UF"
           control={control}
-          defaultValue={"RJ"}
           fullWidth
           error={errors.endereco?.estado?.message ? true : false}
           helperText={errors.endereco?.estado?.message}
