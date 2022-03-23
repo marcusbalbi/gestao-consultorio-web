@@ -26,4 +26,9 @@ const listPaciente = async () => {
   return data;
 };
 
-export { createPaciente, listPaciente };
+const findPatient = async (id: string) => {
+  const { data } = await request.get("/pacientes/" + id);
+  return data;
+}
+
+export { createPaciente, listPaciente, findPatient };

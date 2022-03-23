@@ -37,7 +37,7 @@ const MainModulePage = (props: MainPageProps) => {
   const renderSearchForm = () => {
     return (
       props.searchForm && (
-        <Grid item xs={12} md={4} >
+        <Grid item xs={12} md={4}>
           <Paper sx={{ padding: (theme) => theme.spacing(2), height: "100%" }}>
             {props.searchForm}
           </Paper>

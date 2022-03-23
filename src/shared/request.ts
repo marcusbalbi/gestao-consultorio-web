@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios, { AxiosRequestConfig, AxiosResponse } from "axios";
 
 const request = axios.create({
   baseURL: process.env.REACT_APP_BACKEND_URL,
@@ -36,5 +36,45 @@ request.interceptors.response.use(
     return Promise.reject(err);
   }
 );
+
+const instances = [request];
+
+export const addGlobalRequestInterceptor = (
+  onFulfilled?: (
+    value: AxiosRequestConfig
+  ) => AxiosRequestConfig | Promise<AxiosRequestConfig>,
+  onRejected?: (error: any) => any
+) => {
+  const ids: number[] = [];
+  for (let instance of instances) {
+    const id = instance.interceptors.request.use(onFulfilled, onRejected);
+    ids.push(id);
+  }
+  return ids;
+};
+export const removeGlobalRequestInterceptor = (ids: number[]) => {
+  ids.forEach((id, index) => {
+    instances[index].interceptors.request.eject(id);
+  });
+};
+
+export const addGlobalResponseInterceptor = (
+  onFulfilled?: (
+    value: AxiosResponse
+  ) => AxiosResponse | Promise<AxiosResponse>,
+  onRejected?: (error: any) => any
+) => {
+  const ids: number[] = [];
+  for (let instance of instances) {
+    const id = instance.interceptors.response.use(onFulfilled, onRejected);
+    ids.push(id);
+  }
+  return ids;
+};
+export const removeGlobalResponseInterceptor = (ids: number[]) => {
+  ids.forEach((id, index) => {
+    instances[index].interceptors.response.eject(id);
+  });
+};
 
 export { request };

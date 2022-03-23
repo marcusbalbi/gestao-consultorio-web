@@ -6,7 +6,7 @@ import { CalendarToday } from "@mui/icons-material";
 import { PacienteSearchForm } from "./PacienteSearchForm";
 import { listPaciente } from "./pacienteService";
 import { ModuleDatagrid } from "../../shared/Datagrid";
-
+import LoadingContext from "../../hooks/loading/LoadingContext";
 const columns: GridColDef[] = [
   { field: "id", headerName: "ID", flex: 0.1 },
   {
@@ -29,12 +29,11 @@ const columns: GridColDef[] = [
 const PacienteMain = () => {
   const [selectedRow, setSelectedRow] = React.useState<string | null>(null);
   const [rows, setRows] = React.useState([]);
-  const [loadingData, setLoadingData] = React.useState(false);
+  const loading = React.useContext(LoadingContext);
+
   React.useEffect(() => {
-    setLoadingData(true);
     listPaciente().then((pacientes) => {
       setRows(pacientes);
-      setLoadingData(false);
     });
   }, []);
   function renderResult() {
@@ -42,7 +41,7 @@ const PacienteMain = () => {
       <>
         <ModuleDatagrid
           columns={columns}
-          loading={loadingData}
+          loading={loading}
           rows={rows}
           onSelectedRowChange={setSelectedRow}
         />

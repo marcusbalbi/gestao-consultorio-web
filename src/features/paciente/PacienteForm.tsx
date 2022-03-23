@@ -9,13 +9,14 @@ interface PacienteFormProps {
   resolver: any;
   updating?: boolean;
   onSubmit?: any;
+  data?: any;
 }
 
 const PacienteForm = (props: PacienteFormProps) => {
   const {
     register,
     handleSubmit,
-    // watch,
+    setValue,
     control,
     formState: { errors, isDirty },
   } = useForm<CadastrarPacienteDto>({
@@ -24,6 +25,15 @@ const PacienteForm = (props: PacienteFormProps) => {
   const onSubmit: SubmitHandler<CadastrarPacienteDto> = (data) => {
     props.onSubmit(data);
   };
+
+  React.useEffect(() => {
+    if (!props.data) {
+      return;
+    }
+    setValue("nome", props.data.nome);
+    setValue("cpf", props.data.cpf);
+  }, [props.data, setValue]);
+
   return (
     <BaseForm
       actionText={props.updating ? "Alterar" : "Cadastrar"}

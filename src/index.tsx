@@ -8,18 +8,21 @@ import { mainTheme } from "./config/themes";
 import { BrowserRouter } from "react-router-dom";
 import { AuthProvider } from "./hooks/auth";
 import { ToastProvider } from "./hooks/toast";
+import LoadingProvider from "./hooks/loading/LoadingProvider";
 ReactDOM.render(
   <React.StrictMode>
     <CssBaseline />
-    <ThemeProvider theme={mainTheme}>
-      <BrowserRouter>
-      <AuthProvider>
-          <ToastProvider>
-            <App />
-          </ToastProvider>
-        </AuthProvider>
-      </BrowserRouter>
-    </ThemeProvider>
+    <LoadingProvider>
+      <ThemeProvider theme={mainTheme}>
+        <BrowserRouter>
+          <AuthProvider>
+            <ToastProvider>
+              <App />
+            </ToastProvider>
+          </AuthProvider>
+        </BrowserRouter>
+      </ThemeProvider>
+    </LoadingProvider>
   </React.StrictMode>,
   document.getElementById("root")
 );
