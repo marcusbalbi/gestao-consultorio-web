@@ -15,14 +15,26 @@ request.interceptors.request.use((config) => {
   return config;
 });
 
-request.interceptors.response.use((config) => {
-  if (process.env.NODE_ENV !== "production") {
-    console.log("RESPONSE_LOGGER", {
-      data: config.data,
-      status: config.status,
-    });
+request.interceptors.response.use(
+  (config) => {
+    if (process.env.NODE_ENV !== "production") {
+      console.log("RESPONSE_LOGGER", {
+        data: config.data,
+        status: config.status,
+      });
+    }
+    return config;
+  },
+  (err) => {
+    if (process.env.NODE_ENV !== "production") {
+      console.log("RESPONSE_LOGGER_ERROR", {
+        data: err.response.data,
+        status: err.response.status,
+        err: err,
+      });
+    }
+    return Promise.reject(err);
   }
-  return config;
-});
+);
 
 export { request };

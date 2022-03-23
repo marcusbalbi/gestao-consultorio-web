@@ -44,6 +44,7 @@ const AuthProvider: React.FC = ({ children }) => {
       if (err.response.status === 401) {
         signOut();
       }
+      return Promise.reject(err);
     });
 
     if (token && dados) {

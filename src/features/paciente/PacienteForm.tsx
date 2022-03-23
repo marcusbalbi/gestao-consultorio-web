@@ -17,9 +17,29 @@ const PacienteForm = (props: PacienteFormProps) => {
     handleSubmit,
     // watch,
     setValue,
+    control,
     formState: { errors, isDirty },
   } = useForm<CadastrarPacienteDto>({
     resolver: props.resolver,
+    defaultValues: {
+      cpf: "77195097064",
+      dataNascimento: "27/07/1989",
+      email: "balbimarcus@gmail.com",
+      endereco: {
+        cep: "28625530",
+        bairro: "Centro",
+        cidade: "Nova Friburgo",
+        estado: "RJ",
+        complemento: "teste",
+        logradouro: "Rua Teresopolis",
+        numero: "58",
+      },
+      nome: "Marcus Balbi",
+      telefone: {
+        ddd: "22",
+        telefone: "997264332",
+      },
+    },
   });
   const onSubmit: SubmitHandler<CadastrarPacienteDto> = (data) => {
     props.onSubmit(data);
@@ -63,7 +83,11 @@ const PacienteForm = (props: PacienteFormProps) => {
       </Grid>
       <FormInfoSection>Endereço</FormInfoSection>
       <Grid item xs={12} md={10}>
-        <TextField fullWidth label="Logradouro" {...register("endereco.logradouro")} />
+        <TextField
+          fullWidth
+          label="Logradouro"
+          {...register("endereco.logradouro")}
+        />
       </Grid>
       <Grid item xs={12} md={2}>
         <TextField fullWidth label="Número" {...register("endereco.numero")} />
@@ -85,16 +109,20 @@ const PacienteForm = (props: PacienteFormProps) => {
       </Grid>
       <Grid item xs={12} md={2}>
         <UFSelect
-          label="UF"
+          name="UF"
+          control={control}
+          defaultValue={"RJ"}
           fullWidth
-          {...register("endereco.estado")}
-          onChange={(e) => {
-            setValue("endereco.estado", e.target.value as string);
-          }}
+          error={errors.endereco?.estado?.message ? true : false}
+          helperText={errors.endereco?.estado?.message}
         />
       </Grid>
       <Grid item xs={12}>
-        <TextField fullWidth label="Complemento" {...register("endereco.complemento")} />
+        <TextField
+          fullWidth
+          label="Complemento"
+          {...register("endereco.complemento")}
+        />
       </Grid>
       <FormInfoSection>Contato</FormInfoSection>
       <Grid item xs={12} md={2}>

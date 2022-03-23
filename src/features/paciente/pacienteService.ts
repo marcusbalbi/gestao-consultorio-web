@@ -1,6 +1,6 @@
 import { request } from "../../shared";
 import { CadastrarPacienteDto } from "./pacienteDto";
-import { cloneDeep } from "lodash";
+import { cloneDeep, get } from "lodash";
 import { parse } from "date-fns";
 
 const createPaciente = async (paciente: CadastrarPacienteDto) => {
@@ -11,9 +11,14 @@ const createPaciente = async (paciente: CadastrarPacienteDto) => {
     "dd/MM/yyyy",
     new Date()
   ).toISOString();
-  const result = await request.post("/pacientes", parsedData);
+  const result = await request.post("/pacientes", parsedData).catch((err) => {
+    console.log("PACIENTE_SERVICE", `Failed to Create Patient`, err);
+    throw new Error(
+      `Falha ao cadastrar paciente: ${get(err, 'response.data.message', 'Erro não Identificado')}`
+    );
+  });
 
-  console.log(result, "============================================");
+  return result;
 };
 
 const listPaciente = async () => {
