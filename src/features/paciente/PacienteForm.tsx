@@ -16,7 +16,6 @@ const PacienteForm = (props: PacienteFormProps) => {
     register,
     handleSubmit,
     // watch,
-    setValue,
     control,
     formState: { errors, isDirty },
   } = useForm<CadastrarPacienteDto>({

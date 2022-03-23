@@ -7,14 +7,17 @@ import { ThemeProvider } from "@mui/material/styles";
 import { mainTheme } from "./config/themes";
 import { BrowserRouter } from "react-router-dom";
 import { AuthProvider } from "./hooks/auth";
+import { ToastProvider } from "./hooks/toast";
 ReactDOM.render(
   <React.StrictMode>
     <CssBaseline />
     <ThemeProvider theme={mainTheme}>
       <BrowserRouter>
       <AuthProvider>
-        <App />
-      </AuthProvider>
+          <ToastProvider>
+            <App />
+          </ToastProvider>
+        </AuthProvider>
       </BrowserRouter>
     </ThemeProvider>
   </React.StrictMode>,
