@@ -31,11 +31,13 @@ const ToastProviderBuilder: React.FC = ({ children }) => {
         ...options,
       });
     },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     []
   );
 
   const removeToast = useCallback((key: string | undefined) => {
     return snackbar.closeSnackbar(key);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
