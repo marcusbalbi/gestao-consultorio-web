@@ -4,6 +4,7 @@ import { UFSelect, BaseForm, FormInfoSection } from "../../shared";
 import { useForm, SubmitHandler } from "react-hook-form";
 
 import { CadastrarPacienteDto } from "./pacienteDto";
+import { get } from "lodash";
 
 interface PacienteFormProps {
   resolver: any;
@@ -32,6 +33,10 @@ const PacienteForm = (props: PacienteFormProps) => {
     }
     setValue("nome", props.data.nome);
     setValue("cpf", props.data.cpf);
+    setValue("dataNascimento", props.data.dataNascimento);
+    setValue("email", props.data.email);
+    setValue("endereco", props.data.endereco);
+    setValue("telefone", props.data.telefone);
   }, [props.data, setValue]);
 
   return (
@@ -99,7 +104,7 @@ const PacienteForm = (props: PacienteFormProps) => {
       </Grid>
       <Grid item xs={12} md={2}>
         <UFSelect
-          name="UF"
+          name="endereco.estado"
           control={control}
           fullWidth
           error={errors.endereco?.estado?.message ? true : false}

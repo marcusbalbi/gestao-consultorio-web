@@ -2,7 +2,7 @@ import * as React from "react";
 import { Page } from "../../shared";
 import { yupResolver } from "@hookform/resolvers/yup";
 
-import { AtualizarProfissionalValidationSchema } from "./validationSchemas";
+import { AtualizarPacienteSchema } from "./validationSchemas";
 import { PacienteForm } from "./PacienteForm";
 import { useParams } from "react-router-dom";
 import { findPatient } from "./pacienteService";
@@ -27,7 +27,7 @@ const PacienteUpdate = () => {
         <PacienteForm
           updating
           data={formData}
-          resolver={yupResolver(AtualizarProfissionalValidationSchema)}
+          resolver={yupResolver(AtualizarPacienteSchema)}
         />
       )}
     </Page>

@@ -4,6 +4,7 @@ import { GridColDef } from "@mui/x-data-grid";
 import { ProfissionalSearchForm } from "./ProfissionalSearchForm";
 import { listProfissional } from "./ProfissionalService";
 import { ModuleDatagrid } from "../../shared/Datagrid";
+import LoadingContext from "../../hooks/loading/LoadingContext";
 
 const columns: GridColDef[] = [
   { field: "id", headerName: "ID", flex: 0.1 },
@@ -27,12 +28,10 @@ const columns: GridColDef[] = [
 const ProfissionalMain = () => {
   const [selectedRow, setSelectedRow] = React.useState<string | null>(null);
   const [rows, setRows] = React.useState([]);
-  const [loadingData, setLoadingData] = React.useState(false);
+  const loading = React.useContext(LoadingContext);
   React.useEffect(() => {
-    setLoadingData(true);
     listProfissional().then((profissionais) => {
       setRows(profissionais);
-      setLoadingData(false);
     });
   }, []);
   function renderResult() {
@@ -41,7 +40,7 @@ const ProfissionalMain = () => {
         <ModuleDatagrid
           rows={rows}
           columns={columns}
-          loading={loadingData}
+          loading={loading}
           onSelectedRowChange={setSelectedRow}
         />
         <CrudActionBar
