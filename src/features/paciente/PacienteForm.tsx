@@ -4,7 +4,6 @@ import { UFSelect, BaseForm, FormInfoSection } from "../../shared";
 import { useForm, SubmitHandler } from "react-hook-form";
 
 import { CadastrarPacienteDto } from "./pacienteDto";
-import { get } from "lodash";
 
 interface PacienteFormProps {
   resolver: any;

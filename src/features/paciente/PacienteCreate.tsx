@@ -16,6 +16,10 @@ const PacienteCreate = () => {
     try {
       const result = await createPaciente(data);
       if (result) {
+        addToast({
+          title: "Alterado com sucesso!",
+          type: "success",
+        });
         navigate("/paciente");
       }
     } catch (err: any) {
