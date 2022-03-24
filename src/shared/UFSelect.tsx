@@ -1,5 +1,13 @@
-import { FormControl, InputLabel, MenuItem, Select, SelectProps } from "@mui/material";
+import {
+  FormControl,
+  FormHelperText,
+  InputLabel,
+  MenuItem,
+  Select,
+  SelectProps,
+} from "@mui/material";
 import * as React from "react";
+import { Controller } from "react-hook-form";
 
 const data = [
   { name: "Acre", value: "AC" },
@@ -32,38 +40,46 @@ const data = [
 ];
 
 interface UFSelectProps extends SelectProps {
-  useCompleteName?: boolean;
+  name: string;
+  control: any;
+  helperText?: string;
 }
 
-const UFSelect = React.forwardRef((props: UFSelectProps, ref) => {
-  const getProps = () => {
-    return {
-      label: "UF",
-      ...props,
-    };
-  };
+const UFSelect = (props: UFSelectProps) => {
   return (
     <FormControl fullWidth={props.fullWidth}>
-      <InputLabel id="uf-select-label">{props.label}</InputLabel>
-      <Select
-        labelId="uf-select-label"
-        MenuProps={{ style: { maxHeight: "300px" } }}
-        ref={ref}
-        {...getProps()}
-      >
-        <MenuItem key="empty" value={undefined}>
-          Selecione
-        </MenuItem>
-        {data.map((uf) => {
+      <InputLabel error={props.error} id="uf-select-label">
+        {props.label || "UF"}
+      </InputLabel>
+      <Controller
+        name={props.name}
+        control={props.control}
+        defaultValue={props.defaultValue || "" }
+        render={({ field }) => {
           return (
-            <MenuItem key={uf.value} value={uf.value}>
-              {props.useCompleteName ? uf.name : uf.value}
-            </MenuItem>
+            <Select
+              MenuProps={{ style: { maxHeight: "300px" } }}
+              {...field}
+              error={props.error}
+              labelId="uf-select-label"
+            >
+              <MenuItem key="empty" value={""}>
+                Selecione
+              </MenuItem>
+              {data.map((data) => {
+                return (
+                  <MenuItem key={data.name} value={data.value}>
+                    {data.name}
+                  </MenuItem>
+                );
+              })}
+            </Select>
           );
-        })}
-      </Select>
+        }}
+      />
+      <FormHelperText error={props.error}>{props.helperText}</FormHelperText>
     </FormControl>
   );
-});
+};
 
 export { UFSelect };

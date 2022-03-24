@@ -98,7 +98,7 @@ export const CadastrarPacienteValdationSchema = yup.object().shape({
   }), // nao tem no back ainda
 });
 
-export const AtualizarProfissionalValidationSchema = yup.object().shape({
+export const AtualizarPacienteSchema = yup.object().shape({
   nome: yup.string().required(),
   cpf: yup
     .string()

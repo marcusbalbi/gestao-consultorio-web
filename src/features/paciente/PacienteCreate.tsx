@@ -6,10 +6,28 @@ import { CadastrarPacienteDto } from "./pacienteDto";
 import { CadastrarPacienteValdationSchema } from "./validationSchemas";
 import { createPaciente } from "./pacienteService";
 import { PacienteForm } from "./PacienteForm";
+import { useNavigate } from "react-router-dom";
+import { useToast } from "../../hooks/toast";
 
 const PacienteCreate = () => {
-  const onSubmit = (data: CadastrarPacienteDto) => {
-    createPaciente(data);
+  const navigate = useNavigate();
+  const { addToast } = useToast();
+  const onSubmit = async (data: CadastrarPacienteDto) => {
+    try {
+      const result = await createPaciente(data);
+      if (result) {
+        addToast({
+          title: "Alterado com sucesso!",
+          type: "success",
+        });
+        navigate("/paciente");
+      }
+    } catch (err: any) {
+      addToast({
+        title: err.message,
+        type: "error",
+      });
+    }
   };
   return (
     <Page>

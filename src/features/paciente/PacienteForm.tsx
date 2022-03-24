@@ -9,14 +9,15 @@ interface PacienteFormProps {
   resolver: any;
   updating?: boolean;
   onSubmit?: any;
+  data?: any;
 }
 
 const PacienteForm = (props: PacienteFormProps) => {
   const {
     register,
     handleSubmit,
-    // watch,
     setValue,
+    control,
     formState: { errors, isDirty },
   } = useForm<CadastrarPacienteDto>({
     resolver: props.resolver,
@@ -24,6 +25,19 @@ const PacienteForm = (props: PacienteFormProps) => {
   const onSubmit: SubmitHandler<CadastrarPacienteDto> = (data) => {
     props.onSubmit(data);
   };
+
+  React.useEffect(() => {
+    if (!props.data) {
+      return;
+    }
+    setValue("nome", props.data.nome);
+    setValue("cpf", props.data.cpf);
+    setValue("dataNascimento", props.data.dataNascimento);
+    setValue("email", props.data.email);
+    setValue("endereco", props.data.endereco);
+    setValue("telefone", props.data.telefone);
+  }, [props.data, setValue]);
+
   return (
     <BaseForm
       actionText={props.updating ? "Alterar" : "Cadastrar"}
@@ -63,38 +77,45 @@ const PacienteForm = (props: PacienteFormProps) => {
       </Grid>
       <FormInfoSection>Endereço</FormInfoSection>
       <Grid item xs={12} md={10}>
-        <TextField fullWidth label="Logradouro" {...register("logradouro")} />
+        <TextField
+          fullWidth
+          label="Logradouro"
+          {...register("endereco.logradouro")}
+        />
       </Grid>
       <Grid item xs={12} md={2}>
-        <TextField fullWidth label="Número" {...register("numero")} />
+        <TextField fullWidth label="Número" {...register("endereco.numero")} />
       </Grid>
       <Grid item xs={12} md={2}>
         <TextField
           fullWidth
           label="CEP"
-          error={!!errors.cep?.message}
-          helperText={errors.cep?.message}
-          {...register("cep")}
+          error={!!errors.endereco?.cep?.message}
+          helperText={errors.endereco?.cep?.message}
+          {...register("endereco.cep")}
         />
       </Grid>
       <Grid item xs={12} md={4}>
-        <TextField fullWidth label="Bairro" {...register("bairro")} />
+        <TextField fullWidth label="Bairro" {...register("endereco.bairro")} />
       </Grid>
       <Grid item xs={12} md={4}>
-        <TextField fullWidth label="Cidade" {...register("cidade")} />
+        <TextField fullWidth label="Cidade" {...register("endereco.cidade")} />
       </Grid>
       <Grid item xs={12} md={2}>
         <UFSelect
-          label="UF"
+          name="endereco.estado"
+          control={control}
           fullWidth
-          {...register("estado")}
-          onChange={(e) => {
-            setValue("estado", e.target.value as string);
-          }}
+          error={errors.endereco?.estado?.message ? true : false}
+          helperText={errors.endereco?.estado?.message}
         />
       </Grid>
       <Grid item xs={12}>
-        <TextField fullWidth label="Complemento" {...register("complemento")} />
+        <TextField
+          fullWidth
+          label="Complemento"
+          {...register("endereco.complemento")}
+        />
       </Grid>
       <FormInfoSection>Contato</FormInfoSection>
       <Grid item xs={12} md={2}>

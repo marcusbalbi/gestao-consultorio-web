@@ -21,6 +21,7 @@ interface SearchFormProps {
   children?: any;
   onSubmit?: any;
   isDirty?: boolean;
+  loading?: boolean;
   onClean?: React.MouseEventHandler<HTMLButtonElement>;
 }
 
@@ -35,6 +36,7 @@ const FormInfoSection = (props: FormInfoSectionProps) => {
 const BaseForm = (props: CreateFormProps) => {
   const navigate = useNavigate();
   const theme = useTheme();
+
   return (
     <form onSubmit={props.onSubmit}>
       <Grid container spacing={2}>
@@ -86,7 +88,13 @@ const BaseSearchForm = (props: SearchFormProps) => {
             <Button type="submit" color="info" startIcon={<Search />}>
               Buscar
             </Button>
-            <Button onClick={props.onClean} color="error" startIcon={<DeleteSweep />} >Limpar</Button>
+            <Button
+              onClick={props.onClean}
+              color="error"
+              startIcon={<DeleteSweep />}
+            >
+              Limpar
+            </Button>
           </ActionBar>
         </Grid>
       </Grid>
