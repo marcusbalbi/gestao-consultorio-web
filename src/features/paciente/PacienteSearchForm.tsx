@@ -4,7 +4,11 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import { BaseSearchForm, FormInfoSection } from "../../shared";
 import { BuscarPacienteDto } from "./pacienteDto";
 
-const PacienteSearchForm = () => {
+interface PacienteSearchFormProps {
+  onSubmit?: any;
+}
+
+const PacienteSearchForm = (props: PacienteSearchFormProps) => {
   const {
     register,
     handleSubmit,
@@ -12,7 +16,7 @@ const PacienteSearchForm = () => {
     reset,
   } = useForm<BuscarPacienteDto>();
   const onSubmit: SubmitHandler<BuscarPacienteDto> = (data) =>
-    console.log(data);
+    props.onSubmit && props.onSubmit(data);
   return (
     <BaseSearchForm onSubmit={handleSubmit(onSubmit)} onClean={() => reset()}>
       <FormInfoSection>Buscar Paciente</FormInfoSection>

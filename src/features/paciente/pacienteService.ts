@@ -54,4 +54,15 @@ const findPatient = async (id: string) => {
   return data;
 };
 
-export { createPaciente, listPaciente, findPatient, updatePaciente };
+const removePatient = async (id: string) => {
+  const response = await request.delete("/pacientes/".concat(id));
+  return response;
+}
+
+export {
+  createPaciente,
+  listPaciente,
+  findPatient,
+  updatePaciente,
+  removePatient,
+};

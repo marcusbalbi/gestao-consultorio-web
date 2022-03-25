@@ -4,9 +4,11 @@ import { GridColDef } from "@mui/x-data-grid";
 import { Button } from "@mui/material";
 import { CalendarToday } from "@mui/icons-material";
 import { PacienteSearchForm } from "./PacienteSearchForm";
-import { listPaciente } from "./pacienteService";
+import { listPaciente, removePatient } from "./pacienteService";
 import { ModuleDatagrid } from "../../shared/Datagrid";
 import LoadingContext from "../../hooks/loading/LoadingContext";
+import { useToast } from "../../hooks/toast";
+import { BuscarPacienteDto } from "./pacienteDto";
 const columns: GridColDef[] = [
   { field: "id", headerName: "ID", flex: 0.1 },
   {
@@ -30,11 +32,37 @@ const PacienteMain = () => {
   const [selectedRow, setSelectedRow] = React.useState<string | null>(null);
   const [rows, setRows] = React.useState([]);
   const loading = React.useContext(LoadingContext);
+  const { addToast } = useToast();
 
-  React.useEffect(() => {
+  const loadPatients = () => {
     listPaciente().then((pacientes) => {
       setRows(pacientes);
     });
+  };
+
+  const searchPatients = (data: BuscarPacienteDto) => {
+    console.log(data,  'to aqui');
+  };
+
+  const handleRemove = (id: string) => {
+    console.log("remove ele!", id);
+    removePatient(id)
+      .then(() => {
+        loadPatients();
+        addToast({
+          title: "Paciente removido!",
+        });
+      })
+      .catch(() => {
+        addToast({
+          title:
+            "Erro ao Remover paciente, confira se o mesmo já não foi removido ou tente novamente",
+        });
+      });
+  };
+
+  React.useEffect(() => {
+    loadPatients();
   }, []);
   function renderResult() {
     return (
@@ -49,6 +77,7 @@ const PacienteMain = () => {
           createRoute="/paciente/cadastrar"
           updateRoute="/paciente/alterar"
           selectedRow={selectedRow}
+          removeAction={handleRemove}
           afterActions={renderAfterActions()}
         />
       </>
@@ -65,7 +94,7 @@ const PacienteMain = () => {
   return (
     <MainModulePage
       result={renderResult()}
-      searchForm={<PacienteSearchForm />}
+      searchForm={<PacienteSearchForm onSubmit={searchPatients} />}
     />
   );
 };
