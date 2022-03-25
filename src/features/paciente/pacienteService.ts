@@ -1,16 +1,11 @@
-import { request } from "../../shared";
+import { parseServerFormat, parseUIFormat, request } from "../../shared";
 import { CadastrarPacienteDto } from "./pacienteDto";
 import { cloneDeep, get } from "lodash";
-import { format, parse } from "date-fns";
 
 const createPaciente = async (paciente: CadastrarPacienteDto) => {
   // prepare data to be sent:
   const parsedData = cloneDeep(paciente);
-  parsedData.dataNascimento = parse(
-    parsedData.dataNascimento,
-    "dd/MM/yyyy",
-    new Date()
-  ).toISOString();
+  parsedData.dataNascimento = parseServerFormat(parsedData.dataNascimento);
   const result = await request.post("/pacientes", parsedData).catch((err) => {
     console.log("PACIENTE_SERVICE", `Failed to Create Patient`, err);
     throw new Error(
@@ -28,11 +23,7 @@ const createPaciente = async (paciente: CadastrarPacienteDto) => {
 const updatePaciente = async (id: string, paciente: CadastrarPacienteDto) => {
   // prepare data to be sent:
   const parsedData = cloneDeep(paciente);
-  parsedData.dataNascimento = parse(
-    parsedData.dataNascimento,
-    "dd/MM/yyyy",
-    new Date()
-  ).toISOString();
+  parsedData.dataNascimento = parseServerFormat(parsedData.dataNascimento);
   const result = await request
     .put("/pacientes/".concat(id), parsedData)
     .catch((err) => {
@@ -51,15 +42,15 @@ const updatePaciente = async (id: string, paciente: CadastrarPacienteDto) => {
 
 const listPaciente = async () => {
   const { data } = await request.get("/pacientes");
+  data.forEach((paciente: CadastrarPacienteDto) => {
+    paciente.dataNascimento = parseUIFormat(paciente.dataNascimento);
+  });
   return data;
 };
 
 const findPatient = async (id: string) => {
   const { data } = await request.get("/pacientes/".concat(id));
-  data.dataNascimento = format(
-    parse(data.dataNascimento, "yyyy-MM-dd", new Date()),
-    "dd/MM/yyyy"
-  );
+  data.dataNascimento = parseUIFormat(data.dataNascimento);
   return data;
 };
 
