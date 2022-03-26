@@ -5,10 +5,11 @@ import { AgendamentoSearchForm } from "./AgendamentoSearchForm";
 import { listAgendamentos } from "./agendamentoService";
 import { ModuleDatagrid } from "../../shared/Datagrid";
 import LoadingContext from "../../hooks/loading/LoadingContext";
-import { AgendarDto, BuscarAgendamentoDto } from "./agendamentoDto";
+import { BuscarAgendamentoDto } from "./agendamentoDto";
 import { Button } from "@mui/material";
 import { isPast, parse } from "date-fns";
 import { useToast } from "../../hooks/toast";
+import { useNavigate } from "react-router-dom";
 
 const columns: GridColDef[] = [
   { field: "id", headerName: "ID", flex: 0.1 },
@@ -53,6 +54,7 @@ const AgendamentoMain = () => {
   const [rows, setRows] = React.useState([]);
   const loading = React.useContext(LoadingContext);
   const { addToast } = useToast();
+  const navigate = useNavigate()
 
   const loadAgendamentos = (data: BuscarAgendamentoDto = {}) => {
     listAgendamentos(data).then((agendamentos) => {
@@ -118,7 +120,9 @@ const AgendamentoMain = () => {
           onSelectedRowChange={setSelectedRow}
         />
         <ActionBar>
-          <Button>Novo Agendamento</Button>
+          <Button onClick={() => {
+            navigate('/agenda/novo');
+          }} >Novo Agendamento</Button>
           <Button
             disabled={selectedRow === null}
             onClick={handleSolicitarConfirmacao}

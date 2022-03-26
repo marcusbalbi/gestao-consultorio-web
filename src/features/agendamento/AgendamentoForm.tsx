@@ -1,33 +1,56 @@
-import { Grid } from "@mui/material";
+import { Autocomplete, Grid, TextField } from "@mui/material";
 import * as React from "react";
-import { BaseForm, FormInfoSection } from "../../shared";
+import { BaseForm } from "../../shared";
 import { useForm, SubmitHandler } from "react-hook-form";
 
 import { AgendarDto } from "./agendamentoDto";
+import { listPaciente } from "../paciente/pacienteService";
+import { CadastrarPacienteDto } from "../paciente/pacienteDto";
+import { listProfissional } from "../profissional/ProfissionalService";
+import { CadastrarProfissionalDto } from "../profissional/ProfissionalDto";
 
 interface AgendamentoFormProps {
   resolver: any;
   onSubmit?: any;
-  data?: any;
 }
 
 const AgendamentoForm = (props: AgendamentoFormProps) => {
   const {
     handleSubmit,
-    setValue,
     formState: { isDirty },
   } = useForm<AgendarDto>({
     resolver: props.resolver,
   });
+  const [pacientes, setPacientes] = React.useState([]);
+  const [profissionais, setProfissionais] = React.useState([]);
   const onSubmit: SubmitHandler<AgendarDto> = (data) => {
     props.onSubmit(data);
   };
 
   React.useEffect(() => {
-    if (!props.data) {
-      return;
-    }
-  }, [props.data, setValue]);
+    listPaciente().then((data) => {
+      setPacientes(
+        data.map((paciente: CadastrarPacienteDto) => {
+          return {
+            label: paciente.nome,
+            id: paciente.id,
+          };
+        })
+      );
+    });
+
+    listProfissional().then((data) => {
+      setProfissionais(
+        data.map((profissional: CadastrarProfissionalDto) => {
+          return {
+            label: profissional.nome,
+            id: profissional.id,
+          };
+        })
+      );
+    });
+
+  }, []);
 
   return (
     <BaseForm
@@ -35,16 +58,23 @@ const AgendamentoForm = (props: AgendamentoFormProps) => {
       isDirty={isDirty}
       onSubmit={handleSubmit(onSubmit)}
     >
-      <FormInfoSection>Informações Pessoais</FormInfoSection>
-      <Grid item xs={12}>
-        {/* <TextField
+      <Grid item xs={12} md={4}>
+        <Autocomplete
           fullWidth
-          label="Nome Completo"
-          placeholder="Ex: João Silva"
-          error={!!errors.nome?.message}
-          helperText={errors.nome?.message}
-          {...register("nome")}
-        /> */}
+          disablePortal
+          id="combo-paciente"
+          options={pacientes}
+          renderInput={(params) => <TextField {...params} label="Paciente" />}
+        />
+      </Grid>
+      <Grid item xs={12} md={4}>
+        <Autocomplete
+          fullWidth
+          disablePortal
+          id="combo-profissional"
+          options={profissionais}
+          renderInput={(params) => <TextField {...params} label="Profissional" />}
+        />
       </Grid>
     </BaseForm>
   );
