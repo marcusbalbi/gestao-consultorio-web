@@ -5,8 +5,11 @@ import { AgendamentoSearchForm } from "./AgendamentoSearchForm";
 import { listAgendamentos } from "./agendamentoService";
 import { ModuleDatagrid } from "../../shared/Datagrid";
 import LoadingContext from "../../hooks/loading/LoadingContext";
-import { BuscarAgendamentoDto } from "./agendamentoDto";
+import { AgendarDto, BuscarAgendamentoDto } from "./agendamentoDto";
 import { Button } from "@mui/material";
+import { isPast, parse } from "date-fns";
+import { useToast } from "../../hooks/toast";
+
 const columns: GridColDef[] = [
   { field: "id", headerName: "ID", flex: 0.1 },
   {
@@ -22,7 +25,7 @@ const columns: GridColDef[] = [
     headerName: "Profissional",
     flex: 1,
     valueGetter: (v) => {
-      return v.row.profissional.nome;
+      return `${v.row.profissional.nome} - ${v.row.profissional.atuacao}`;
     },
   },
   {
@@ -49,11 +52,40 @@ const AgendamentoMain = () => {
   const [selectedRow, setSelectedRow] = React.useState<string | null>(null);
   const [rows, setRows] = React.useState([]);
   const loading = React.useContext(LoadingContext);
+  const { addToast } = useToast();
 
   const loadAgendamentos = (data: BuscarAgendamentoDto = {}) => {
     listAgendamentos(data).then((agendamentos) => {
       setRows(agendamentos);
     });
+  };
+
+  const validateAction = () => {
+    if (selectedRow === null) {
+      return false;
+    }
+    const row: any = rows.find((r: any) => r.id === selectedRow);
+
+    const date = parse(row.marcacao, "dd/MM/yyyy HH:mm", new Date());
+
+    if (isPast(date)) {
+      return false;
+    }
+
+    return true;
+  };
+
+  const handleSolicitarConfirmacao = () => {
+    if (validateAction() === false) {
+      addToast({
+        title:
+          "Falha ao Solicitar Confirmação, verifique se a linha está selecionada e o agendamento é futuro",
+        type: "error",
+        options: {
+          autoHideDuration: 5000,
+        },
+      });
+    }
   };
 
   React.useEffect(() => {
@@ -70,7 +102,12 @@ const AgendamentoMain = () => {
         />
         <ActionBar>
           <Button>Novo Agendamento</Button>
-          <Button disabled={selectedRow === null}>Solicitar Confirmação</Button>
+          <Button
+            disabled={selectedRow === null}
+            onClick={handleSolicitarConfirmacao}
+          >
+            Solicitar Confirmação
+          </Button>
           <Button disabled={selectedRow === null}>Confirmado Sim</Button>
           <Button disabled={selectedRow === null}>Confirmado Não</Button>
         </ActionBar>
