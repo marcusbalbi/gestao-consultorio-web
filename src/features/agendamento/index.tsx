@@ -12,11 +12,17 @@ const columns: GridColDef[] = [
     field: "paciente",
     headerName: "Paciente",
     flex: 1,
+    valueGetter: (v) => {
+      return v.row.paciente.nome;
+    },
   },
   {
     field: "profissional",
     headerName: "Profissional",
     flex: 1,
+    valueGetter: (v) => {
+      return v.row.profissional.nome;
+    },
   },
   {
     field: "marcacao",
@@ -25,8 +31,16 @@ const columns: GridColDef[] = [
   },
   {
     field: "confirmado",
-    headerName: "Confirmado ?",
+    headerName: "Confirmado?",
     flex: 1,
+    valueGetter: (v) => {
+      if (v.row.confirmado === true) {
+        return "SIM";
+      } else if (v.row.confirmado === false) {
+        return "NÃO";
+      }
+      return "Não Confirmado";
+    },
   },
 ];
 

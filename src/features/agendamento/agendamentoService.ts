@@ -22,12 +22,12 @@ const agendar = async (dadosAgendamento: AgendarDto) => {
 };
 
 const listAgendamentos = async (busca: BuscarAgendamentoDto = {}) => {
-  const { data } = await request.get("/pacientes", {
+  const { data } = await request.get("/agendamentos", {
     params: busca,
   });
-  data.forEach((agendamento: AgendarDto) => {
-    agendamento.marcacao = parseUIFormat(agendamento.marcacao);
-  });
+  // data.forEach((agendamento: AgendarDto) => {
+  //   agendamento.marcacao = parseUIFormat(agendamento.marcacao);
+  // });
   return data;
 };
 
