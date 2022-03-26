@@ -34,13 +34,7 @@ const PacienteMain = () => {
   const loading = React.useContext(LoadingContext);
   const { addToast } = useToast();
 
-  const loadPatients = () => {
-    listPaciente().then((pacientes) => {
-      setRows(pacientes);
-    });
-  };
-
-  const searchPatients = (data: BuscarPacienteDto) => {
+  const loadPatients = (data: BuscarPacienteDto = {}) => {
     listPaciente(data).then((pacientes) => {
       setRows(pacientes);
     });
@@ -96,7 +90,7 @@ const PacienteMain = () => {
   return (
     <MainModulePage
       result={renderResult()}
-      searchForm={<PacienteSearchForm onSubmit={searchPatients} />}
+      searchForm={<PacienteSearchForm onSubmit={loadPatients} />}
     />
   );
 };
