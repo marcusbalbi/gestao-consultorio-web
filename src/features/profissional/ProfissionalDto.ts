@@ -6,6 +6,7 @@ export enum TipoProfissinal {
 }
 
 export interface CadastrarProfissionalDto {
+  id?: string;
   nome: string;
   cpf: string; // loga com cpf?
   tipoProfissional: TipoProfissinal;

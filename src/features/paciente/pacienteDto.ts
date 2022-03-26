@@ -14,6 +14,7 @@ export interface Endereco {
 }
 
 export interface CadastrarPacienteDto {
+  id?: string;
   nome: string;
   cpf: string;
   dataNascimento: string;
