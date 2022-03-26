@@ -41,7 +41,9 @@ const PacienteMain = () => {
   };
 
   const searchPatients = (data: BuscarPacienteDto) => {
-    console.log(data,  'to aqui');
+    listPaciente(data).then((pacientes) => {
+      setRows(pacientes);
+    });
   };
 
   const handleRemove = (id: string) => {

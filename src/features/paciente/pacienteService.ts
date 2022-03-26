@@ -1,5 +1,5 @@
 import { parseServerFormat, parseUIFormat, request } from "../../shared";
-import { CadastrarPacienteDto } from "./pacienteDto";
+import { BuscarPacienteDto, CadastrarPacienteDto } from "./pacienteDto";
 import { cloneDeep, get } from "lodash";
 
 const createPaciente = async (paciente: CadastrarPacienteDto) => {
@@ -40,8 +40,10 @@ const updatePaciente = async (id: string, paciente: CadastrarPacienteDto) => {
   return result;
 };
 
-const listPaciente = async () => {
-  const { data } = await request.get("/pacientes");
+const listPaciente = async (busca: BuscarPacienteDto = {}) => {
+  const { data } = await request.get("/pacientes", {
+    params: busca,
+  });
   data.forEach((paciente: CadastrarPacienteDto) => {
     paciente.dataNascimento = parseUIFormat(paciente.dataNascimento);
   });
@@ -57,7 +59,7 @@ const findPatient = async (id: string) => {
 const removePatient = async (id: string) => {
   const response = await request.delete("/pacientes/".concat(id));
   return response;
-}
+};
 
 export {
   createPaciente,
