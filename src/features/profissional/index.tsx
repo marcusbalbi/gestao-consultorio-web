@@ -5,6 +5,7 @@ import { ProfissionalSearchForm } from "./ProfissionalSearchForm";
 import { listProfissional } from "./ProfissionalService";
 import { ModuleDatagrid } from "../../shared/Datagrid";
 import LoadingContext from "../../hooks/loading/LoadingContext";
+import { BuscarProfissionalDto } from "./ProfissionalDto";
 
 const columns: GridColDef[] = [
   { field: "id", headerName: "ID", flex: 0.1 },
@@ -29,6 +30,13 @@ const ProfissionalMain = () => {
   const [selectedRow, setSelectedRow] = React.useState<string | null>(null);
   const [rows, setRows] = React.useState([]);
   const loading = React.useContext(LoadingContext);
+
+  const searchProfissionais = (data: BuscarProfissionalDto) => {
+    listProfissional(data).then((profissionais) => {
+      setRows(profissionais);
+    });
+  };
+
   React.useEffect(() => {
     listProfissional().then((profissionais) => {
       setRows(profissionais);
@@ -55,7 +63,7 @@ const ProfissionalMain = () => {
     <>
       <MainModulePage
         result={renderResult()}
-        searchForm={<ProfissionalSearchForm />}
+        searchForm={<ProfissionalSearchForm onSubmit={searchProfissionais} />}
       />
     </>
   );

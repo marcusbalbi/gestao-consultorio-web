@@ -23,7 +23,7 @@ const ProfissionalForm = (props: ProfissionalFormProps) => {
     resolver: props.resolver,
   });
   const onSubmit: SubmitHandler<CadastrarProfissionalDto> = (data) => {
-    onSubmit(data);
+    props.onSubmit && props.onSubmit(data);
   };
   return (
     <BaseForm
@@ -63,11 +63,11 @@ const ProfissionalForm = (props: ProfissionalFormProps) => {
       </Grid>
       <Grid item xs={12} md={6}>
         <TipoProfissionalSelect2
-          name="tipo"
+          name="tipoProfissional"
           control={control}
           fullWidth
-          error={errors.tipo?.message ? true : false}
-          helperText={errors.tipo?.message}
+          error={errors.tipoProfissional?.message ? true : false}
+          helperText={errors.tipoProfissional?.message}
         />
       </Grid>
     </BaseForm>

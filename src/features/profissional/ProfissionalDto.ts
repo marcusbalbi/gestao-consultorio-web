@@ -8,12 +8,12 @@ export enum TipoProfissinal {
 export interface CadastrarProfissionalDto {
   nome: string;
   cpf: string; // loga com cpf?
-  tipo: TipoProfissinal;
+  tipoProfissional: TipoProfissinal;
   senha: string;
 }
 
 export interface BuscarProfissionalDto {
   nome?: string;
   cpf?: string;
-  tipo?: TipoProfissinal;
+  tipoProfissional?: TipoProfissinal;
 }
