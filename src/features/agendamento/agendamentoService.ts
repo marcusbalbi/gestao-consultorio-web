@@ -1,6 +1,6 @@
 import { AgendarDto, BuscarAgendamentoDto } from "./agendamentoDto";
 import { cloneDeep, get } from "lodash";
-import { parseServerFormat, parseUIFormat } from "../../shared/utils";
+import { parseServerFormat } from "../../shared/utils";
 import { request } from "../../shared/request";
 
 const agendar = async (dadosAgendamento: AgendarDto) => {

@@ -1,6 +1,6 @@
-import { Grid, TextField } from "@mui/material";
+import { Grid } from "@mui/material";
 import * as React from "react";
-import {  BaseForm, FormInfoSection } from "../../shared";
+import { BaseForm, FormInfoSection } from "../../shared";
 import { useForm, SubmitHandler } from "react-hook-form";
 
 import { AgendarDto } from "./agendamentoDto";
@@ -13,11 +13,9 @@ interface AgendamentoFormProps {
 
 const AgendamentoForm = (props: AgendamentoFormProps) => {
   const {
-    register,
     handleSubmit,
     setValue,
-    control,
-    formState: { errors, isDirty },
+    formState: { isDirty },
   } = useForm<AgendarDto>({
     resolver: props.resolver,
   });

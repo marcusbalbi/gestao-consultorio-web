@@ -70,9 +70,9 @@ const AgendamentoMain = () => {
         />
         <ActionBar>
           <Button>Novo Agendamento</Button>
-          <Button>Solicitar Confirmação</Button>
-          <Button>Confirmado Sim</Button>
-          <Button>Confirmado Não</Button>
+          <Button disabled={selectedRow === null}>Solicitar Confirmação</Button>
+          <Button disabled={selectedRow === null}>Confirmado Sim</Button>
+          <Button disabled={selectedRow === null}>Confirmado Não</Button>
         </ActionBar>
       </>
     );
