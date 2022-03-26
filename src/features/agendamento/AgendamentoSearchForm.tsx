@@ -1,4 +1,10 @@
-import { Grid, TextField } from "@mui/material";
+import {
+  Checkbox,
+  FormControlLabel,
+  FormGroup,
+  Grid,
+  TextField,
+} from "@mui/material";
 import * as React from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { BaseSearchForm, FormInfoSection } from "../../shared";
@@ -25,7 +31,7 @@ const AgendamentoSearchForm = (props: AgendamentoSearchFormProps) => {
           fullWidth
           label="Nome do Paciente"
           placeholder="Ex: João Silva"
-          {...register("nomePaciente")}
+          {...register("nome")}
         />
       </Grid>
       <Grid item xs={12}>
@@ -33,19 +39,19 @@ const AgendamentoSearchForm = (props: AgendamentoSearchFormProps) => {
           fullWidth
           label="CPF do Paciente"
           placeholder="00000000000"
-          error={!!errors.cpfPaciente?.message}
-          helperText={errors.cpfPaciente?.message}
-          {...register("cpfPaciente")}
+          error={!!errors.cpf?.message}
+          helperText={errors.cpf?.message}
+          {...register("cpf")}
         />
       </Grid>
       <Grid item xs={12}>
-        {/* <TextField
-          fullWidth
-          label="Telefone Celular"
-          error={!!errors.telefoneCelular?.message}
-          helperText={errors.telefoneCelular?.message}
-          {...register("telefoneCelular")}
-        /> */}
+        <FormGroup>
+          <FormControlLabel
+            control={<Checkbox defaultChecked />}
+            label="Apenas Futuro"
+            {...register("proximas")}
+          />
+        </FormGroup>
       </Grid>
     </BaseSearchForm>
   );

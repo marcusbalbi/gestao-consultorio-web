@@ -5,7 +5,7 @@ export interface AgendarDto {
 }
 
 export interface BuscarAgendamentoDto {
-  cpfPaciente?: string;
-  nomePaciente?: string;
-  cpfProfissional?: string;
+  nome?: string;
+  cpf?: string;
+  proximas?: boolean;
 }

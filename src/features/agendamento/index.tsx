@@ -6,6 +6,7 @@ import { listAgendamentos } from "./agendamentoService";
 import { ModuleDatagrid } from "../../shared/Datagrid";
 import LoadingContext from "../../hooks/loading/LoadingContext";
 import { BuscarAgendamentoDto } from "./agendamentoDto";
+import { Button } from "@mui/material";
 const columns: GridColDef[] = [
   { field: "id", headerName: "ID", flex: 0.1 },
   {
@@ -67,7 +68,12 @@ const AgendamentoMain = () => {
           rows={rows}
           onSelectedRowChange={setSelectedRow}
         />
-        <ActionBar></ActionBar>
+        <ActionBar>
+          <Button>Novo Agendamento</Button>
+          <Button>Solicitar Confirmação</Button>
+          <Button>Confirmado Sim</Button>
+          <Button>Confirmado Não</Button>
+        </ActionBar>
       </>
     );
   }
