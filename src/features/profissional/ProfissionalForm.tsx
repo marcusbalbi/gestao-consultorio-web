@@ -9,7 +9,8 @@ import { TipoProfissionalSelect2 } from "./TipoProfissionalSelect2";
 interface ProfissionalFormProps {
   resolver: any;
   updating?: boolean;
-  onSubmit?: any
+  onSubmit?: any;
+  data?: any;
 }
 
 const ProfissionalForm = (props: ProfissionalFormProps) => {
@@ -17,14 +18,24 @@ const ProfissionalForm = (props: ProfissionalFormProps) => {
     register,
     handleSubmit,
     control,
-    // watch,
+    setValue,
     formState: { errors, isDirty },
   } = useForm<CadastrarProfissionalDto>({
     resolver: props.resolver,
   });
   const onSubmit: SubmitHandler<CadastrarProfissionalDto> = (data) => {
-    props.onSubmit && props.onSubmit(data);
+    props.onSubmit(data);
   };
+
+  React.useEffect(() => {
+    if (!props.data) {
+      return;
+    }
+    setValue("nome", props.data.nome);
+    setValue("cpf", props.data.cpf);
+    setValue("tipoProfissional", props.data.tipoProfissional);
+  }, [props.data, setValue]);
+
   return (
     <BaseForm
       actionText={props.updating ? "Alterar" : "Cadastrar"}

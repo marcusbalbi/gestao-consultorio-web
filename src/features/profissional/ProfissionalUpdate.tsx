@@ -4,17 +4,56 @@ import { yupResolver } from "@hookform/resolvers/yup";
 
 import { AtualizarProfissionalValidationSchema } from "./validationSchemas";
 import { ProfissionalForm } from "./ProfissionalForm";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
+import { useToast } from "../../hooks/toast";
+import LoadingContext from "../../hooks/loading/LoadingContext";
+import { findProfissional, updateProfissional } from "./ProfissionalService";
+import { CadastrarProfissionalDto } from "./ProfissionalDto";
 
 const ProfissionalUpdate = () => {
   const params = useParams();
+  const [formData, setFormData] = React.useState(null);
+  const loading = React.useContext(LoadingContext);
+  const navigate = useNavigate();
+  const { addToast } = useToast();
+
+  React.useEffect(() => {
+    if (params.id) {
+      findProfissional(params.id).then((data) => {
+        setFormData(data);
+      });
+    }
+  }, [params.id]);
+
+  const onSubmit = async (data: CadastrarProfissionalDto) => {
+    if (!params.id) return;
+    try {
+      const result = await updateProfissional(params.id, data);
+      if (result) {
+        addToast({
+          title: "Alterado com sucesso!",
+          type: "success",
+        });
+        navigate("/profissional");
+      }
+    } catch (err: any) {
+      addToast({
+        title: err.message,
+        type: "error",
+      });
+    }
+  };
+
   return (
     <Page>
-      <h2>Editando o {params.id}</h2>
-      <ProfissionalForm
-        updating
-        resolver={yupResolver(AtualizarProfissionalValidationSchema)}
-      />
+      {!loading && (
+        <ProfissionalForm
+          onSubmit={onSubmit}
+          updating
+          data={formData}
+          resolver={yupResolver(AtualizarProfissionalValidationSchema)}
+        />
+      )}
     </Page>
   );
 };
