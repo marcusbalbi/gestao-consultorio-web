@@ -6,6 +6,7 @@ import { PacienteUpdate } from "../../features/paciente/PacienteUpdate";
 import { ProfissionalMain } from "../../features/profissional";
 import { ProfissionalCreate } from "../../features/profissional/ProfissionalCreate";
 import { ProfissionalUpdate } from "../../features/profissional/ProfissionalUpdate";
+import { MenAtWork } from "../MenAtWork";
 import { Welcome } from "../Welcome";
 
 const AppRoutes = () => {
@@ -21,6 +22,8 @@ const AppRoutes = () => {
         path="/profissional/alterar/:id"
         element={<ProfissionalUpdate />}
       />
+      <Route path="/local-atendimento" element={<MenAtWork />} />
+      <Route path="/config" element={<MenAtWork />} />
     </Routes>
   );
 };

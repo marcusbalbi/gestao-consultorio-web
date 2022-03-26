@@ -1,16 +1,11 @@
-import { request } from "../../shared";
-import { CadastrarPacienteDto } from "./pacienteDto";
+import { parseServerFormat, parseUIFormat, request } from "../../shared";
+import { BuscarPacienteDto, CadastrarPacienteDto } from "./pacienteDto";
 import { cloneDeep, get } from "lodash";
-import { format, parse } from "date-fns";
 
 const createPaciente = async (paciente: CadastrarPacienteDto) => {
   // prepare data to be sent:
   const parsedData = cloneDeep(paciente);
-  parsedData.dataNascimento = parse(
-    parsedData.dataNascimento,
-    "dd/MM/yyyy",
-    new Date()
-  ).toISOString();
+  parsedData.dataNascimento = parseServerFormat(parsedData.dataNascimento);
   const result = await request.post("/pacientes", parsedData).catch((err) => {
     console.log("PACIENTE_SERVICE", `Failed to Create Patient`, err);
     throw new Error(
@@ -28,11 +23,7 @@ const createPaciente = async (paciente: CadastrarPacienteDto) => {
 const updatePaciente = async (id: string, paciente: CadastrarPacienteDto) => {
   // prepare data to be sent:
   const parsedData = cloneDeep(paciente);
-  parsedData.dataNascimento = parse(
-    parsedData.dataNascimento,
-    "dd/MM/yyyy",
-    new Date()
-  ).toISOString();
+  parsedData.dataNascimento = parseServerFormat(parsedData.dataNascimento);
   const result = await request
     .put("/pacientes/".concat(id), parsedData)
     .catch((err) => {
@@ -49,18 +40,31 @@ const updatePaciente = async (id: string, paciente: CadastrarPacienteDto) => {
   return result;
 };
 
-const listPaciente = async () => {
-  const { data } = await request.get("/pacientes");
+const listPaciente = async (busca: BuscarPacienteDto = {}) => {
+  const { data } = await request.get("/pacientes", {
+    params: busca,
+  });
+  data.forEach((paciente: CadastrarPacienteDto) => {
+    paciente.dataNascimento = parseUIFormat(paciente.dataNascimento);
+  });
   return data;
 };
 
 const findPatient = async (id: string) => {
   const { data } = await request.get("/pacientes/".concat(id));
-  data.dataNascimento = format(
-    parse(data.dataNascimento, "yyyy-MM-dd", new Date()),
-    "dd/MM/yyyy"
-  );
+  data.dataNascimento = parseUIFormat(data.dataNascimento);
   return data;
 };
 
-export { createPaciente, listPaciente, findPatient, updatePaciente };
+const removePatient = async (id: string) => {
+  const response = await request.delete("/pacientes/".concat(id));
+  return response;
+};
+
+export {
+  createPaciente,
+  listPaciente,
+  findPatient,
+  updatePaciente,
+  removePatient,
+};

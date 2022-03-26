@@ -9,7 +9,7 @@ export const CadsatrarProfissionalValidationSchema = yup.object().shape({
     .min(11, "cpf deve ter 11 caracteres (apenas números)")
     .max(11, "cpf deve ter 11 caracteres (apenas números)")
     .matches(/^\d+$/, "cpf deve conter apenas números"),
-  tipo: yup.string().required(),
+  tipoProfissional: yup.string().required(),
   senha: yup.string().required(),
 });
 
@@ -21,6 +21,6 @@ export const AtualizarProfissionalValidationSchema = yup.object().shape({
     .min(11, "cpf deve ter 11 caracteres (apenas números)")
     .max(11, "cpf deve ter 11 caracteres (apenas números)")
     .matches(/^\d+$/, "cpf deve conter apenas números"),
-  tipo: yup.string().required(),
+  tipoProfissional: yup.string().required(),
   senha: yup.string(),
 });

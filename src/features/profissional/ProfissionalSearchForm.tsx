@@ -5,7 +5,11 @@ import { BaseSearchForm, FormInfoSection } from "../../shared";
 import { BuscarProfissionalDto } from "./ProfissionalDto";
 import { TipoProfissionalSelect2 } from "./TipoProfissionalSelect2";
 
-const ProfissionalSearchForm = () => {
+interface ProfissionalSearchFormProps {
+  onSubmit?(data: BuscarProfissionalDto): any;
+}
+
+const ProfissionalSearchForm = (props: ProfissionalSearchFormProps) => {
   const {
     register,
     handleSubmit,
@@ -15,12 +19,12 @@ const ProfissionalSearchForm = () => {
     reset,
   } = useForm<BuscarProfissionalDto>();
   const onSubmit: SubmitHandler<BuscarProfissionalDto> = (data) =>
-    console.log(data);
+    props.onSubmit && props.onSubmit(data);
   return (
     <BaseSearchForm
       onSubmit={handleSubmit(onSubmit)}
       onClean={() => {
-        setValue("tipo", undefined);
+        setValue("tipoProfissional", undefined);
         reset();
       }}
     >
@@ -44,7 +48,11 @@ const ProfissionalSearchForm = () => {
         />
       </Grid>
       <Grid item xs={12}>
-        <TipoProfissionalSelect2 name="tipo" control={control} fullWidth />
+        <TipoProfissionalSelect2
+          name="tipoProfissional"
+          control={control}
+          fullWidth
+        />
         {/* <TipoProfissionalSelect
           fullWidth
           {...register("tipo")}

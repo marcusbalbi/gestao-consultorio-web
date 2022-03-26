@@ -9,7 +9,8 @@ import { TipoProfissionalSelect2 } from "./TipoProfissionalSelect2";
 interface ProfissionalFormProps {
   resolver: any;
   updating?: boolean;
-  onSubmit?: any
+  onSubmit?: any;
+  data?: any;
 }
 
 const ProfissionalForm = (props: ProfissionalFormProps) => {
@@ -17,14 +18,24 @@ const ProfissionalForm = (props: ProfissionalFormProps) => {
     register,
     handleSubmit,
     control,
-    // watch,
+    setValue,
     formState: { errors, isDirty },
   } = useForm<CadastrarProfissionalDto>({
     resolver: props.resolver,
   });
   const onSubmit: SubmitHandler<CadastrarProfissionalDto> = (data) => {
-    onSubmit(data);
+    props.onSubmit && props.onSubmit(data);
   };
+
+  React.useEffect(() => {
+    if (!props.data) {
+      return;
+    }
+    setValue("nome", props.data.nome);
+    setValue("cpf", props.data.cpf);
+    setValue("tipoProfissional", props.data.tipoProfissional);
+  }, [props.data, setValue]);
+
   return (
     <BaseForm
       actionText={props.updating ? "Alterar" : "Cadastrar"}
@@ -63,11 +74,11 @@ const ProfissionalForm = (props: ProfissionalFormProps) => {
       </Grid>
       <Grid item xs={12} md={6}>
         <TipoProfissionalSelect2
-          name="tipo"
+          name="tipoProfissional"
           control={control}
           fullWidth
-          error={errors.tipo?.message ? true : false}
-          helperText={errors.tipo?.message}
+          error={errors.tipoProfissional?.message ? true : false}
+          helperText={errors.tipoProfissional?.message}
         />
       </Grid>
     </BaseForm>
