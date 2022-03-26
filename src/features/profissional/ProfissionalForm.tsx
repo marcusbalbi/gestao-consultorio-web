@@ -24,7 +24,7 @@ const ProfissionalForm = (props: ProfissionalFormProps) => {
     resolver: props.resolver,
   });
   const onSubmit: SubmitHandler<CadastrarProfissionalDto> = (data) => {
-    props.onSubmit(data);
+    props.onSubmit && props.onSubmit(data);
   };
 
   React.useEffect(() => {
