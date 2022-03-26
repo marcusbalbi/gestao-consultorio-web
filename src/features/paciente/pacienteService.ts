@@ -1,6 +1,7 @@
 import { parseServerFormat, parseUIFormat, request } from "../../shared";
 import { BuscarPacienteDto, CadastrarPacienteDto } from "./pacienteDto";
 import { cloneDeep, get } from "lodash";
+import { removeEmptyValues } from "../../shared/utils/objects";
 
 const createPaciente = async (paciente: CadastrarPacienteDto) => {
   // prepare data to be sent:
@@ -41,8 +42,9 @@ const updatePaciente = async (id: string, paciente: CadastrarPacienteDto) => {
 };
 
 const listPaciente = async (busca: BuscarPacienteDto = {}) => {
+  const params = removeEmptyValues(busca);
   const { data } = await request.get("/pacientes", {
-    params: busca,
+    params,
   });
   data.forEach((paciente: CadastrarPacienteDto) => {
     paciente.dataNascimento = parseUIFormat(paciente.dataNascimento);

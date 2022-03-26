@@ -1,6 +1,7 @@
 import { request } from "../../shared";
 import { BuscarProfissionalDto, CadastrarProfissionalDto } from "./ProfissionalDto";
 import { cloneDeep, get } from "lodash";
+import { removeEmptyValues } from "../../shared/utils/objects";
 
 const createProfissional = async (profissional: CadastrarProfissionalDto) => {
   // prepare data to be sent:
@@ -24,7 +25,7 @@ const updateProfissional = async (id: string, profissional: CadastrarProfissiona
   const parsedData = cloneDeep(profissional);
   const result = await request
     .put("/profissionais/".concat(id), parsedData)
-    .catch((err) => {
+    .catch((err: any) => {
       console.log("PROFISSIONAIS_SERVICE", `Failed to Update Profissional`, err);
       throw new Error(
         `Falha ao alterar profissional: ${get(
@@ -39,8 +40,9 @@ const updateProfissional = async (id: string, profissional: CadastrarProfissiona
 };
 
 const listProfissional = async (busca: BuscarProfissionalDto = {}) => {
+  const params = removeEmptyValues(busca);
   const { data } = await request.get("/profissionais", {
-    params: busca,
+    params,
   });
   return data;
 };

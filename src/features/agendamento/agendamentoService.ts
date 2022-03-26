@@ -1,6 +1,7 @@
 import { AgendarDto, BuscarAgendamentoDto } from "./agendamentoDto";
 import { cloneDeep, get } from "lodash";
 import { request } from "../../shared/request";
+import { removeEmptyValues } from "../../shared/utils/objects";
 
 const agendar = async (dadosAgendamento: AgendarDto) => {
   // prepare data to be sent:
@@ -20,12 +21,10 @@ const agendar = async (dadosAgendamento: AgendarDto) => {
 };
 
 const listAgendamentos = async (busca: BuscarAgendamentoDto = {}) => {
+  const params = removeEmptyValues(busca);
   const { data } = await request.get("/agendamentos", {
-    params: busca,
+    params,
   });
-  // data.forEach((agendamento: AgendarDto) => {
-  //   agendamento.marcacao = parseUIFormat(agendamento.marcacao);
-  // });
   return data;
 };
 
