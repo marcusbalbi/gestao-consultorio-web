@@ -86,6 +86,23 @@ const AgendamentoMain = () => {
         },
       });
     }
+    // call service solicitar confirmacao
+  };
+
+  const handleConfirmar = (confirmado: boolean) => {
+    if (validateAction() === false) {
+      addToast({
+        title:
+          "Falha ao Confirmar, verifique se a linha está selecionada e o agendamento é futuro",
+        type: "error",
+        options: {
+          autoHideDuration: 5000,
+        },
+      });
+    }
+
+    // call service confirmar with variable
+
   };
 
   React.useEffect(() => {
@@ -108,8 +125,22 @@ const AgendamentoMain = () => {
           >
             Solicitar Confirmação
           </Button>
-          <Button disabled={selectedRow === null}>Confirmado Sim</Button>
-          <Button disabled={selectedRow === null}>Confirmado Não</Button>
+          <Button
+            disabled={selectedRow === null}
+            onClick={() => {
+              handleConfirmar(true);
+            }}
+          >
+            Confirmado Sim
+          </Button>
+          <Button
+            disabled={selectedRow === null}
+            onClick={() => {
+              handleConfirmar(false);
+            }}
+          >
+            Confirmado Não
+          </Button>
         </ActionBar>
       </>
     );
