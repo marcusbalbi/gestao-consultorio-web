@@ -1,5 +1,6 @@
 import * as React from "react";
 import { Route, Routes } from "react-router-dom";
+import { AgendamentoMain } from "../../features/agendamento";
 import { PacienteMain } from "../../features/paciente";
 import { PacienteCreate } from "../../features/paciente/PacienteCreate";
 import { PacienteUpdate } from "../../features/paciente/PacienteUpdate";
@@ -24,6 +25,7 @@ const AppRoutes = () => {
       />
       <Route path="/local-atendimento" element={<MenAtWork />} />
       <Route path="/config" element={<MenAtWork />} />
+      <Route path="/agenda" element={<AgendamentoMain />} />
     </Routes>
   );
 };
