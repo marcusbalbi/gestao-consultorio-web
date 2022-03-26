@@ -20,7 +20,7 @@ const AgendamentoCreate = () => {
           title: "Agendamento criado!",
           type: "success",
         });
-        navigate("/agendamentos");
+        navigate("/agenda");
       }
     } catch (err: any) {
       addToast({

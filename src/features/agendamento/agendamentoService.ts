@@ -1,12 +1,10 @@
 import { AgendarDto, BuscarAgendamentoDto } from "./agendamentoDto";
 import { cloneDeep, get } from "lodash";
-import { parseServerFormat } from "../../shared/utils";
 import { request } from "../../shared/request";
 
 const agendar = async (dadosAgendamento: AgendarDto) => {
   // prepare data to be sent:
   const parsedData = cloneDeep(dadosAgendamento);
-  parsedData.marcacao = parseServerFormat(parsedData.marcacao);
   const result = await request.post("/agendamentos", parsedData).catch((err) => {
     console.log("AGENDAMENTO_SERVICE", `Failed to Schedule Patient`, err);
     throw new Error(

@@ -9,7 +9,7 @@ request.interceptors.request.use((config) => {
     console.log("REQUEST_LOGGER", {
       method: config.method,
       url: config.url,
-      data: config.data,
+      data: config.data || config.params,
     });
   }
   return config;

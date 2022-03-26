@@ -9,6 +9,10 @@ import { BrowserRouter } from "react-router-dom";
 import { AuthProvider } from "./hooks/auth";
 import { ToastProvider } from "./hooks/toast";
 import LoadingProvider from "./hooks/loading/LoadingProvider";
+import AdapterDateFns from "@material-ui/lab/AdapterDateFns";
+import LocalizationProvider from "@material-ui/lab/LocalizationProvider";
+import brSaLocale from "date-fns/locale/pt-BR";
+
 ReactDOM.render(
   <React.StrictMode>
     <CssBaseline />
@@ -17,7 +21,12 @@ ReactDOM.render(
         <BrowserRouter>
           <AuthProvider>
             <ToastProvider>
-              <App />
+              <LocalizationProvider
+                locale={brSaLocale}
+                dateAdapter={AdapterDateFns}
+              >
+                <App />
+              </LocalizationProvider>
             </ToastProvider>
           </AuthProvider>
         </BrowserRouter>
