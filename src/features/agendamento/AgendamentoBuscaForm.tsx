@@ -21,8 +21,8 @@ const AgendamentoBuscaForm = (props: AgendamentoBuscaFormProps) => {
     formState: { errors },
     reset,
   } = useForm<BuscarAgendamentoDto>();
-  const onSubmit: SubmitHandler<BuscarAgendamentoDto> = (data) =>
-    props.onSubmit && props.onSubmit(data);
+  const onSubmit: SubmitHandler<BuscarAgendamentoDto> = (dados) =>
+    props.onSubmit && props.onSubmit(dados);
   return (
     <BaseSearchForm onSubmit={handleSubmit(onSubmit)} onClean={() => reset()}>
       <FormInfoSection>Buscar Agendamentos</FormInfoSection>

@@ -28,27 +28,27 @@ const AgendamentoForm = (props: AgendamentoFormProps) => {
   });
   const [pacientes, setPacientes] = React.useState([]);
   const [profissionais, setProfissionais] = React.useState([]);
-  const [date, setDate] = React.useState<string | null>("");
-  const [time, setTime] = React.useState<string | null>("");
+  const [data, setData] = React.useState<string | null>("");
+  const [hora, setHora] = React.useState<string | null>("");
 
-  const onSubmit: SubmitHandler<AgendarDto> = (data) => {
-    props.onSubmit(data);
+  const onSubmit: SubmitHandler<AgendarDto> = (dados) => {
+    props.onSubmit(dados);
   };
 
   React.useEffect(() => {
     // converter as duas datas
     try {
-      if (date && time) {
-        const formattedDate = format(new Date(date), "dd/MM/yyyy");
-        const formattedTime = format(new Date(time), "HH:mm");
-        setValue("marcacao", `${formattedDate} ${formattedTime}`);
+      if (data && hora) {
+        const dataFormatada = format(new Date(data), "dd/MM/yyyy");
+        const horaFormatada = format(new Date(hora), "HH:mm");
+        setValue("marcacao", `${dataFormatada} ${horaFormatada}`);
       } else {
         setValue("marcacao", "");
       }
     } catch (err) {
       setValue("marcacao", "");
     }
-  }, [date, time, setValue]);
+  }, [data, hora, setValue]);
 
   React.useEffect(() => {
     listarPaciente().then((data) => {
@@ -83,8 +83,8 @@ const AgendamentoForm = (props: AgendamentoFormProps) => {
       <Grid item xs={12} md={6}>
         <Autocomplete
           fullWidth
-          onChange={(event: any, newValue: any) => {
-            setValue("idPaciente", newValue?.id || "");
+          onChange={(_, valor: any) => {
+            setValue("idPaciente", valor?.id || "");
           }}
           isOptionEqualToValue={(c: any) => {
             return c.id === getValues().idPaciente;
@@ -109,8 +109,8 @@ const AgendamentoForm = (props: AgendamentoFormProps) => {
           isOptionEqualToValue={(c: any) => {
             return c.id === getValues().idProfissional;
           }}
-          onChange={(event: any, newValue: any) => {
-            setValue("idProfissional", newValue?.id || "");
+          onChange={(_, novoValor: any) => {
+            setValue("idProfissional", novoValor?.id || "");
           }}
           disablePortal
           id="combo-profissional"
@@ -128,9 +128,9 @@ const AgendamentoForm = (props: AgendamentoFormProps) => {
       <Grid item xs={12} md={6}>
         <DatePicker
           label="Data do Agendamento"
-          value={date}
+          value={data}
           onChange={(newValue) => {
-            setDate(newValue);
+            setData(newValue);
           }}
           renderInput={(params) => (
             <TextField
@@ -145,9 +145,9 @@ const AgendamentoForm = (props: AgendamentoFormProps) => {
       <Grid item xs={12} md={6}>
         <TimePicker
           label="Hora do Agendamento"
-          value={time}
+          value={hora}
           onChange={(newValue) => {
-            setTime(newValue);
+            setHora(newValue);
           }}
           renderInput={(params) => (
             <TextField
