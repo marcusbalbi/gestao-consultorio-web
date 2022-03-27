@@ -1,10 +1,10 @@
 import * as React from "react";
 import { ActionBar, MainModulePage } from "../../shared";
 import { GridColDef } from "@mui/x-data-grid";
-import { AgendamentoSearchForm } from "./AgendamentoSearchForm";
+import { AgendamentoBuscaForm } from "./AgendamentoBuscaForm";
 import {
   confirmarAgendamento,
-  listAgendamentos,
+  listarAgendamentos,
   solicitarConfirmacao,
 } from "./agendamentoService";
 import { ModuleDatagrid } from "../../shared/Datagrid";
@@ -61,8 +61,8 @@ const AgendamentoMain = () => {
   const { addToast } = useToast();
   const navigate = useNavigate();
 
-  const loadAgendamentos = (data: BuscarAgendamentoDto) => {
-    listAgendamentos(data).then((agendamentos) => {
+  const carregarAgendamentos = (data: BuscarAgendamentoDto) => {
+    listarAgendamentos(data).then((agendamentos) => {
       setRows(agendamentos);
     });
   };
@@ -71,7 +71,7 @@ const AgendamentoMain = () => {
     setFiltro(filtro);
   };
 
-  const validateAction = () => {
+  const validarAcao = () => {
     if (selectedRow === null) {
       return false;
     }
@@ -87,7 +87,7 @@ const AgendamentoMain = () => {
   };
 
   const handleSolicitarConfirmacao = () => {
-    if (validateAction() === false) {
+    if (validarAcao() === false) {
       addToast({
         title:
           "Falha ao Solicitar Confirmação, verifique se a linha está selecionada e o agendamento é futuro",
@@ -117,7 +117,7 @@ const AgendamentoMain = () => {
   };
 
   const handleConfirmar = async (confirmado: boolean) => {
-    if (validateAction() === false) {
+    if (validarAcao() === false) {
       addToast({
         title:
           "Falha ao Confirmar, verifique se a linha está selecionada e o agendamento é futuro",
@@ -145,11 +145,11 @@ const AgendamentoMain = () => {
       });
     }
 
-    await loadAgendamentos(filtro);
+    await carregarAgendamentos(filtro);
   };
 
   React.useEffect(() => {
-    loadAgendamentos(filtro);
+    carregarAgendamentos(filtro);
   }, [filtro]);
   function renderResult() {
     return (
@@ -198,7 +198,7 @@ const AgendamentoMain = () => {
   return (
     <MainModulePage
       result={renderResult()}
-      searchForm={<AgendamentoSearchForm onSubmit={gravarFiltro} />}
+      searchForm={<AgendamentoBuscaForm onSubmit={gravarFiltro} />}
     />
   );
 };

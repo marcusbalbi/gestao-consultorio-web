@@ -9,7 +9,7 @@ import { AgendamentoForm } from "./AgendamentoForm";
 import { useNavigate } from "react-router-dom";
 import { useToast } from "../../hooks/toast";
 
-const AgendamentoCreate = () => {
+const AgendamentoNovo = () => {
   const navigate = useNavigate();
   const { addToast } = useToast();
   const onSubmit = async (data: AgendarDto) => {
@@ -39,4 +39,4 @@ const AgendamentoCreate = () => {
   );
 };
 
-export { AgendamentoCreate };
+export { AgendamentoNovo };

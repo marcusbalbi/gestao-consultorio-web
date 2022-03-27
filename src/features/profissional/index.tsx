@@ -1,8 +1,8 @@
 import * as React from "react";
 import { CrudActionBar, MainModulePage } from "../../shared";
 import { GridColDef } from "@mui/x-data-grid";
-import { ProfissionalSearchForm } from "./ProfissionalSearchForm";
-import { listProfissional, removeProfissional } from "./ProfissionalService";
+import { ProfissionalBuscaForm } from "./ProfissionalBuscaForm";
+import { listarProfissional, removerProfissional } from "./ProfissionalService";
 import { ModuleDatagrid } from "../../shared/Datagrid";
 import LoadingContext from "../../hooks/loading/LoadingContext";
 import { BuscarProfissionalDto } from "./ProfissionalDto";
@@ -33,17 +33,16 @@ const ProfissionalMain = () => {
   const loading = React.useContext(LoadingContext);
   const { addToast } = useToast();
 
-  const loadProfissionais = (data: BuscarProfissionalDto = {}) => {
-    listProfissional(data).then((profissionais) => {
+  const carregarProfissionais = (data: BuscarProfissionalDto = {}) => {
+    listarProfissional(data).then((profissionais) => {
       setRows(profissionais);
     });
   };
 
-  const handleRemove = (id: string) => {
-    console.log("remove ele!", id);
-    removeProfissional(id)
+  const handleRemove = () => {
+    removerProfissional(selectedRow || "")
       .then(() => {
-        loadProfissionais();
+        carregarProfissionais();
         addToast({
           title: "Profissional removido!",
         });
@@ -57,7 +56,7 @@ const ProfissionalMain = () => {
   };
 
   React.useEffect(() => {
-    loadProfissionais();
+    carregarProfissionais();
   }, []);
   function renderResult() {
     return (
@@ -81,7 +80,7 @@ const ProfissionalMain = () => {
     <>
       <MainModulePage
         result={renderResult()}
-        searchForm={<ProfissionalSearchForm onSubmit={loadProfissionais} />}
+        searchForm={<ProfissionalBuscaForm onSubmit={carregarProfissionais} />}
       />
     </>
   );

@@ -1,35 +1,29 @@
-import {
-  Checkbox,
-  FormControlLabel,
-  FormGroup,
-  Grid,
-  TextField,
-} from "@mui/material";
+import { Grid, TextField } from "@mui/material";
 import * as React from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { BaseSearchForm, FormInfoSection } from "../../shared";
-import { BuscarAgendamentoDto } from "./agendamentoDto";
+import { BuscarPacienteDto } from "./pacienteDto";
 
-interface AgendamentoSearchFormProps {
+interface PacienteBuscaFormProps {
   onSubmit?: any;
 }
 
-const AgendamentoSearchForm = (props: AgendamentoSearchFormProps) => {
+const PacienteBuscaForm = (props: PacienteBuscaFormProps) => {
   const {
     register,
     handleSubmit,
     formState: { errors },
     reset,
-  } = useForm<BuscarAgendamentoDto>();
-  const onSubmit: SubmitHandler<BuscarAgendamentoDto> = (data) =>
+  } = useForm<BuscarPacienteDto>();
+  const onSubmit: SubmitHandler<BuscarPacienteDto> = (data) =>
     props.onSubmit && props.onSubmit(data);
   return (
     <BaseSearchForm onSubmit={handleSubmit(onSubmit)} onClean={() => reset()}>
-      <FormInfoSection>Buscar Agendamentos</FormInfoSection>
+      <FormInfoSection>Buscar Paciente</FormInfoSection>
       <Grid item xs={12}>
         <TextField
           fullWidth
-          label="Nome do Paciente"
+          label="Nome"
           placeholder="Ex: João Silva"
           {...register("nome")}
         />
@@ -37,7 +31,7 @@ const AgendamentoSearchForm = (props: AgendamentoSearchFormProps) => {
       <Grid item xs={12}>
         <TextField
           fullWidth
-          label="CPF do Paciente"
+          label="CPF"
           placeholder="00000000000"
           error={!!errors.cpf?.message}
           helperText={errors.cpf?.message}
@@ -45,16 +39,16 @@ const AgendamentoSearchForm = (props: AgendamentoSearchFormProps) => {
         />
       </Grid>
       <Grid item xs={12}>
-        <FormGroup>
-          <FormControlLabel
-            control={<Checkbox defaultChecked />}
-            label="Apenas Futuro"
-            {...register("proximas")}
-          />
-        </FormGroup>
+        {/* <TextField
+          fullWidth
+          label="Telefone Celular"
+          error={!!errors.telefoneCelular?.message}
+          helperText={errors.telefoneCelular?.message}
+          {...register("telefoneCelular")}
+        /> */}
       </Grid>
     </BaseSearchForm>
   );
 };
 
-export { AgendamentoSearchForm };
+export { PacienteBuscaForm };

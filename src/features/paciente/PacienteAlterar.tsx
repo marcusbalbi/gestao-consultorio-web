@@ -2,15 +2,15 @@ import * as React from "react";
 import { Page } from "../../shared";
 import { yupResolver } from "@hookform/resolvers/yup";
 
-import { AtualizarProfissionalValidationSchema } from "./validationSchemas";
-import { ProfissionalForm } from "./ProfissionalForm";
+import { AtualizarPacienteSchema } from "./validationSchemas";
+import { PacienteForm } from "./PacienteForm";
 import { useNavigate, useParams } from "react-router-dom";
-import { useToast } from "../../hooks/toast";
+import { encontrarPaciente, alterarPaciente } from "./pacienteService";
 import LoadingContext from "../../hooks/loading/LoadingContext";
-import { findProfissional, updateProfissional } from "./ProfissionalService";
-import { CadastrarProfissionalDto } from "./ProfissionalDto";
+import { CadastrarPacienteDto } from "./pacienteDto";
+import { useToast } from "../../hooks/toast";
 
-const ProfissionalUpdate = () => {
+const PacienteAlterar = () => {
   const params = useParams();
   const [formData, setFormData] = React.useState(null);
   const loading = React.useContext(LoadingContext);
@@ -19,22 +19,22 @@ const ProfissionalUpdate = () => {
 
   React.useEffect(() => {
     if (params.id) {
-      findProfissional(params.id).then((data) => {
+      encontrarPaciente(params.id).then((data) => {
         setFormData(data);
       });
     }
   }, [params.id]);
 
-  const onSubmit = async (data: CadastrarProfissionalDto) => {
+  const onSubmit = async (data: CadastrarPacienteDto) => {
     if (!params.id) return;
     try {
-      const result = await updateProfissional(params.id, data);
+      const result = await alterarPaciente(params.id, data);
       if (result) {
         addToast({
           title: "Alterado com sucesso!",
           type: "success",
         });
-        navigate("/profissional");
+        navigate("/paciente");
       }
     } catch (err: any) {
       addToast({
@@ -47,15 +47,15 @@ const ProfissionalUpdate = () => {
   return (
     <Page>
       {!loading && (
-        <ProfissionalForm
+        <PacienteForm
           onSubmit={onSubmit}
           updating
           data={formData}
-          resolver={yupResolver(AtualizarProfissionalValidationSchema)}
+          resolver={yupResolver(AtualizarPacienteSchema)}
         />
       )}
     </Page>
   );
 };
 
-export { ProfissionalUpdate };
+export { PacienteAlterar };

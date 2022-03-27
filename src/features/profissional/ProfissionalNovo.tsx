@@ -4,31 +4,31 @@ import { yupResolver } from "@hookform/resolvers/yup";
 
 import { CadsatrarProfissionalValidationSchema } from "./validationSchemas";
 import { ProfissionalForm } from "./ProfissionalForm";
-import { createProfissional } from "./ProfissionalService";
+import { criarProfissional } from "./ProfissionalService";
 import { CadastrarProfissionalDto } from "./ProfissionalDto";
 import { useNavigate } from "react-router-dom";
 import { useToast } from "../../hooks/toast";
 
-const ProfissionalCreate = () => {
-    const navigate = useNavigate();
-    const { addToast } = useToast();
-    const onSubmit = async (data: CadastrarProfissionalDto) => {
-      try {
-        const result = await createProfissional(data);
-        if (result) {
-          addToast({
-            title: "Criado com sucesso!",
-            type: "success",
-          });
-          navigate("/profissional");
-        }
-      } catch (err: any) {
+const ProfissionalNovo = () => {
+  const navigate = useNavigate();
+  const { addToast } = useToast();
+  const onSubmit = async (data: CadastrarProfissionalDto) => {
+    try {
+      const result = await criarProfissional(data);
+      if (result) {
         addToast({
-          title: err.message,
-          type: "error",
+          title: "Criado com sucesso!",
+          type: "success",
         });
+        navigate("/profissional");
       }
-    };
+    } catch (err: any) {
+      addToast({
+        title: err.message,
+        type: "error",
+      });
+    }
+  };
   return (
     <Page>
       <ProfissionalForm
@@ -39,4 +39,4 @@ const ProfissionalCreate = () => {
   );
 };
 
-export { ProfissionalCreate };
+export { ProfissionalNovo };

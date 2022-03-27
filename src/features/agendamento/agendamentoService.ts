@@ -5,19 +5,17 @@ import { removeEmptyValues } from "../../shared/utils/objects";
 
 const agendar = async (dadosAgendamento: AgendarDto) => {
   // prepare data to be sent:
-  const parsedData = cloneDeep(dadosAgendamento);
-  const result = await request
-    .post("/agendamentos", parsedData)
-    .catch((err) => {
-      console.log("AGENDAMENTO_SERVICE", `Failed to Schedule Patient`, err);
-      throw new Error(
-        `Falha ao agendar: ${get(
-          err,
-          "response.data.message",
-          "Erro não Identificado"
-        )}`
-      );
-    });
+  const dados = cloneDeep(dadosAgendamento);
+  const result = await request.post("/agendamentos", dados).catch((err) => {
+    console.log("AGENDAMENTO_SERVICE", `Falha ao Agendar paciente`, err);
+    throw new Error(
+      `Falha ao agendar: ${get(
+        err,
+        "response.data.message",
+        "Erro não Identificado"
+      )}`
+    );
+  });
 
   return result;
 };
@@ -41,7 +39,7 @@ const confirmarAgendamento = async (idAgendamento: string, status: boolean) => {
   return data;
 };
 
-const listAgendamentos = async (busca: BuscarAgendamentoDto = {}) => {
+const listarAgendamentos = async (busca: BuscarAgendamentoDto = {}) => {
   const params = removeEmptyValues(busca);
   const { data } = await request.get("/agendamentos", {
     params,
@@ -51,7 +49,7 @@ const listAgendamentos = async (busca: BuscarAgendamentoDto = {}) => {
 
 export {
   agendar,
-  listAgendamentos,
+  listarAgendamentos,
   solicitarConfirmacao,
   confirmarAgendamento,
 };

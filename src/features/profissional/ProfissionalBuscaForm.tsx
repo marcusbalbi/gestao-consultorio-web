@@ -5,11 +5,11 @@ import { BaseSearchForm, FormInfoSection } from "../../shared";
 import { BuscarProfissionalDto } from "./ProfissionalDto";
 import { TipoProfissionalSelect2 } from "./TipoProfissionalSelect2";
 
-interface ProfissionalSearchFormProps {
+interface ProfissionalBuscaFormProps {
   onSubmit?(data: BuscarProfissionalDto): any;
 }
 
-const ProfissionalSearchForm = (props: ProfissionalSearchFormProps) => {
+const ProfissionalBuscaForm = (props: ProfissionalBuscaFormProps) => {
   const {
     register,
     handleSubmit,
@@ -63,4 +63,4 @@ const ProfissionalSearchForm = (props: ProfissionalSearchFormProps) => {
   );
 };
 
-export { ProfissionalSearchForm };
+export { ProfissionalBuscaForm };

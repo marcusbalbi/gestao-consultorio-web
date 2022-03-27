@@ -4,17 +4,17 @@ import { yupResolver } from "@hookform/resolvers/yup";
 
 import { CadastrarPacienteDto } from "./pacienteDto";
 import { CadastrarPacienteValdationSchema } from "./validationSchemas";
-import { createPaciente } from "./pacienteService";
+import { criarPaciente } from "./pacienteService";
 import { PacienteForm } from "./PacienteForm";
 import { useNavigate } from "react-router-dom";
 import { useToast } from "../../hooks/toast";
 
-const PacienteCreate = () => {
+const PacienteNovo = () => {
   const navigate = useNavigate();
   const { addToast } = useToast();
   const onSubmit = async (data: CadastrarPacienteDto) => {
     try {
-      const result = await createPaciente(data);
+      const result = await criarPaciente(data);
       if (result) {
         addToast({
           title: "Alterado com sucesso!",
@@ -39,4 +39,4 @@ const PacienteCreate = () => {
   );
 };
 
-export { PacienteCreate };
+export { PacienteNovo };
