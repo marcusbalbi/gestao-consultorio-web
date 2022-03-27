@@ -70,6 +70,7 @@ const AuthProvider: React.FC = ({ children }) => {
 
     localStorage.setItem(buildStorageNamespace("token"), dados.token);
     localStorage.setItem(buildStorageNamespace("dados"), JSON.stringify(dados));
+    localStorage.setItem(buildStorageNamespace("last_login"), dados?.usuario);
 
     // Set default token access
     request.defaults.headers.common["Authorization"] = `Bearer ${dados.token}`;
@@ -94,11 +95,7 @@ const AuthProvider: React.FC = ({ children }) => {
   }, []);
 
   const signOut = useCallback(() => {
-    const dados = JSON.parse(
-      localStorage.getItem(buildStorageNamespace("dados")) || "{}"
-    ) as UserData;
-    localStorage.setItem(buildStorageNamespace("last_login"), dados?.usuario);
-    localStorage.removeItem(`${storagePrefix}:token`);
+    localStorage.removeItem(buildStorageNamespace("token"));
     localStorage.removeItem(buildStorageNamespace("dados"));
 
     setData({} as AuthState);
