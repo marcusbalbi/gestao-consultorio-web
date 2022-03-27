@@ -4,7 +4,7 @@ import { BaseForm } from "../../shared";
 import { useForm, SubmitHandler } from "react-hook-form";
 
 import { AgendarDto } from "./agendamentoDto";
-import { listPaciente } from "../paciente/pacienteService";
+import { listarPaciente } from "../paciente/pacienteService";
 import { CadastrarPacienteDto } from "../paciente/pacienteDto";
 import { listProfissional } from "../profissional/ProfissionalService";
 import { CadastrarProfissionalDto } from "../profissional/ProfissionalDto";
@@ -51,7 +51,7 @@ const AgendamentoForm = (props: AgendamentoFormProps) => {
   }, [date, time, setValue]);
 
   React.useEffect(() => {
-    listPaciente().then((data) => {
+    listarPaciente().then((data) => {
       setPacientes(
         data.map((paciente: CadastrarPacienteDto) => {
           return {

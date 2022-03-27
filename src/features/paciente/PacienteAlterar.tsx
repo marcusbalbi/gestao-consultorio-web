@@ -5,12 +5,12 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { AtualizarPacienteSchema } from "./validationSchemas";
 import { PacienteForm } from "./PacienteForm";
 import { useNavigate, useParams } from "react-router-dom";
-import { findPatient, updatePaciente } from "./pacienteService";
+import { encontrarPaciente, alterarPaciente } from "./pacienteService";
 import LoadingContext from "../../hooks/loading/LoadingContext";
 import { CadastrarPacienteDto } from "./pacienteDto";
 import { useToast } from "../../hooks/toast";
 
-const PacienteUpdate = () => {
+const PacienteAlterar = () => {
   const params = useParams();
   const [formData, setFormData] = React.useState(null);
   const loading = React.useContext(LoadingContext);
@@ -19,7 +19,7 @@ const PacienteUpdate = () => {
 
   React.useEffect(() => {
     if (params.id) {
-      findPatient(params.id).then((data) => {
+      encontrarPaciente(params.id).then((data) => {
         setFormData(data);
       });
     }
@@ -28,7 +28,7 @@ const PacienteUpdate = () => {
   const onSubmit = async (data: CadastrarPacienteDto) => {
     if (!params.id) return;
     try {
-      const result = await updatePaciente(params.id, data);
+      const result = await alterarPaciente(params.id, data);
       if (result) {
         addToast({
           title: "Alterado com sucesso!",
@@ -58,4 +58,4 @@ const PacienteUpdate = () => {
   );
 };
 
-export { PacienteUpdate };
+export { PacienteAlterar };

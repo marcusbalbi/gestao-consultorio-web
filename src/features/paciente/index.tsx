@@ -3,8 +3,8 @@ import { CrudActionBar, MainModulePage } from "../../shared";
 import { GridColDef } from "@mui/x-data-grid";
 import { Button } from "@mui/material";
 import { CalendarToday } from "@mui/icons-material";
-import { PacienteSearchForm } from "./PacienteSearchForm";
-import { listPaciente, removePatient } from "./pacienteService";
+import { PacienteBuscaForm } from "./PacienteBuscaForm";
+import { listarPaciente, removerPaciente } from "./pacienteService";
 import { ModuleDatagrid } from "../../shared/Datagrid";
 import LoadingContext from "../../hooks/loading/LoadingContext";
 import { useToast } from "../../hooks/toast";
@@ -34,17 +34,17 @@ const PacienteMain = () => {
   const loading = React.useContext(LoadingContext);
   const { addToast } = useToast();
 
-  const loadPatients = (data: BuscarPacienteDto = {}) => {
-    listPaciente(data).then((pacientes) => {
+  const carregarPacientes = (data: BuscarPacienteDto = {}) => {
+    listarPaciente(data).then((pacientes) => {
       setRows(pacientes);
     });
   };
 
   const handleRemove = (id: string) => {
     console.log("remove ele!", id);
-    removePatient(id)
+    removerPaciente(id)
       .then(() => {
-        loadPatients();
+        carregarPacientes();
         addToast({
           title: "Paciente removido!",
         });
@@ -58,7 +58,7 @@ const PacienteMain = () => {
   };
 
   React.useEffect(() => {
-    loadPatients();
+    carregarPacientes();
   }, []);
   function renderResult() {
     return (
@@ -90,7 +90,7 @@ const PacienteMain = () => {
   return (
     <MainModulePage
       result={renderResult()}
-      searchForm={<PacienteSearchForm onSubmit={loadPatients} />}
+      searchForm={<PacienteBuscaForm onSubmit={carregarPacientes} />}
     />
   );
 };

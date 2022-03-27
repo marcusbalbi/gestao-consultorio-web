@@ -4,11 +4,11 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import { BaseSearchForm, FormInfoSection } from "../../shared";
 import { BuscarPacienteDto } from "./pacienteDto";
 
-interface PacienteSearchFormProps {
+interface PacienteBuscaFormProps {
   onSubmit?: any;
 }
 
-const PacienteSearchForm = (props: PacienteSearchFormProps) => {
+const PacienteBuscaForm = (props: PacienteBuscaFormProps) => {
   const {
     register,
     handleSubmit,
@@ -51,4 +51,4 @@ const PacienteSearchForm = (props: PacienteSearchFormProps) => {
   );
 };
 
-export { PacienteSearchForm };
+export { PacienteBuscaForm };
