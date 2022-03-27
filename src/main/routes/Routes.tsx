@@ -30,19 +30,43 @@ const AppRoutes = () => {
     <Routes>
       <Route path="/login" element={<LoginPage />} />
       <Route path="/" element={<Private element={<Welcome />} />} />
-      <Route path="/paciente" element={<PacienteMain />} />
-      <Route path="/paciente/cadastrar" element={<PacienteCreate />} />
-      <Route path="/paciente/alterar/:id" element={<PacienteUpdate />} />
-      <Route path="/profissional" element={<ProfissionalMain />} />
-      <Route path="/profissional/cadastrar" element={<ProfissionalCreate />} />
+      <Route
+        path="/paciente"
+        element={<Private element={<PacienteMain />} />}
+      />
+      <Route
+        path="/paciente/cadastrar"
+        element={<Private element={<PacienteCreate />} />}
+      />
+      <Route
+        path="/paciente/alterar/:id"
+        element={<Private element={<PacienteUpdate />} />}
+      />
+      <Route
+        path="/profissional"
+        element={<Private element={<ProfissionalMain />} />}
+      />
+      <Route
+        path="/profissional/cadastrar"
+        element={<Private element={<ProfissionalCreate />} />}
+      />
       <Route
         path="/profissional/alterar/:id"
-        element={<ProfissionalUpdate />}
+        element={<Private element={<ProfissionalUpdate />} />}
       />
-      <Route path="/local-atendimento" element={<MenAtWork />} />
-      <Route path="/config" element={<MenAtWork />} />
-      <Route path="/agenda" element={<AgendamentoMain />} />
-      <Route path="/agenda/novo" element={<AgendamentoCreate />} />
+      <Route
+        path="/local-atendimento"
+        element={<Private element={<MenAtWork />} />}
+      />
+      <Route path="/config" element={<Private element={<MenAtWork />} />} />
+      <Route
+        path="/agenda"
+        element={<Private element={<AgendamentoMain />} />}
+      />
+      <Route
+        path="/agenda/novo"
+        element={<Private element={<AgendamentoCreate />} />}
+      />
     </Routes>
   );
 };

@@ -19,7 +19,7 @@ import { useAuth } from "../../hooks/auth";
 const TopBar = () => {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const loading = React.useContext(LoadingContext);
-  const { token } = useAuth();
+  const { token, signOut } = useAuth();
 
   const [mainMenuOpened, setMainMenuOpened] = React.useState(false);
 
@@ -29,6 +29,10 @@ const TopBar = () => {
 
   const handleProfileMenuOpen = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
+  };
+
+  const handleSignout = () => {
+    signOut();
   };
 
   const handleMenuClose = () => {
@@ -52,7 +56,7 @@ const TopBar = () => {
       open={isMenuOpen}
       onClose={handleMenuClose}
     >
-      <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
+      <MenuItem onClick={handleSignout}>Sair</MenuItem>
       <MenuItem onClick={handleMenuClose}>My account</MenuItem>
     </Menu>
   );
