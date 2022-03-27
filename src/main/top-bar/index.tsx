@@ -14,10 +14,12 @@ import { Link } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { LinearProgress } from "@material-ui/core";
 import LoadingContext from "../../hooks/loading/LoadingContext";
+import { useAuth } from "../../hooks/auth";
 
 const TopBar = () => {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const loading = React.useContext(LoadingContext);
+  const { token, signOut } = useAuth();
 
   const [mainMenuOpened, setMainMenuOpened] = React.useState(false);
 
@@ -27,6 +29,10 @@ const TopBar = () => {
 
   const handleProfileMenuOpen = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
+  };
+
+  const handleSignout = () => {
+    signOut();
   };
 
   const handleMenuClose = () => {
@@ -50,10 +56,14 @@ const TopBar = () => {
       open={isMenuOpen}
       onClose={handleMenuClose}
     >
-      <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
+      <MenuItem onClick={handleSignout}>Sair</MenuItem>
       <MenuItem onClick={handleMenuClose}>My account</MenuItem>
     </Menu>
   );
+
+  if (!token) {
+    return <></>;
+  }
 
   return (
     <Box sx={{ flexGrow: 1 }}>
