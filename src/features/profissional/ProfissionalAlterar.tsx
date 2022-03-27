@@ -7,10 +7,10 @@ import { ProfissionalForm } from "./ProfissionalForm";
 import { useNavigate, useParams } from "react-router-dom";
 import { useToast } from "../../hooks/toast";
 import LoadingContext from "../../hooks/loading/LoadingContext";
-import { findProfissional, updateProfissional } from "./ProfissionalService";
+import { encontrarProfissional, alterarProfissional } from "./ProfissionalService";
 import { CadastrarProfissionalDto } from "./ProfissionalDto";
 
-const ProfissionalUpdate = () => {
+const ProfissionalAlterar = () => {
   const params = useParams();
   const [formData, setFormData] = React.useState(null);
   const loading = React.useContext(LoadingContext);
@@ -19,7 +19,7 @@ const ProfissionalUpdate = () => {
 
   React.useEffect(() => {
     if (params.id) {
-      findProfissional(params.id).then((data) => {
+      encontrarProfissional(params.id).then((data) => {
         setFormData(data);
       });
     }
@@ -28,7 +28,7 @@ const ProfissionalUpdate = () => {
   const onSubmit = async (data: CadastrarProfissionalDto) => {
     if (!params.id) return;
     try {
-      const result = await updateProfissional(params.id, data);
+      const result = await alterarProfissional(params.id, data);
       if (result) {
         addToast({
           title: "Alterado com sucesso!",
@@ -58,4 +58,4 @@ const ProfissionalUpdate = () => {
   );
 };
 
-export { ProfissionalUpdate };
+export { ProfissionalAlterar };

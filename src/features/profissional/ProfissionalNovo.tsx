@@ -4,7 +4,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 
 import { CadsatrarProfissionalValidationSchema } from "./validationSchemas";
 import { ProfissionalForm } from "./ProfissionalForm";
-import { createProfissional } from "./ProfissionalService";
+import { criarProfissional } from "./ProfissionalService";
 import { CadastrarProfissionalDto } from "./ProfissionalDto";
 import { useNavigate } from "react-router-dom";
 import { useToast } from "../../hooks/toast";
@@ -14,7 +14,7 @@ const ProfissionalNovo = () => {
   const { addToast } = useToast();
   const onSubmit = async (data: CadastrarProfissionalDto) => {
     try {
-      const result = await createProfissional(data);
+      const result = await criarProfissional(data);
       if (result) {
         addToast({
           title: "Criado com sucesso!",

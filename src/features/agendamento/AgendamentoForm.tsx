@@ -6,7 +6,7 @@ import { useForm, SubmitHandler } from "react-hook-form";
 import { AgendarDto } from "./agendamentoDto";
 import { listarPaciente } from "../paciente/pacienteService";
 import { CadastrarPacienteDto } from "../paciente/pacienteDto";
-import { listProfissional } from "../profissional/ProfissionalService";
+import { listarProfissional } from "../profissional/ProfissionalService";
 import { CadastrarProfissionalDto } from "../profissional/ProfissionalDto";
 import DatePicker from "@material-ui/lab/DatePicker";
 import TimePicker from "@material-ui/lab/TimePicker";
@@ -62,7 +62,7 @@ const AgendamentoForm = (props: AgendamentoFormProps) => {
       );
     });
 
-    listProfissional().then((data) => {
+    listarProfissional().then((data) => {
       setProfissionais(
         data.map((profissional: CadastrarProfissionalDto) => {
           return {
