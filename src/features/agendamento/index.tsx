@@ -2,7 +2,7 @@ import * as React from "react";
 import { ActionBar, MainModulePage } from "../../shared";
 import { GridColDef } from "@mui/x-data-grid";
 import { AgendamentoSearchForm } from "./AgendamentoSearchForm";
-import { listAgendamentos } from "./agendamentoService";
+import { listAgendamentos, solicitarConfirmacao } from "./agendamentoService";
 import { ModuleDatagrid } from "../../shared/Datagrid";
 import LoadingContext from "../../hooks/loading/LoadingContext";
 import { BuscarAgendamentoDto } from "./agendamentoDto";
@@ -54,7 +54,7 @@ const AgendamentoMain = () => {
   const [rows, setRows] = React.useState([]);
   const loading = React.useContext(LoadingContext);
   const { addToast } = useToast();
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const loadAgendamentos = (data: BuscarAgendamentoDto = {}) => {
     listAgendamentos(data).then((agendamentos) => {
@@ -87,8 +87,23 @@ const AgendamentoMain = () => {
           autoHideDuration: 5000,
         },
       });
+      return;
     }
     // call service solicitar confirmacao
+    solicitarConfirmacao(selectedRow || "")
+      .then(() => {
+        addToast({
+          type: "success",
+          title:
+            "Solicitação de Confirmação enviada com sucesso, caso o paciente confirme, o status será atualizado automaticamente para Confirmado",
+        });
+      })
+      .catch((err) => {
+        addToast({
+          type: "error",
+          title: "Falha ao solicitar confirmação do agendamento: " + err.message,
+        });
+      });
   };
 
   const handleConfirmar = (confirmado: boolean) => {
@@ -101,10 +116,10 @@ const AgendamentoMain = () => {
           autoHideDuration: 5000,
         },
       });
+      return;
     }
 
     // call service confirmar with variable
-
   };
 
   React.useEffect(() => {
@@ -120,9 +135,13 @@ const AgendamentoMain = () => {
           onSelectedRowChange={setSelectedRow}
         />
         <ActionBar>
-          <Button onClick={() => {
-            navigate('/agenda/novo');
-          }} >Novo Agendamento</Button>
+          <Button
+            onClick={() => {
+              navigate("/agenda/novo");
+            }}
+          >
+            Novo Agendamento
+          </Button>
           <Button
             disabled={selectedRow === null}
             onClick={handleSolicitarConfirmacao}
