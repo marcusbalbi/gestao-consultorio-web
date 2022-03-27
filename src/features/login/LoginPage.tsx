@@ -39,7 +39,7 @@ const LoginPage = () => {
     if (login) {
       setValue("username", login);
     }
-  }, []);
+  }, [token, navigate, getLastLogin, setValue]);
 
   async function onSubmit(data: SignInCredentials): Promise<void> {
     try {

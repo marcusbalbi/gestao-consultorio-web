@@ -1,5 +1,4 @@
-import React, { useEffect } from "react";
-import { useAuth } from "./hooks/auth";
+import React from "react";
 import AppRoutes from "./main/routes/Routes";
 import { TopBar } from "./main/top-bar";
 
