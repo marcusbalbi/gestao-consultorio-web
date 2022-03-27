@@ -1,7 +1,7 @@
 import * as React from "react";
 import { CrudActionBar, MainModulePage } from "../../shared";
 import { GridColDef } from "@mui/x-data-grid";
-import { ProfissionalSearchForm } from "./ProfissionalSearchForm";
+import { ProfissionalBuscaForm } from "./ProfissionalBuscaForm";
 import { listProfissional, removeProfissional } from "./ProfissionalService";
 import { ModuleDatagrid } from "../../shared/Datagrid";
 import LoadingContext from "../../hooks/loading/LoadingContext";
@@ -81,7 +81,7 @@ const ProfissionalMain = () => {
     <>
       <MainModulePage
         result={renderResult()}
-        searchForm={<ProfissionalSearchForm onSubmit={loadProfissionais} />}
+        searchForm={<ProfissionalBuscaForm onSubmit={loadProfissionais} />}
       />
     </>
   );

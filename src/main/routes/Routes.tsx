@@ -6,7 +6,7 @@ import { PacienteMain } from "../../features/paciente";
 import { PacienteNovo } from "../../features/paciente/PacienteNovo";
 import { PacienteAlterar } from "../../features/paciente/PacienteAlterar";
 import { ProfissionalMain } from "../../features/profissional";
-import { ProfissionalCreate } from "../../features/profissional/ProfissionalCreate";
+import { ProfissionalNovo } from "../../features/profissional/ProfissionalNovo";
 import { ProfissionalUpdate } from "../../features/profissional/ProfissionalUpdate";
 import { MenAtWork } from "../MenAtWork";
 import { Welcome } from "../Welcome";
@@ -19,7 +19,7 @@ const AppRoutes = () => {
       <Route path="/paciente/cadastrar" element={<PacienteNovo />} />
       <Route path="/paciente/alterar/:id" element={<PacienteAlterar />} />
       <Route path="/profissional" element={<ProfissionalMain />} />
-      <Route path="/profissional/cadastrar" element={<ProfissionalCreate />} />
+      <Route path="/profissional/cadastrar" element={<ProfissionalNovo />} />
       <Route
         path="/profissional/alterar/:id"
         element={<ProfissionalUpdate />}
