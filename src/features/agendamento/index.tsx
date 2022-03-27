@@ -2,7 +2,11 @@ import * as React from "react";
 import { ActionBar, MainModulePage } from "../../shared";
 import { GridColDef } from "@mui/x-data-grid";
 import { AgendamentoSearchForm } from "./AgendamentoSearchForm";
-import { listAgendamentos, solicitarConfirmacao } from "./agendamentoService";
+import {
+  confirmarAgendamento,
+  listAgendamentos,
+  solicitarConfirmacao,
+} from "./agendamentoService";
 import { ModuleDatagrid } from "../../shared/Datagrid";
 import LoadingContext from "../../hooks/loading/LoadingContext";
 import { BuscarAgendamentoDto } from "./agendamentoDto";
@@ -52,14 +56,19 @@ const columns: GridColDef[] = [
 const AgendamentoMain = () => {
   const [selectedRow, setSelectedRow] = React.useState<string | null>(null);
   const [rows, setRows] = React.useState([]);
+  const [filtro, setFiltro] = React.useState<BuscarAgendamentoDto>({ proximas: true });
   const loading = React.useContext(LoadingContext);
   const { addToast } = useToast();
   const navigate = useNavigate();
 
-  const loadAgendamentos = (data: BuscarAgendamentoDto = {}) => {
+  const loadAgendamentos = (data: BuscarAgendamentoDto) => {
     listAgendamentos(data).then((agendamentos) => {
       setRows(agendamentos);
     });
+  };
+
+  const gravarFiltro = (filtro: BuscarAgendamentoDto) => {
+    setFiltro(filtro);
   };
 
   const validateAction = () => {
@@ -101,12 +110,13 @@ const AgendamentoMain = () => {
       .catch((err) => {
         addToast({
           type: "error",
-          title: "Falha ao solicitar confirmação do agendamento: " + err.message,
+          title:
+            "Falha ao solicitar confirmação do agendamento: " + err.message,
         });
       });
   };
 
-  const handleConfirmar = (confirmado: boolean) => {
+  const handleConfirmar = async (confirmado: boolean) => {
     if (validateAction() === false) {
       addToast({
         title:
@@ -119,12 +129,28 @@ const AgendamentoMain = () => {
       return;
     }
 
-    // call service confirmar with variable
+    const data = await confirmarAgendamento(
+      selectedRow || "",
+      confirmado
+    ).catch((err) => {
+      addToast({
+        type: "error",
+        title: "Falha ao alterar confirmação do agendamento: " + err.message,
+      });
+    });
+    if (data) {
+      addToast({
+        type: "success",
+        title: "Alteração da confirmação realizada: " + data,
+      });
+    }
+
+    await loadAgendamentos(filtro);
   };
 
   React.useEffect(() => {
-    loadAgendamentos();
-  }, []);
+    loadAgendamentos(filtro);
+  }, [filtro]);
   function renderResult() {
     return (
       <>
@@ -172,7 +198,7 @@ const AgendamentoMain = () => {
   return (
     <MainModulePage
       result={renderResult()}
-      searchForm={<AgendamentoSearchForm onSubmit={loadAgendamentos} />}
+      searchForm={<AgendamentoSearchForm onSubmit={gravarFiltro} />}
     />
   );
 };
