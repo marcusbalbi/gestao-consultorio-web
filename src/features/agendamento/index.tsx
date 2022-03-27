@@ -1,10 +1,10 @@
 import * as React from "react";
 import { ActionBar, MainModulePage } from "../../shared";
 import { GridColDef } from "@mui/x-data-grid";
-import { AgendamentoSearchForm } from "./AgendamentoSearchForm";
+import { AgendamentoBuscaForm } from "./AgendamentoBuscaForm";
 import {
   confirmarAgendamento,
-  listAgendamentos,
+  listarAgendamentos,
   solicitarConfirmacao,
 } from "./agendamentoService";
 import { ModuleDatagrid } from "../../shared/Datagrid";
@@ -62,7 +62,7 @@ const AgendamentoMain = () => {
   const navigate = useNavigate();
 
   const loadAgendamentos = (data: BuscarAgendamentoDto) => {
-    listAgendamentos(data).then((agendamentos) => {
+    listarAgendamentos(data).then((agendamentos) => {
       setRows(agendamentos);
     });
   };
@@ -198,7 +198,7 @@ const AgendamentoMain = () => {
   return (
     <MainModulePage
       result={renderResult()}
-      searchForm={<AgendamentoSearchForm onSubmit={gravarFiltro} />}
+      searchForm={<AgendamentoBuscaForm onSubmit={gravarFiltro} />}
     />
   );
 };

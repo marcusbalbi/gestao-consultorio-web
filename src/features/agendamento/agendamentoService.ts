@@ -9,7 +9,7 @@ const agendar = async (dadosAgendamento: AgendarDto) => {
   const result = await request
     .post("/agendamentos", parsedData)
     .catch((err) => {
-      console.log("AGENDAMENTO_SERVICE", `Failed to Schedule Patient`, err);
+      console.log("AGENDAMENTO_SERVICE", `Falha ao Agendar paciente`, err);
       throw new Error(
         `Falha ao agendar: ${get(
           err,
@@ -41,7 +41,7 @@ const confirmarAgendamento = async (idAgendamento: string, status: boolean) => {
   return data;
 };
 
-const listAgendamentos = async (busca: BuscarAgendamentoDto = {}) => {
+const listarAgendamentos = async (busca: BuscarAgendamentoDto = {}) => {
   const params = removeEmptyValues(busca);
   const { data } = await request.get("/agendamentos", {
     params,
@@ -51,7 +51,7 @@ const listAgendamentos = async (busca: BuscarAgendamentoDto = {}) => {
 
 export {
   agendar,
-  listAgendamentos,
+  listarAgendamentos,
   solicitarConfirmacao,
   confirmarAgendamento,
 };

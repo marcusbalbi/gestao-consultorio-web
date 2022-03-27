@@ -10,11 +10,11 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import { BaseSearchForm, FormInfoSection } from "../../shared";
 import { BuscarAgendamentoDto } from "./agendamentoDto";
 
-interface AgendamentoSearchFormProps {
+interface AgendamentoBuscaFormProps {
   onSubmit?: any;
 }
 
-const AgendamentoSearchForm = (props: AgendamentoSearchFormProps) => {
+const AgendamentoBuscaForm = (props: AgendamentoBuscaFormProps) => {
   const {
     register,
     handleSubmit,
@@ -57,4 +57,4 @@ const AgendamentoSearchForm = (props: AgendamentoSearchFormProps) => {
   );
 };
 
-export { AgendamentoSearchForm };
+export { AgendamentoBuscaForm };
