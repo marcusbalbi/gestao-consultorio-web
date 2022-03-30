@@ -12,6 +12,7 @@ import LoadingProvider from "./hooks/loading/LoadingProvider";
 import AdapterDateFns from "@material-ui/lab/AdapterDateFns";
 import LocalizationProvider from "@material-ui/lab/LocalizationProvider";
 import brSaLocale from "date-fns/locale/pt-BR";
+import { AppThemeProvider } from "./hooks/theme";
 
 ReactDOM.render(
   <React.StrictMode>
@@ -25,7 +26,9 @@ ReactDOM.render(
                 locale={brSaLocale}
                 dateAdapter={AdapterDateFns}
               >
-                <App />
+                <AppThemeProvider>
+                  <App />
+                </AppThemeProvider>
               </LocalizationProvider>
             </ToastProvider>
           </AuthProvider>

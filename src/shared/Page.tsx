@@ -22,9 +22,11 @@ const Page = (props: Props) => {
   };
   return (
     <Paper
+      elevation={5}
       sx={{
         padding: (theme) => theme.spacing(2),
         margin: (theme) => theme.spacing(4),
+        minHeight: "85vh",
       }}
     >
       {renderTitle()}
@@ -38,7 +40,10 @@ const MainModulePage = (props: MainPageProps) => {
     return (
       props.searchForm && (
         <Grid item xs={12} md={4}>
-          <Paper sx={{ padding: (theme) => theme.spacing(2), height: "100%" }}>
+          <Paper
+            elevation={5}
+            sx={{ padding: (theme) => theme.spacing(2), height: "100%" }}
+          >
             {props.searchForm}
           </Paper>
         </Grid>
@@ -55,7 +60,7 @@ const MainModulePage = (props: MainPageProps) => {
     >
       {renderSearchForm()}
       <Grid item xs={12} md={props.searchForm ? 8 : 12}>
-        <Paper sx={{ padding: (theme) => theme.spacing(2) }}>
+        <Paper elevation={5} sx={{ padding: (theme) => theme.spacing(2) }}>
           {props.result}
         </Paper>
       </Grid>

@@ -6,6 +6,7 @@ import {
   confirmarAgendamento,
   listAgendamentos,
   solicitarConfirmacao,
+  cancelarAgendamento,
 } from "./agendamentoService";
 import { ModuleDatagrid } from "../../shared/Datagrid";
 import LoadingContext from "../../hooks/loading/LoadingContext";
@@ -56,7 +57,9 @@ const columns: GridColDef[] = [
 const AgendamentoMain = () => {
   const [selectedRow, setSelectedRow] = React.useState<string | null>(null);
   const [rows, setRows] = React.useState([]);
-  const [filtro, setFiltro] = React.useState<BuscarAgendamentoDto>({ proximas: true });
+  const [filtro, setFiltro] = React.useState<BuscarAgendamentoDto>({
+    proximas: true,
+  });
   const loading = React.useContext(LoadingContext);
   const { addToast } = useToast();
   const navigate = useNavigate();
@@ -116,7 +119,7 @@ const AgendamentoMain = () => {
       });
   };
 
-  const handleConfirmar = async (confirmado: boolean) => {
+  const handleConfirmar = async () => {
     if (validateAction() === false) {
       addToast({
         title:
@@ -129,19 +132,44 @@ const AgendamentoMain = () => {
       return;
     }
 
-    const data = await confirmarAgendamento(
-      selectedRow || "",
-      confirmado
-    ).catch((err) => {
+    const data = await confirmarAgendamento(selectedRow || "").catch((err) => {
       addToast({
         type: "error",
-        title: "Falha ao alterar confirmação do agendamento: " + err.message,
+        title: "Falha ao confirmar agendamento: " + err.message,
       });
     });
     if (data) {
       addToast({
         type: "success",
-        title: "Alteração da confirmação realizada: " + data,
+        title: "Agendamento confirmado!",
+      });
+    }
+
+    await loadAgendamentos(filtro);
+  };
+  const handleCancelar = async () => {
+    if (validateAction() === false) {
+      addToast({
+        title:
+          "Falha ao Cancelar, verifique se a linha está selecionada e o agendamento é futuro",
+        type: "error",
+        options: {
+          autoHideDuration: 5000,
+        },
+      });
+      return;
+    }
+
+    const data = await cancelarAgendamento(selectedRow || "").catch((err) => {
+      addToast({
+        type: "error",
+        title: "Falha ao cancelar do agendamento: " + err.message,
+      });
+    });
+    if (data) {
+      addToast({
+        type: "success",
+        title: "Agendamento Cancelado!",
       });
     }
 
@@ -177,18 +205,18 @@ const AgendamentoMain = () => {
           <Button
             disabled={selectedRow === null}
             onClick={() => {
-              handleConfirmar(true);
+              handleConfirmar();
             }}
           >
-            Confirmado Sim
+            Confirmar
           </Button>
           <Button
             disabled={selectedRow === null}
             onClick={() => {
-              handleConfirmar(false);
+              handleCancelar();
             }}
           >
-            Confirmado Não
+            Cancelar
           </Button>
         </ActionBar>
       </>

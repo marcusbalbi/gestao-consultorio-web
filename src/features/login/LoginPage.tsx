@@ -12,6 +12,7 @@ import { SignInCredentials, useAuth } from "../../hooks/auth";
 import { useToast } from "../../hooks/toast";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { loginValidation } from "./validationScheme";
+import { Paper } from "@mui/material";
 
 const LoginPage = () => {
   const { signIn, getLastLogin, token } = useAuth();
@@ -62,10 +63,11 @@ const LoginPage = () => {
   }
 
   return (
-    <Container component="main" maxWidth="xs">
-      <Box
+    <Container style={{ paddingTop: "10vh" }} component="main" maxWidth="xs">
+      <Paper
+        elevation={5}
         sx={{
-          mt: "10rem",
+          padding: (theme) => theme.spacing(3),
         }}
       >
         <Typography component="h1" variant="h5" color="primary">
@@ -101,17 +103,17 @@ const LoginPage = () => {
             Fazer login
           </Button>
         </form>
-      </Box>
-      <Box>
-        <Typography
-          sx={{ mt: (theme) => theme.spacing(1) }}
-          variant="body2"
-          color="textSecondary"
-          align="center"
-        >
-          Versão 0.0.1
-        </Typography>
-      </Box>
+        <Box>
+          <Typography
+            sx={{ mt: (theme) => theme.spacing(1) }}
+            variant="body2"
+            color="textSecondary"
+            align="center"
+          >
+            Versão 0.0.1
+          </Typography>
+        </Box>
+      </Paper>
     </Container>
   );
 };
