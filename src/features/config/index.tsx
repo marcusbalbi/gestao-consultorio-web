@@ -27,22 +27,6 @@ const ConfigPage = () => {
           }
           label="Modo Escuro"
         />
-        <FormControlLabel
-          control={
-            <Switch
-              checked={darkMode}
-              onChange={(v) => {
-                setDarkmode(v.target.checked);
-                if (v.target.checked) {
-                  changeMode("dark");
-                } else {
-                  changeMode("light");
-                }
-              }}
-            />
-          }
-          label="Aumentar fonte"
-        />
       </FormGroup>
     </Page>
   );

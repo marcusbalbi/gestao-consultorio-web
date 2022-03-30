@@ -1,8 +1,7 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 
 import Box from "@material-ui/core/Box";
-import Button from "@material-ui/core/Button";
 import Container from "@material-ui/core/Container";
 import TextField from "@material-ui/core/TextField";
 import Typography from "@material-ui/core/Typography";
@@ -13,9 +12,11 @@ import { useToast } from "../../hooks/toast";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { loginValidation } from "./validationScheme";
 import { Paper } from "@mui/material";
+import { LoadingButton } from "@material-ui/lab";
 
 const LoginPage = () => {
   const { signIn, getLastLogin, token } = useAuth();
+  const [loading, setLoading] = useState(false);
   const { addToast } = useToast();
   const navigate = useNavigate();
 
@@ -43,13 +44,19 @@ const LoginPage = () => {
   }, [token, navigate, getLastLogin, setValue]);
 
   async function onSubmit(data: SignInCredentials): Promise<void> {
+    setLoading(true);
     try {
       await signIn(data);
 
       // Initial dashboard page
       navigate("/");
     } catch (error: any) {
-      if (error) {
+      setLoading(false);
+      if (error.response.status === 401) {
+        addToast({
+          type: "error",
+          title: "Login ou senha incorretos!",
+        });
         return;
       }
 
@@ -93,7 +100,8 @@ const LoginPage = () => {
             margin="normal"
             label="Senha"
           />
-          <Button
+          <LoadingButton
+            loading={loading}
             type="submit"
             fullWidth
             size="large"
@@ -101,7 +109,7 @@ const LoginPage = () => {
             color="primary"
           >
             Fazer login
-          </Button>
+          </LoadingButton>
         </form>
         <Box>
           <Typography
