@@ -1,6 +1,4 @@
-import { ThemeContext } from "@emotion/react";
 import { Button } from "@mui/material";
-import { useContext } from "react";
 import { useAppTheme } from "../../hooks/theme";
 import { Page } from "../../shared";
 
