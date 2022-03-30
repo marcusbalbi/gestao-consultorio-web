@@ -6,8 +6,11 @@ const Welcome = () => {
   const { dados } = useAuth();
   return (
     <Page>
-      {dados ?
-        <Typography variant="h3">Bem vindo, {dados.usuario} !</Typography> : <CircularProgress />}
+      {dados ? (
+        <Typography variant="h3">Bem vindo, {dados.usuario} !</Typography>
+      ) : (
+        <CircularProgress />
+      )}
     </Page>
   );
 };

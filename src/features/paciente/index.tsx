@@ -81,7 +81,16 @@ const PacienteMain = () => {
   }
   function renderAfterActions() {
     return (
-      <Button startIcon={<CalendarToday />} disabled={selectedRow == null}>
+      <Button
+        onClick={() => {
+          addToast({
+            title: "Em breve!",
+            type: "info",
+          });
+        }}
+        startIcon={<CalendarToday />}
+        disabled={selectedRow == null}
+      >
         Próximas Consultas
       </Button>
     );

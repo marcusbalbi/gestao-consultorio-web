@@ -30,13 +30,14 @@ const solicitarConfirmacao = async (idAgendamento: string) => {
   return data;
 };
 
-const confirmarAgendamento = async (idAgendamento: string, status: boolean) => {
-  const { data } = await request.get(`agendamentos/confirmar/`, {
-    params: {
-      id: idAgendamento,
-      confirm: status === true ? 1 : 0,
-    },
-  });
+const confirmarAgendamento = async (idAgendamento: string) => {
+  const { data } = await request.post(`agendamentos/${idAgendamento}/confirmacao`);
+
+  return data;
+};
+
+const cancelarAgendamento = async (idAgendamento: string) => {
+  const { data } = await request.post(`agendamentos/${idAgendamento}/cancelamento`);
 
   return data;
 };
@@ -54,4 +55,5 @@ export {
   listAgendamentos,
   solicitarConfirmacao,
   confirmarAgendamento,
+  cancelarAgendamento,
 };

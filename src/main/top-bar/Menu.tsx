@@ -86,8 +86,8 @@ export default function Menu(props: Props) {
 
   const list = () => (
     <Box sx={{ width: 250 }} role="presentation">
-      <Typography align="center" variant="h5" mt={2} mb={2}>
-        LOGO AQUI
+      <Typography align="center" variant="h6" mt={2} mb={2}>
+        POC TCC PUC Minas
       </Typography>
       <Divider />
       <List>
