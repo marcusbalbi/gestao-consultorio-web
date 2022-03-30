@@ -1,29 +1,28 @@
 import React, { createContext, useContext } from "react";
 
-type ThemeType = "light" | "dark" | "visual";
+type Mode = "dark" | "light";
 
 interface AppThemeContextProps {
-  theme: ThemeType;
-  changeTheme(newTheme: ThemeType): void;
+  mode: "dark" | "light";
+  changeMode(newTheme: Mode): void;
 }
 
 const AppThemeContext = createContext<AppThemeContextProps>({
-  theme: "light",
+  mode: "light",
 } as AppThemeContextProps);
 
 const AppThemeProvider = ({ children }: any) => {
-  const [selectedTheme, setSelectedTheme] = React.useState<ThemeType>("light");
+  const [selectedMode, setSelectedMode] = React.useState<Mode>("light");
 
-  const changeTheme = (newTheme: ThemeType) => {
-    console.log("aqui cheguei!", newTheme);
-    setSelectedTheme(newTheme);
+  const changeMode = (newTheme: Mode) => {
+    setSelectedMode(newTheme);
   };
 
   return (
     <AppThemeContext.Provider
       value={{
-        theme: selectedTheme,
-        changeTheme,
+        mode: selectedMode,
+        changeMode,
       }}
     >
       {children}

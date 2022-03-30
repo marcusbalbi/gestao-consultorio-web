@@ -18,22 +18,20 @@ ReactDOM.render(
   <React.StrictMode>
     <CssBaseline />
     <LoadingProvider>
-      <ThemeProvider theme={mainTheme}>
-        <BrowserRouter>
-          <AuthProvider>
-            <ToastProvider>
-              <LocalizationProvider
-                locale={brSaLocale}
-                dateAdapter={AdapterDateFns}
-              >
-                <AppThemeProvider>
-                  <App />
-                </AppThemeProvider>
-              </LocalizationProvider>
-            </ToastProvider>
-          </AuthProvider>
-        </BrowserRouter>
-      </ThemeProvider>
+      <BrowserRouter>
+        <AuthProvider>
+          <ToastProvider>
+            <LocalizationProvider
+              locale={brSaLocale}
+              dateAdapter={AdapterDateFns}
+            >
+              <AppThemeProvider>
+                <App />
+              </AppThemeProvider>
+            </LocalizationProvider>
+          </ToastProvider>
+        </AuthProvider>
+      </BrowserRouter>
     </LoadingProvider>
   </React.StrictMode>,
   document.getElementById("root")

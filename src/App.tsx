@@ -1,7 +1,7 @@
 import { Box } from "@mui/material";
 import { ThemeProvider } from "@mui/system";
 import React from "react";
-import { mainTheme, darkTheme, visualImpairmentTheme } from "./config/themes";
+import { mainTheme, darkTheme } from "./config/themes";
 import { useAppTheme } from "./hooks/theme";
 import AppRoutes from "./main/routes/Routes";
 import { TopBar } from "./main/top-bar";
@@ -9,7 +9,6 @@ import { TopBar } from "./main/top-bar";
 const THEMES = {
   light: mainTheme,
   dark: darkTheme,
-  visual: visualImpairmentTheme,
 };
 
 function App() {
@@ -23,10 +22,10 @@ function App() {
   //   }
   // }, [dados, signIn, signOut]);
 
-  const { theme } = useAppTheme();
+  const { mode } = useAppTheme();
 
   return (
-    <ThemeProvider theme={THEMES[theme || "light"]}>
+    <ThemeProvider theme={THEMES[mode]}>
       <React.Fragment>
         <Box
           sx={{
