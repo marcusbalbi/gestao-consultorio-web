@@ -15,6 +15,7 @@ import { useNavigate } from "react-router-dom";
 import { LinearProgress } from "@material-ui/core";
 import LoadingContext from "../../hooks/loading/LoadingContext";
 import { useAuth } from "../../hooks/auth";
+import { AppBreadScrumb } from "./AppBreadScrumb";
 
 const TopBar = () => {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
@@ -57,7 +58,7 @@ const TopBar = () => {
       onClose={handleMenuClose}
     >
       <MenuItem onClick={handleSignout}>Sair</MenuItem>
-      <MenuItem onClick={handleMenuClose}>My account</MenuItem>
+      {/* <MenuItem onClick={handleMenuClose}>My account</MenuItem> */}
     </Menu>
   );
 
@@ -124,26 +125,7 @@ const TopBar = () => {
       </AppBar>
       {renderMenu}
       {loading ? <LinearProgress /> : <></>}
-      <Breadcrumbs
-        sx={{
-          ml: (theme) => theme.spacing(2),
-          mt: (theme) => theme.spacing(1),
-          fontSize: 16,
-        }}
-        aria-label="breadcrumb"
-      >
-        <Link underline="hover" color="inherit" href="/">
-          MUI
-        </Link>
-        <Link
-          underline="hover"
-          color="inherit"
-          href="/getting-started/installation/"
-        >
-          Core
-        </Link>
-        <Typography color="text.primary">Breadcrumbs</Typography>
-      </Breadcrumbs>
+      <AppBreadScrumb />
     </Box>
   );
 };
