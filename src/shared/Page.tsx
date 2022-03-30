@@ -25,7 +25,7 @@ const Page = (props: Props) => {
       elevation={5}
       sx={{
         padding: (theme) => theme.spacing(2),
-        margin: (theme) => theme.spacing(4),
+        margin: (theme) => theme.spacing(2),
         minHeight: "85vh",
       }}
     >
@@ -55,7 +55,7 @@ const MainModulePage = (props: MainPageProps) => {
       container
       spacing={2}
       sx={{
-        padding: (theme) => theme.spacing(4),
+        padding: (theme) => theme.spacing(2),
       }}
     >
       {renderSearchForm()}

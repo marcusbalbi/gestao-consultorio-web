@@ -10,7 +10,7 @@ import MenuIcon from "@mui/icons-material/Menu";
 import AccountCircle from "@mui/icons-material/AccountCircle";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 import MainMenu from "./Menu";
-import { Link } from "@mui/material";
+import { Breadcrumbs, Link, Typography } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { LinearProgress } from "@material-ui/core";
 import LoadingContext from "../../hooks/loading/LoadingContext";
@@ -124,6 +124,26 @@ const TopBar = () => {
       </AppBar>
       {renderMenu}
       {loading ? <LinearProgress /> : <></>}
+      <Breadcrumbs
+        sx={{
+          ml: (theme) => theme.spacing(2),
+          mt: (theme) => theme.spacing(1),
+          fontSize: 16,
+        }}
+        aria-label="breadcrumb"
+      >
+        <Link underline="hover" color="inherit" href="/">
+          MUI
+        </Link>
+        <Link
+          underline="hover"
+          color="inherit"
+          href="/getting-started/installation/"
+        >
+          Core
+        </Link>
+        <Typography color="text.primary">Breadcrumbs</Typography>
+      </Breadcrumbs>
     </Box>
   );
 };
