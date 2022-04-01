@@ -14,6 +14,7 @@ const ProfissionalSearchForm = (props: ProfissionalSearchFormProps) => {
     register,
     handleSubmit,
     formState: { errors },
+    getValues,
     setValue,
     control,
     reset,
@@ -26,6 +27,7 @@ const ProfissionalSearchForm = (props: ProfissionalSearchFormProps) => {
       onClean={() => {
         setValue("tipoProfissional", undefined);
         reset();
+        props.onSubmit && props.onSubmit(getValues());
       }}
     >
       <FormInfoSection>Buscar Profissionais</FormInfoSection>

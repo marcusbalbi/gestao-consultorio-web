@@ -71,6 +71,7 @@ const AgendamentoMain = () => {
   };
 
   const gravarFiltro = (filtro: BuscarAgendamentoDto) => {
+    console.log("ESSE E NOVO FILTRO", filtro);
     setFiltro(filtro);
   };
 
@@ -145,7 +146,7 @@ const AgendamentoMain = () => {
       });
     }
 
-    await loadAgendamentos(filtro);
+    loadAgendamentos(filtro);
   };
   const handleCancelar = async () => {
     if (validateAction() === false) {

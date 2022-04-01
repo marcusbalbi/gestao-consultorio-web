@@ -19,12 +19,22 @@ const AgendamentoSearchForm = (props: AgendamentoSearchFormProps) => {
     register,
     handleSubmit,
     formState: { errors },
+    getValues,
+    setValue,
     reset,
-  } = useForm<BuscarAgendamentoDto>();
+  } = useForm<BuscarAgendamentoDto>({
+    defaultValues: { proximas: true },
+  });
   const onSubmit: SubmitHandler<BuscarAgendamentoDto> = (data) =>
     props.onSubmit && props.onSubmit(data);
   return (
-    <BaseSearchForm onSubmit={handleSubmit(onSubmit)} onClean={() => reset()}>
+    <BaseSearchForm
+      onSubmit={handleSubmit(onSubmit)}
+      onClean={() => {
+        reset({ proximas: true });
+        props.onSubmit && props.onSubmit(getValues());
+      }}
+    >
       <FormInfoSection>Buscar Agendamentos</FormInfoSection>
       <Grid item xs={12}>
         <TextField

@@ -12,13 +12,20 @@ const PacienteSearchForm = (props: PacienteSearchFormProps) => {
   const {
     register,
     handleSubmit,
+    getValues,
     formState: { errors },
     reset,
   } = useForm<BuscarPacienteDto>();
   const onSubmit: SubmitHandler<BuscarPacienteDto> = (data) =>
     props.onSubmit && props.onSubmit(data);
   return (
-    <BaseSearchForm onSubmit={handleSubmit(onSubmit)} onClean={() => reset()}>
+    <BaseSearchForm
+      onSubmit={handleSubmit(onSubmit)}
+      onClean={() => {
+        reset();
+        props.onSubmit && props.onSubmit(getValues());
+      }}
+    >
       <FormInfoSection>Buscar Paciente</FormInfoSection>
       <Grid item xs={12}>
         <TextField

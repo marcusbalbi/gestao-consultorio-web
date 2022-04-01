@@ -61,6 +61,7 @@ const ProfissionalMain = () => {
   React.useEffect(() => {
     loadProfissionais();
   }, []);
+
   function renderResult() {
     return (
       <>
