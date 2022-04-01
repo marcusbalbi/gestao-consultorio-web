@@ -71,7 +71,6 @@ const AgendamentoMain = () => {
   };
 
   const gravarFiltro = (filtro: BuscarAgendamentoDto) => {
-    console.log("ESSE E NOVO FILTRO", filtro);
     setFiltro(filtro);
   };
 
