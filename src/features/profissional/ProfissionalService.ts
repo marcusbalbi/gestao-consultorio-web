@@ -1,32 +1,48 @@
 import { request } from "../../shared";
-import { BuscarProfissionalDto, CadastrarProfissionalDto } from "./ProfissionalDto";
+import {
+  BuscarProfissionalDto,
+  CadastrarProfissionalDto,
+} from "./ProfissionalDto";
 import { cloneDeep, get } from "lodash";
 import { removeEmptyValues } from "../../shared/utils/objects";
 
 const createProfissional = async (profissional: CadastrarProfissionalDto) => {
   // prepare data to be sent:
   const parsedData = cloneDeep(profissional);
-  const result = await request.post("/profissionais", parsedData).catch((err) => {
-    console.log("PROFISSIONAIS_SERVICE", `Failed to Create Profissional`, err);
-    throw new Error(
-      `Falha ao cadastrar profissional: ${get(
-        err,
-        "response.data.message",
-        "Erro não Identificado"
-      )}`
-    );
-  });
+  const result = await request
+    .post("/profissionais", parsedData)
+    .catch((err) => {
+      console.log(
+        "PROFISSIONAIS_SERVICE",
+        `Failed to Create Profissional`,
+        err
+      );
+      throw new Error(
+        `Falha ao cadastrar profissional: ${get(
+          err,
+          "response.data.message",
+          "Erro não Identificado"
+        )}`
+      );
+    });
 
   return result;
 };
 
-const updateProfissional = async (id: string, profissional: CadastrarProfissionalDto) => {
+const updateProfissional = async (
+  id: string,
+  profissional: CadastrarProfissionalDto
+) => {
   // prepare data to be sent:
-  const parsedData = cloneDeep(profissional);
+  const parsedData = cloneDeep(profissional) as any;
   const result = await request
     .put("/profissionais/".concat(id), parsedData)
     .catch((err: any) => {
-      console.log("PROFISSIONAIS_SERVICE", `Failed to Update Profissional`, err);
+      console.log(
+        "PROFISSIONAIS_SERVICE",
+        `Failed to Update Profissional`,
+        err
+      );
       throw new Error(
         `Falha ao alterar profissional: ${get(
           err,

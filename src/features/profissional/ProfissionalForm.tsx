@@ -33,7 +33,7 @@ const ProfissionalForm = (props: ProfissionalFormProps) => {
     }
     setValue("nome", props.data.nome);
     setValue("cpf", props.data.cpf);
-    setValue("tipoProfissional", props.data.tipoProfissional);
+    setValue("tipoProfissional", props.data.atuacao.codigo);
   }, [props.data, setValue]);
 
   return (

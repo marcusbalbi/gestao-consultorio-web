@@ -31,7 +31,7 @@ const columns: GridColDef[] = [
     headerName: "Profissional",
     flex: 1,
     valueGetter: (v) => {
-      return `${v.row.profissional.nome} - ${v.row.profissional.atuacao}`;
+      return `${v.row.profissional.nome} - ${v.row.profissional.atuacao.descricao}`;
     },
   },
   {
@@ -145,7 +145,7 @@ const AgendamentoMain = () => {
       });
     }
 
-    await loadAgendamentos(filtro);
+    loadAgendamentos(filtro);
   };
   const handleCancelar = async () => {
     if (validateAction() === false) {

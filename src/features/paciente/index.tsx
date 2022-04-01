@@ -41,7 +41,6 @@ const PacienteMain = () => {
   };
 
   const handleRemove = (id: string) => {
-    console.log("remove ele!", id);
     removePatient(id)
       .then(() => {
         loadPatients();

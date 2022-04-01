@@ -24,6 +24,9 @@ const columns: GridColDef[] = [
     field: "atuacao",
     headerName: "Tipo",
     flex: 1,
+    valueGetter: (v) => {
+      return v.row.atuacao.descricao;
+    },
   },
 ];
 
@@ -40,7 +43,6 @@ const ProfissionalMain = () => {
   };
 
   const handleRemove = (id: string) => {
-    console.log("remove ele!", id);
     removeProfissional(id)
       .then(() => {
         loadProfissionais();
@@ -59,6 +61,7 @@ const ProfissionalMain = () => {
   React.useEffect(() => {
     loadProfissionais();
   }, []);
+
   function renderResult() {
     return (
       <>

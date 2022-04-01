@@ -6,7 +6,6 @@ export const AgendarValdationSchema = yup.object().shape({
   idPaciente: yup.string().label("Paciente").required(),
   idProfissional: yup.string().label("Profissional").required(),
   marcacao: yup.string().test((v, options) => {
-    console.log(v);
     if (!v || !v.length) {
       return options.createError({
         message: "Data do Agendamento é obrigatório",

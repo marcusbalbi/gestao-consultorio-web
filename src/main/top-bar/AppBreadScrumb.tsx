@@ -14,13 +14,18 @@ const AppBreadScrumb = () => {
     if (items.length > 0) {
       return items.map((i, pos) => {
         if (pos === items.length - 1) {
-          return <Typography color="text.primary">{i}</Typography>;
+          return (
+            <Typography key={i} color="text.primary">
+              {i}
+            </Typography>
+          );
         }
         return (
           <Link
             href="#"
             underline="hover"
             color="inherit"
+            key={i}
             onClick={() => {
               navigate(`/${i}`);
             }}
