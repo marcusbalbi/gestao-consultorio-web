@@ -20,7 +20,6 @@ const AgendamentoSearchForm = (props: AgendamentoSearchFormProps) => {
     handleSubmit,
     formState: { errors },
     getValues,
-    setValue,
     reset,
   } = useForm<BuscarAgendamentoDto>({
     defaultValues: { proximas: true },
