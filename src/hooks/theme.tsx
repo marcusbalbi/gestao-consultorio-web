@@ -1,18 +1,18 @@
 import React, { createContext, useContext } from "react";
 
-type Mode = "dark" | "light";
+type Mode = "visual" | "regular";
 
 interface AppThemeContextProps {
-  mode: "dark" | "light";
+  mode: "visual" | "regular";
   changeMode(newTheme: Mode): void;
 }
 
 const AppThemeContext = createContext<AppThemeContextProps>({
-  mode: "light",
+  mode: "regular",
 } as AppThemeContextProps);
 
 const AppThemeProvider = ({ children }: any) => {
-  const [selectedMode, setSelectedMode] = React.useState<Mode>("light");
+  const [selectedMode, setSelectedMode] = React.useState<Mode>("regular");
 
   const changeMode = (newTheme: Mode) => {
     setSelectedMode(newTheme);
