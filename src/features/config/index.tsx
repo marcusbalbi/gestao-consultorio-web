@@ -5,7 +5,7 @@ import { Page } from "../../shared";
 
 const ConfigPage = () => {
   const { mode, changeMode } = useAppTheme();
-  const [darkMode, setDarkmode] = useState(mode === "dark");
+  const [visualMode, setVisualMode] = useState(mode === "visual");
 
   return (
     <Page>
@@ -14,18 +14,18 @@ const ConfigPage = () => {
         <FormControlLabel
           control={
             <Switch
-              checked={darkMode}
+              checked={visualMode}
               onChange={(v) => {
-                setDarkmode(v.target.checked);
+                setVisualMode(v.target.checked);
                 if (v.target.checked) {
-                  changeMode("dark");
+                  changeMode("visual");
                 } else {
-                  changeMode("light");
+                  changeMode("regular");
                 }
               }}
             />
           }
-          label="Modo Escuro"
+          label="Aumentar Letras"
         />
       </FormGroup>
     </Page>

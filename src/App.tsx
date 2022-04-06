@@ -1,14 +1,14 @@
 import { Box } from "@mui/material";
 import { ThemeProvider } from "@mui/system";
 import React from "react";
-import { mainTheme, darkTheme } from "./config/themes";
+import { mainTheme, visualImpairmentTheme } from "./config/themes";
 import { useAppTheme } from "./hooks/theme";
 import AppRoutes from "./main/routes/Routes";
 import { TopBar } from "./main/top-bar";
 
 const THEMES = {
-  light: mainTheme,
-  dark: darkTheme,
+  regular: mainTheme,
+  visual: visualImpairmentTheme,
 };
 
 function App() {
